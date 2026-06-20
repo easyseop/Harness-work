@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DA검토 INPUT — 인스턴스코드 정의서 (고정 형식)",
+  "description": "업무인스턴스명정의서(instance_names) + 업무인스턴스코드정의서(code_values) 2시트.",
+  "type": "object",
+  "required": ["instance_names", "code_values"],
+  "properties": {
+    "project": { "type": "string" },
+    "instance_names": {
+      "description": "시트1: 업무인스턴스명정의서",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["app_code", "instance_name", "code_length"],
+        "properties": {
+          "app_code": { "type": "string" },
+          "app_name": { "type": "string" },
+          "instance_name": { "type": "string" },
+          "definition": { "type": "string" },
+          "code_length": { "type": "integer" },
+          "terminal_deploy": { "type": "integer", "enum": [0, 1] },
+          "external_data": { "type": "integer", "enum": [0, 1] },
+          "external_org": { "type": "string" },
+          "list_table_managed": { "type": "integer", "enum": [0, 1] },
+          "list_table_name": { "type": "string" },
+          "remark": { "type": "string" }
+        }
+      }
+    },
+    "code_values": {
+      "description": "시트2: 업무인스턴스코드정의서",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["instance_name", "code", "content"],
+        "properties": {
+          "instance_name": { "type": "string" },
+          "code": { "type": "string" },
+          "content": { "type": "string" },
+          "abbr_content": { "type": "string" },
+          "display_order": { "type": "integer" }
+        }
+      }
+    }
+  }
+}

@@ -64,6 +64,17 @@ for t in inp.get("tables", []):
                 if extra:
                     errors.append(f"{tag} 컬럼 '{kr}' 수식어 {extra} 가 속성 '{attr}' 에 없음")
 
+import os, json, datetime
+result = {
+    "harness": "da-review", "gate": "check-attribute", "target": sys.argv[1],
+    "project": inp.get("project"), "status": "failed" if errors else "passed",
+    "summary": {"errors": len(errors), "warnings": 0},
+    "findings": [{"severity": "error", "message": e} for e in errors],
+    "generated_at": datetime.datetime.now().isoformat(timespec="seconds"),
+}
+if os.environ.get("DA_OUT"):
+    json.dump(result, open(os.environ["DA_OUT"], "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+
 print(f"검토대상: {inp.get('project','?')}\n")
 if errors:
     print(f"❌ 속성명 검증 반송 — 위반 {len(errors)}건:")

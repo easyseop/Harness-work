@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DA검토 OUTPUT — 검사 결과 (고정 형식)",
+  "description": "모든 게이트가 동일한 형식으로 결과를 낸다. 테스트는 이 형식을 비교한다.",
+  "type": "object",
+  "required": ["harness", "gate", "target", "status", "summary", "findings"],
+  "properties": {
+    "harness": { "type": "string", "const": "da-review" },
+    "gate": { "type": "string", "description": "check-physical | check-attribute | check-instance-code" },
+    "target": { "type": "string", "description": "검사한 INPUT 파일 경로" },
+    "project": { "type": ["string", "null"] },
+    "status": { "type": "string", "enum": ["passed", "failed"] },
+    "summary": {
+      "type": "object",
+      "required": ["errors", "warnings"],
+      "properties": {
+        "errors": { "type": "integer" },
+        "warnings": { "type": "integer" }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["severity", "message"],
+        "properties": {
+          "severity": { "type": "string", "enum": ["error", "warning"] },
+          "message": { "type": "string" }
+        }
+      }
+    },
+    "generated_at": { "type": "string" }
+  }
+}

@@ -92,6 +92,18 @@ for nm, items in grp.items():
             if set(code) == {"9"} and content not in nine_ok:
                 warns.append(f"{tag} 코드 '{code}' 의미는 보통 기타 (현재 '{content}')")
 
+import os, json, datetime
+result = {
+    "harness": "da-review", "gate": "check-instance-code", "target": sys.argv[1],
+    "project": inp.get("project"), "status": "failed" if errors else "passed",
+    "summary": {"errors": len(errors), "warnings": len(warns)},
+    "findings": [{"severity": "error", "message": e} for e in errors]
+              + [{"severity": "warning", "message": w} for w in warns],
+    "generated_at": datetime.datetime.now().isoformat(timespec="seconds"),
+}
+if os.environ.get("DA_OUT"):
+    json.dump(result, open(os.environ["DA_OUT"], "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+
 print(f"검토대상: {inp.get('project','?')}  /  인스턴스 {len(names)}개·코드값 {len(values)}건\n")
 if warns:
     print("⚠️  경고:"); [print("   -", w) for w in warns]; print()

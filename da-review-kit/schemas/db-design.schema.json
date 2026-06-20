@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DA검토 INPUT — DB설계서 (고정 형식)",
+  "description": "DB설계서(정규화 형식). erwin 등 실제 산출물은 adapter 가 이 형식으로 변환한다.",
+  "type": "object",
+  "required": ["tables"],
+  "properties": {
+    "project": { "type": "string" },
+    "dbms": { "type": "string", "description": "Host/Server 등" },
+    "schema": { "type": "string" },
+    "tables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["physical_name", "columns"],
+        "properties": {
+          "physical_name": { "type": "string" },
+          "logical_name": { "type": "string" },
+          "subject_area": { "type": "string" },
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["korean", "english", "infotype"],
+              "properties": {
+                "korean": { "type": "string", "description": "컬럼 한글명" },
+                "english": { "type": "string", "description": "컬럼 영문명" },
+                "attribute": { "type": "string", "description": "속성명(생략 시 korean)" },
+                "infotype": { "type": "string", "description": "도메인+길이 (예: 년월일8)" },
+                "typelength": { "type": "string", "description": "CHAR(8) 등" },
+                "pk": { "type": "boolean" },
+                "nullable": { "type": "boolean" },
+                "std": { "type": "boolean", "description": "표준화적용여부(기본 true)" }
+              }
+            }
+          },
+          "relationships": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": { "type": "string", "description": "1:M, M:N 등" },
+                "to": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
