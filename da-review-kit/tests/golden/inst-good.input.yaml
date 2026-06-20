@@ -1,0 +1,11 @@
+# 골든 테스트 입력 · 인스턴스코드 정의서 GOOD (통과 기대)
+project: 골든_INST_GOOD
+instance_names:                       # 시트1 업무인스턴스명정의서
+  - { app_code: BFA, app_name: 금융복합공통, instance_name: 계좌상태구분코드, code_length: 1, terminal_deploy: 1, external_data: 0, list_table_managed: 0 }
+  - { app_code: BFA, app_name: 금융복합공통, instance_name: 신용여부,         code_length: 1, terminal_deploy: 0, external_data: 0, list_table_managed: 0 }
+code_values:                          # 시트2 업무인스턴스코드정의서
+  - { instance_name: 계좌상태구분코드, code: "0", content: 해당무 }
+  - { instance_name: 계좌상태구분코드, code: "1", content: 정상 }
+  - { instance_name: 계좌상태구분코드, code: "2", content: 휴면 }
+  - { instance_name: 신용여부, code: "0", content: 부 }
+  - { instance_name: 신용여부, code: "1", content: 여 }

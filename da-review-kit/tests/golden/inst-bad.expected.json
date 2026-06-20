@@ -1,0 +1,29 @@
+{
+  "harness": "da-review",
+  "gate": "check-instance-code",
+  "target": "tests/golden/inst-bad.input.yaml",
+  "project": "골든_INST_BAD",
+  "status": "failed",
+  "summary": {
+    "errors": 4,
+    "warnings": 0
+  },
+  "findings": [
+    {
+      "severity": "error",
+      "message": "[임시구분코드] 수식어 '임시' 에 비표준단어 포함"
+    },
+    {
+      "severity": "error",
+      "message": "[금액] 단독사용금지 단어 (단독으로 인스턴스명 불가)"
+    },
+    {
+      "severity": "error",
+      "message": "[금액] 끝말 규칙 위반 (~구분코드/~코드/~여부/~유무 로 끝나야)"
+    },
+    {
+      "severity": "error",
+      "message": "[유령여부] 시트2 인스턴스명이 시트1(업무인스턴스명정의서)에 없음"
+    }
+  ]
+}

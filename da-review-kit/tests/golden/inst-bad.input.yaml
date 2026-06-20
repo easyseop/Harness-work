@@ -1,0 +1,8 @@
+# 골든 테스트 입력 · 인스턴스코드 정의서 BAD (반송 기대)
+project: 골든_INST_BAD
+instance_names:
+  - { app_code: BFA, app_name: 금융복합공통, instance_name: 임시구분코드, code_length: 1, terminal_deploy: 0, external_data: 0, list_table_managed: 0 }  # ❌ 수식어 '임시' 비표준
+  - { app_code: BFA, app_name: 금융복합공통, instance_name: 금액,         code_length: 1, terminal_deploy: 0, external_data: 0, list_table_managed: 0 }  # ❌ 단독사용금지 + 끝말 위반
+code_values:
+  - { instance_name: 임시구분코드, code: "0", content: 해당무 }
+  - { instance_name: 유령여부,     code: "0", content: 부 }     # ❌ 시트1에 없음

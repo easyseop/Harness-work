@@ -1,0 +1,12 @@
+{
+  "harness": "da-review",
+  "gate": "check-physical",
+  "target": "tests/golden/db-good.input.yaml",
+  "project": "골든_DB_GOOD",
+  "status": "passed",
+  "summary": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "findings": []
+}

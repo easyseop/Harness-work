@@ -1,0 +1,12 @@
+{
+  "harness": "da-review",
+  "gate": "check-instance-code",
+  "target": "tests/golden/inst-good.input.yaml",
+  "project": "골든_INST_GOOD",
+  "status": "passed",
+  "summary": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "findings": []
+}
