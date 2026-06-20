@@ -48,6 +48,7 @@ standard_words:
   종료: END
   등록: REG
   변경: CHG
+  상태: STAT
   한글: KOR
   영문: ENG
   # 시스템 공통

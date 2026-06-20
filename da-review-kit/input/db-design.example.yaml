@@ -1,0 +1,35 @@
+# =====================================================================
+# DB 설계서 예시 (DA검토 INPUT)
+#   - 이것이 "DB설계서"의 정규화(normalized) 형식입니다.
+#   - 실제론 erwin ERD 추출본 등이 adapter 를 거쳐 이 형식으로 들어옵니다.
+#   - 표준 준수 설계 → check-physical / check-attribute 모두 통과해야 함
+# =====================================================================
+project: 여신_상품_관리_PJT
+dbms: Server                       # H(Host DB2) / S(Server)
+schema: DW_LOAN
+
+tables:
+  - physical_name: TSLONBA01       # T-S-LON(여신)-BA(계좌)-01
+    logical_name: 대출계좌
+    subject_area: 여신_계좌
+    columns:
+      - { korean: 대출계좌번호, english: LOAN_ACCT_NO, infotype: "번호",    typelength: "CHAR(20)",     pk: true,  nullable: false }
+      - { korean: 고객번호,     english: CUST_NO,      infotype: "번호",    typelength: "CHAR(20)",     pk: true,  nullable: false }
+      - { korean: 기준년월일,   english: BASE_YMD,     infotype: "년월일8",  typelength: "CHAR(8)",      pk: false, nullable: false }
+      - { korean: 대출잔액금액, english: LOAN_BAL_AMT, infotype: "금액18.3", typelength: "DECIMAL(18,3)", pk: false, nullable: false }
+      - { korean: 대출상태구분코드, english: LOAN_STAT_DV_CD, infotype: "구분코드1", typelength: "CHAR(1)", pk: false, nullable: false }
+      - { korean: 시스템최종처리일시,   english: SYS_LST_PRC_DTM, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: false }
+      - { korean: 시스템최종사용자번호, english: SYS_LST_USR_NO,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: false }
+    relationships:
+      - { type: "1:M", to: TSLONAB01 }
+
+  - physical_name: TSLONAB01       # T-S-LON(여신)-AB(거래내역)-01
+    logical_name: 대출거래내역
+    subject_area: 여신_거래
+    columns:
+      - { korean: 대출계좌번호, english: LOAN_ACCT_NO, infotype: "번호",    typelength: "CHAR(20)",     pk: true,  nullable: false }
+      - { korean: 거래일련번호, english: TRD_SEQ,      infotype: "일련번호", typelength: "DECIMAL(10)",  pk: true,  nullable: false }
+      - { korean: 거래금액,     english: TRD_AMT,      infotype: "금액18.3", typelength: "DECIMAL(18,3)", pk: false, nullable: false }
+      - { korean: 시스템최종처리일시,   english: SYS_LST_PRC_DTM, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: false }
+      - { korean: 시스템최종사용자번호, english: SYS_LST_USR_NO,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: false }
+    relationships: []
