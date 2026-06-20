@@ -24,13 +24,13 @@ da-review-kit/
 
 **방법 A — 전체 클론 후 폴더만 사용**
 ```bash
-git clone -b claude/laughing-hamilton-tfzkqw https://github.com/easyseop/test_me-.git
+git clone -b claude/laughing-hamilton-tfzkqw https://github.com/easyseop/Harness-work.git
 cd test_me-/da-review-kit
 ```
 
 **방법 B — da-review-kit 만 받기 (sparse checkout)**
 ```bash
-git clone --no-checkout -b claude/laughing-hamilton-tfzkqw https://github.com/easyseop/test_me-.git
+git clone --no-checkout -b claude/laughing-hamilton-tfzkqw https://github.com/easyseop/Harness-work.git
 cd test_me-
 git sparse-checkout init --cone
 git sparse-checkout set da-review-kit
