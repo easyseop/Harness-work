@@ -6,7 +6,7 @@
 #  [컬럼명]  컬럼 = [수식어]+[도메인 끝말]:
 #     ① 도메인(인포타입)으로 끝나는가          ② 수식어가 표준단어인가
 #     ③ 한글 ↔ 영문 표준 일치                  ④ 인포타입 도메인·길이 일관(복수허용)
-#     + 끝자리숫자 금지, 한글 길이, 표준화적용여부(컬럼) 게이팅
+#     + 끝자리숫자(META 스위치, 기본 허용), 한글 길이, 표준화적용여부(컬럼) 게이팅
 #  [기타] PK, 감사컬럼(경고), M:N 금지
 # 사용: ./check-physical.sh <review-target.yaml> [standard-meta.yaml]
 # =====================================================================
@@ -68,15 +68,19 @@ for t in inp.get("tables", []):
         if cr.get("require_korean") and not kr: errors.append(f"{tag} 컬럼 한글명 누락(영문 '{en}')"); continue
         if cr.get("require_english") and not en: errors.append(f"{tag} 컬럼 '{kr}' 영문명 누락")
         if cr.get("require_infotype") and not it: errors.append(f"{tag} 컬럼 '{kr}' 인포타입 미기재")
-        if cr.get("forbid_trailing_digit"):
+        forbid_td = cr.get("forbid_trailing_digit")
+        if forbid_td:
             if kr[-1:].isdigit(): errors.append(f"{tag} 컬럼 '{kr}' 한글명 끝자리 숫자 금지")
             if en[-1:].isdigit(): errors.append(f"{tag} 컬럼 '{kr}' 영문명 '{en}' 끝자리 숫자 금지")
+        # 끝자리 숫자 허용 시: 도메인/영문 매칭은 끝 숫자를 떼고 본다 (예: 전화번호1 → 전화번호)
+        kr_m = kr if forbid_td else re.sub(r"\d+$", "", kr)
+        en_m = en if forbid_td else re.sub(r"\d+$", "", en)
         if len(kr) > maxk: errors.append(f"{tag} 컬럼 '{kr}' 한글명 {len(kr)}자 > 최대 {maxk}자")
         # ① 도메인 끝말
-        ew = find_endword(kr)
+        ew = find_endword(kr_m)
         if not ew:
             errors.append(f"{tag} 컬럼 '{kr}' 가 도메인(인포타입)으로 끝나지 않음"); continue
-        dom = end_exc.get(ew, ew); d = domains[dom]; prefix = kr[:-len(ew)]
+        dom = end_exc.get(ew, ew); d = domains[dom]; prefix = kr_m[:-len(ew)]
         # ② 수식어 표준단어
         mod = tokenize_mod(prefix) if prefix else []
         if prefix and mod is None:
@@ -84,7 +88,7 @@ for t in inp.get("tables", []):
         # ③ 한글 ↔ 영문 일치
         if en and mod is not None:
             expected = "_".join([words[w] for w in mod] + [d["abbr"]])
-            if en != expected:
+            if en_m != expected:
                 errors.append(f"{tag} 컬럼 영문명 '{en}' 불일치 (한글 '{kr}' 기준 기대 '{expected}')")
         # ④ 인포타입 도메인·길이 일관
         if it:

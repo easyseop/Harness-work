@@ -44,7 +44,7 @@ column:
   require_english: true
   require_infotype: true
   must_end_with_domain: true       # 컬럼은 인포타입(도메인)으로 끝나야 함 (PPTX)
-  forbid_trailing_digit: true      # 한글·영문 끝자리 숫자 금지
+  forbid_trailing_digit: false     # 끝자리 숫자 허용(조직 결정) — 매칭 시 끝 숫자는 무시
   korean_max_chars_server: 15      # Server 한글 최대 15자 (Host 10자) / 30byte
 
 # ---- 수식어 표준단어 (한글 → 영문약어) ----
