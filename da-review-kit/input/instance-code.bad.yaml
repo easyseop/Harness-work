@@ -1,0 +1,16 @@
+# =====================================================================
+# 인스턴스코드 정의서 (INPUT) · BAD  ·  위반 모음 — 반송돼야 함
+# =====================================================================
+project: 불량_코드정의
+
+instance_names:
+  - { app_code: BFA, app_name: 금융복합공통, instance_name: 임시구분코드, definition: x, code_length: 1, terminal_deploy: 0, external_data: 0, list_table_managed: 0 }  # ❌ 수식어 '임시' 비표준
+  - { app_code: BFA, app_name: 금융복합공통, instance_name: 여부,         definition: x, code_length: 1, terminal_deploy: 0, external_data: 0, list_table_managed: 0 }  # ❌ 단독사용금지 단어
+  - { app_code: BFA, app_name: 금융복합공통, instance_name: 계좌상태,     definition: x, code_length: 1, terminal_deploy: 0, external_data: 0, list_table_managed: 0 }  # ❌ 끝말 규칙 위반(구분코드/코드/여부/유무 아님)
+  - { app_code: BFC, app_name: 금융복합상품, instance_name: 거래여부,     definition: x, code_length: 1, terminal_deploy: 0, external_data: 0, list_table_managed: 0 }  # 이름은 정상(코드값 위반 유발용)
+
+code_values:
+  - { instance_name: 거래여부, code: "0", content: 부 }
+  - { instance_name: 거래여부, code: "1", content: 여 }
+  - { instance_name: 거래여부, code: "2", content: 기타 }   # ❌ ~여부는 0/1만 허용
+  - { instance_name: 유령구분코드, code: "1", content: 정상 }  # ❌ 시트1(업무인스턴스명정의서)에 없음

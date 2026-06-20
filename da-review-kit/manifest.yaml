@@ -37,6 +37,11 @@ gates:
     blocking: true
     waiverable: true
     runner: gates/check-attribute.sh
+  - id: check-instance-code
+    phase: classify
+    blocking: true
+    waiverable: true
+    runner: gates/check-instance-code.sh
 
 evidence:
   - id: da-review-result

@@ -22,3 +22,11 @@ cases:
     gate: check-attribute
     input: input/review-target.bad.yaml
     expect: fail
+  - name: 표준 지킨 인스턴스코드 정의서는 통과
+    gate: check-instance-code
+    input: input/instance-code.good.yaml
+    expect: pass
+  - name: 명명/코드값 위반 인스턴스코드 정의서는 반송
+    gate: check-instance-code
+    input: input/instance-code.bad.yaml
+    expect: fail

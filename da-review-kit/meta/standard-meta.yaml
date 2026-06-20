@@ -100,3 +100,14 @@ end_word_exceptions: { 구분: 구분코드 }
 pk: { require: true }
 audit_columns: { recommended: [SYS_LST_PRC_DTM, SYS_LST_USR_NO] }
 relationship: { forbid_mn_direct: true }
+
+# ---- 인스턴스코드 정의서 규칙 (업무인스턴스명/코드값) ----
+instance_code:
+  # 업무인스턴스명 허용 끝말 (인스턴스=~구분코드, 목록성=~코드, 예외 ~여부/~유무)
+  name_endings: ["구분코드", "코드", "여부", "유무"]
+  yn_endings: ["여부", "유무"]                 # 이 끝말은 코드값 0/1만 허용
+  # 단독 사용 금지 단어 12개 (이 단어 단독으로 인스턴스명 불가)
+  forbidden_standalone: [자산, 부채, 금액, 연금, 년월일, 여부, 유무, 건수, 명, 시각, 식별자, 현금]
+  # 예약 코드값 의미
+  zero_meanings: ["해당무", "해당사항없음"]      # [0…0] = 해당무
+  nine_meanings: ["기타"]                       # [9…9] = 기타
