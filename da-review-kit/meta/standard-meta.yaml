@@ -11,8 +11,32 @@ naming:
   table:
     pattern: "^T[HS][A-Z]{3}[A-Z]{2}[0-9]{2}$"   # T+시스템(H/S)+앱(3)+소그룹(2)+일련(2)
     system_codes: { H: Host DB2, S: Server }
-  valid_app_codes: { DPS: 수신/예금, LON: 여신/대출, CUS: 고객, ACC: 회계, CRD: 카드 }
-  valid_subgroup_codes: { AA: 잔액, AB: 거래내역, BA: 계좌, CA: 고객기본, CB: 고객부가 }
+  valid_app_codes:                 # 어플리케이션코드(3) — 업무 도메인
+    DPS: 수신/예금
+    LON: 여신/대출
+    CUS: 고객
+    ACC: 회계/계정
+    CRD: 카드
+    FXD: 외환
+    FUN: 펀드/신탁
+    INS: 보험
+    PAY: 지급결제
+    RSK: 리스크
+    MKT: 마케팅
+    CHN: 채널/단말
+    CMM: 공통
+  valid_subgroup_codes:            # 업무소그룹코드(2) — 최하위 주제영역
+    AA: 잔액
+    AB: 거래내역
+    AC: 약정
+    BA: 계좌
+    BB: 상품
+    CA: 고객기본
+    CB: 고객부가
+    DA: 집계/통계
+    EA: 공통코드
+    FA: 한도
+    GA: 채널
 
 # ---- 컬럼 명명규칙 ----
 column:
@@ -51,6 +75,42 @@ standard_words:
   상태: STAT
   한글: KOR
   영문: ENG
+  # 업무 (추가)
+  수신: RCV
+  여신: LEND
+  외환: FX
+  카드: CARD
+  펀드: FUND
+  신탁: TRST
+  보험: INSU
+  투자: INVT
+  이체: TRNF
+  송금: REMT
+  입금: DEPI
+  출금: WDRW
+  상환: RPMT
+  연체: OVDU
+  승인: APRV
+  취소: CNCL
+  신청: APPL
+  접수: RCPT
+  발급: ISSU
+  한도: LIMIT
+  만기: MTRT
+  개설: OPEN
+  해지: CLSE
+  # 한정/집계 (추가)
+  누적: ACCM
+  합계: TOTL
+  평균: AVRG
+  당월: CMTH
+  전월: PMTH
+  신규: NEW
+  기존: EXST
+  대상: TGT
+  직전: PREV
+  현재: CURR
+  최초: FRST
   # 시스템 공통
   시스템: SYS
   최종: LST
@@ -90,8 +150,29 @@ domains:
   # [수량 그룹]
   수량:     { group: 수량, abbr: "QTY",   dtype: DECIMAL, lengths: ["18.5","21.5"] }
   건수:     { group: 수량, abbr: "CNT",   dtype: DECIMAL, lengths: [] }
-  # [차순 그룹]
   순번:     { group: 차순, abbr: "SQNO",  dtype: DECIMAL, lengths: [] }
+  순서:     { group: 차순, abbr: "ORD",   dtype: DECIMAL, lengths: [] }
+  회차:     { group: 차순, abbr: "RND",   dtype: DECIMAL, lengths: [] }
+  # [코드 그룹] 추가
+  분류코드: { group: 코드, abbr: "CLS_CD", dtype: CHAR, lengths: ["1","2","3"], is_code: true }
+  # [명/내용 그룹] 추가
+  성명:     { group: 명,   abbr: "PNM",   dtype: CHAR, lengths: ["50"], host_plus2: true }
+  비고:     { group: 내용, abbr: "RMRK",  dtype: CHAR, lengths: ["100","500"], host_plus2: true }
+  적요:     { group: 내용, abbr: "BRIF",  dtype: CHAR, lengths: ["100"], host_plus2: true }
+  # [시간 그룹] 추가
+  기간:     { group: 시간, abbr: "PERD",  dtype: CHAR, lengths: ["6","8"] }
+  # [금액 그룹] 추가
+  수수료:   { group: 금액, abbr: "FEE",   dtype: DECIMAL, lengths: ["15","18.3"] }
+  비용:     { group: 금액, abbr: "EXPS",  dtype: DECIMAL, lengths: ["15","18.3"] }
+  한도금액: { group: 금액, abbr: "LMT_AMT", dtype: DECIMAL, lengths: ["15","18.3"] }
+  # [번호 그룹] 추가
+  사업자번호: { group: 번호, abbr: "BIZNO", dtype: CHAR, lengths: ["10"] }
+  # [률 그룹] 추가
+  비율:     { group: 률,   abbr: "RTO",   dtype: DECIMAL, lengths: ["5.2","9.4"] }
+  이율:     { group: 률,   abbr: "IRT",   dtype: DECIMAL, lengths: ["5.3","9.4"] }
+  # [수량 그룹] 추가
+  횟수:     { group: 수량, abbr: "FREQ",  dtype: DECIMAL, lengths: [] }
+  개수:     { group: 수량, abbr: "QCNT",  dtype: DECIMAL, lengths: [] }
 
 # 인포타입 외 허용 끝말 (PPTX 예외): 구분 → 구분코드 도메인으로 간주
 # (등급은 자체 도메인으로 등록돼 있으므로 예외에 두지 않음)
