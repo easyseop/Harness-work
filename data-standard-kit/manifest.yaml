@@ -1,0 +1,60 @@
+# 하네스 자기소개 파일 (manifest)  ·  data-standard
+# 역할: 새 데이터(테이블/데이터셋/파이프라인/API필드)가 개발 중에
+#       이름·메타데이터·계약·흐름 표준을 따르도록 강제한다.
+# 기준: 00-spine-and-manifest-spec.md
+
+manifestVersion: "0.1"
+id: data-standard
+version: "1.0.0"
+title: "데이터 표준 하네스"
+owner: 데이터플랫폼팀
+status: draft
+
+hooks:
+  - classify                 # 이름 규칙·데이터 등급을 미리 고정
+  - build                    # 데이터 계약(스키마) 작성
+  - verify                   # 이름·메타데이터·흐름 표준 검사
+
+requires:
+  - policy-profile
+optional:
+  - traceability
+
+inputs:
+  - name: profile
+    from: harness:policy-profile
+    required: true
+
+policy:
+  file: policy.yaml
+  overridable: true
+
+gates:
+  - id: check-naming
+    phase: verify
+    blocking: true
+    waiverable: true
+    runner: gates/check-naming.sh
+  - id: check-metadata-complete
+    phase: verify
+    blocking: true
+    waiverable: true
+    runner: gates/check-metadata-complete.sh
+  - id: check-data-values
+    phase: verify
+    blocking: true
+    waiverable: false          # 표준 테이블 값 위반은 면제 불가
+    runner: gates/check-data-values.sh
+
+evidence:
+  - id: data-contract
+    path: data-contract.yaml
+    schema: data-contract.schema.json
+    requiredForImport: true
+
+traceability:
+  emits: [design, evidence]
+
+appliesWhen:                 # 데이터 작업이 있을 때만 적용
+  - field: 구현_대상_정보.업무_유형
+    in: [배치, 데이터플랫폼, API_서비스]

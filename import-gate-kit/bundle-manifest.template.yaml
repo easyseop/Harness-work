@@ -1,0 +1,35 @@
+# =====================================================================
+# 반입 묶음 명세 (bundle-manifest) — 양식
+# =====================================================================
+# "내부망에 들여보낼 묶음에 무엇이 들어있고, 누가 책임지는지"를 적는 표입니다.
+# 실제 예시는 bundle-manifest.messenger.example.yaml 을 보세요.
+# =====================================================================
+
+bundle:
+  project: 미정              # 프로젝트 식별값. 예: PRJ-2026-014
+  version: 미정              # 반입 버전. 예: 1.0.0
+  created_on: 미정           # 작성일 YYYY-MM-DD
+
+  # ---- 구성요소 (있으면 경로, 해당없으면 'none') ----
+  items:
+    source: 미정             # 소스 위치
+    lockfile: 미정           # 잠금 파일
+    sbom: 미정               # 구성요소 목록
+    contracts: 미정          # 솔루션 카드 목록
+    manifest: 미정           # 하네스 매니페스트
+    attestation: present     # 아래 attestation 로 채움
+
+  # ---- 각 하네스 증거 (id: 상태) ----
+  evidence:
+    - id: 미정               # 예: profile
+      status: 미정           # passed / failed
+      required: true
+
+  # ---- 서명/책임 (역할 분리 INV-7) ----
+  attestation:
+    developer: 미정          # 만든 사람 (역할)
+    verifier: 미정           # 검사한 사람 (역할)
+    approver: 미정           # 승인한 사람 (역할) — developer 와 달라야 함
+
+  # ---- 예외 승인 (없으면 빈 목록 []) ----
+  waivers: []

@@ -1,0 +1,18 @@
+harness: config-secret
+cases:
+  - name: 정상 바인딩 통과
+    gate: check-bindings-complete
+    input: tests/fixtures/good.yaml
+    expect: pass
+  - name: secret에 기본값/외부존이면 막혀야
+    gate: check-bindings-complete
+    input: tests/fixtures/bad-binding.yaml
+    expect: fail
+  - name: 빈자리만 쓴 코드는 통과
+    gate: check-no-hardcoded-values
+    input: tests/fixtures/clean.py
+    expect: pass
+  - name: 실제값 박힌 코드는 막혀야
+    gate: check-no-hardcoded-values
+    input: tests/fixtures/bad.py
+    expect: fail

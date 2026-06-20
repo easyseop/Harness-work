@@ -1,0 +1,55 @@
+# 하네스 자기소개 파일 (manifest)  ·  build-provenance
+# 역할: 빌드 결과물이 "어떤 입력으로, 누가, 언제" 만들어졌는지 출처를 남기고,
+#       의존성 잠금·구성요소 목록(SBOM)이 갖춰졌는지, 같은 입력이면 같은 결과가
+#       나오는지(재현성)를 검사한다.
+# 기준: 00-spine-and-manifest-spec.md
+
+manifestVersion: "0.1"
+id: build-provenance
+version: "1.0.0"
+title: "빌드 출처·재현 하네스"
+owner: 플랫폼엔지니어링팀
+status: draft
+
+hooks:
+  - build                    # 빌드 출처 정보 생성
+  - verify                   # 출처·잠금·SBOM 완결성 검사
+  - reproduce                # 내부망 재빌드 결과가 같은지 확인
+
+requires:
+  - policy-profile
+optional:
+  - oss-runtime-eol          # SBOM 을 함께 쓰면 좋음
+  - traceability
+
+inputs:
+  - name: build-metadata     # 빌드 출처 정보
+    from: spine
+    required: true
+
+policy:
+  file: policy.yaml
+  overridable: false
+
+gates:
+  - id: check-provenance-complete
+    phase: verify
+    blocking: true
+    waiverable: false        # 출처 누락은 우회 불가
+    runner: gates/check-provenance-complete.sh
+  - id: check-reproducible
+    phase: reproduce
+    blocking: true
+    waiverable: true
+    runner: gates/check-reproducible.sh
+
+evidence:
+  - id: provenance
+    path: provenance.yaml
+    schema: provenance.schema.json
+    requiredForImport: true
+
+traceability:
+  emits: [evidence]
+
+appliesWhen: []              # 빌드 산출물이 있는 모든 작업에 적용

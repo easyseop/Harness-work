@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Project Classification Profile",
+  "description": "프로젝트 1건을 분류한 결과(profile.json)의 형식 규칙. 게이트가 이 규칙으로 빈칸/오류를 검사한다.",
+  "type": "object",
+  "required": ["project", "구현_대상_정보", "시스템_관계_정보", "실행환경_정보", "반입_방식"],
+  "properties": {
+    "project": {
+      "type": "object",
+      "required": ["id", "title"],
+      "properties": {
+        "id": { "type": "string", "description": "프로젝트 식별자" },
+        "title": { "type": "string" }
+      }
+    },
+    "구현_대상_정보": {
+      "type": "object",
+      "required": ["실행_계열", "프레임워크", "업무_유형", "배포_단위"],
+      "properties": {
+        "실행_계열": { "enum": ["코어뱅킹_프레임워크", "단독_애플리케이션", "외부_솔루션", "어댑터_전용"] },
+        "프레임워크": { "type": "string" },
+        "업무_유형": { "enum": ["API_서비스", "배치", "업무_모듈", "화면", "CLI", "라이브러리", "데이터플랫폼"] },
+        "배포_단위": { "enum": ["소스", "jar", "war", "컨테이너", "패키지", "스크립트"] }
+      }
+    },
+    "시스템_관계_정보": {
+      "type": "object",
+      "required": ["개발_유형", "내부_의존_방식"],
+      "properties": {
+        "개발_유형": { "enum": ["신규_시스템", "신규_모듈", "기존_확장", "기존_연동", "마이그레이션"] },
+        "기존_시스템_연동": { "type": "boolean" },
+        "연동_방식": {
+          "type": "array",
+          "items": { "enum": ["API", "배치", "파일", "MQ", "DB", "화면_삽입", "이벤트"] }
+        },
+        "내부_의존_방식": { "enum": ["계약만_사용", "내부_어댑터_필요", "내부망에서만_직접연결", "없음"] }
+      }
+    },
+    "실행환경_정보": {
+      "type": "object",
+      "required": ["배포_환경", "망_구분"],
+      "properties": {
+        "배포_환경": { "enum": ["온프레미스", "VM", "kubernetes", "PaaS", "배치_스케줄러", "레거시_WAS"] },
+        "OS_계열": { "enum": ["Linux", "Windows", "AIX", "zOS"] },
+        "망_구분": { "enum": ["외부망_개발", "내부망_개발", "내부망_운영"] },
+        "내부_설정_주입_필요": { "type": "boolean" }
+      }
+    },
+    "반입_방식": {
+      "enum": ["소스반입", "artifact반입", "이미지반입", "manifest반입", "hybrid"]
+    },
+    "내부_의존_솔루션": {
+      "type": "array",
+      "description": "이 프로젝트가 쓰는 내부 솔루션 별칭 목록 (예: messenger, file-transfer)",
+      "items": { "type": "string" }
+    }
+  },
+  "$comment": "분류값에 '미정' 또는 'TBD'가 남아 있으면 check-classification-complete 게이트가 실패시킨다."
+}

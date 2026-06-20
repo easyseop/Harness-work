@@ -1,0 +1,13 @@
+# 나쁜 예시 — 필수 항목에 빈칸(미정) 남음 (check-metadata-complete 가 막아야 함)
+dataset:
+  name: TDDPSX901
+  type: table
+  standard: true
+  schema: 미정                  # ❌ 스키마명 미정
+  description: 미정             # ❌ 정의 미정
+
+columns:
+  - name: BASE_YMD
+    type: date8
+    nullable: false
+    description: 집계 기준일자

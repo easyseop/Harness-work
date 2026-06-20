@@ -1,0 +1,18 @@
+components:
+  project: PRJ-2026-014
+  generated_on: '2026-06-16'
+  runtimes:
+  - name: java
+    version: 21
+  - name: python
+    version: '3.8'
+  libraries:
+  - name: spring-boot
+    version: 3.2.1
+    license: Apache-2.0
+  - name: http-client
+    version: 2.4.2
+    license: MIT
+  - name: yaml-parser
+    version: 1.0.1
+    license: Apache-2.0

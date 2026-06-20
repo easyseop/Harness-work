@@ -1,0 +1,18 @@
+harness: internal-solution
+cases:
+  - name: 정상 카드는 비밀검사 통과
+    gate: check-no-internal-secrets
+    input: tests/fixtures/good.yaml
+    expect: pass
+  - name: 실제 주소 섞이면 막혀야
+    gate: check-no-internal-secrets
+    input: tests/fixtures/bad-secret.yaml
+    expect: fail
+  - name: 정상 카드는 완결성 통과
+    gate: check-contract-complete
+    input: tests/fixtures/good.yaml
+    expect: pass
+  - name: 빈칸(미정) 있으면 막혀야
+    gate: check-contract-complete
+    input: tests/fixtures/bad-incomplete.yaml
+    expect: fail

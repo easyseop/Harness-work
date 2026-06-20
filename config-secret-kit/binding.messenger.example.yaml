@@ -1,0 +1,65 @@
+# =====================================================================
+# 바인딩 예시 · 사내 쪽지(messenger) 시스템
+# =====================================================================
+# solution-card.messenger.yaml 에서 "내부망에서 주입한다"고 비워둔
+# 빈 자리들을 여기에 목록으로 선언합니다.
+#
+# ★ 외부망에는 '빈 자리 이름'만 있고 실제 값은 전혀 없습니다.
+#   내부망 반입 시점에 source 를 따라 실제 값을 꽂으면,
+#   코드는 한 줄도 고치지 않고 그대로 동작합니다.
+# =====================================================================
+
+binding:
+  for_solution: messenger
+  owner_role: 내부플랫폼팀
+
+  variables:
+    # ---- 민감한 값 (secret) : 외부망에 실제 값 절대 금지 ----
+    - name: MESSENGER_HOST
+      kind: secret
+      zone: internal-only
+      required: true
+      default: null
+      source: 내부망 환경별 설정(개발/스테이징/운영 HOST). 반입 시 주입.
+      description: 메신저 발송 서버 주소. 코드에는 ${MESSENGER_HOST} 로만 적는다.
+
+    - name: MESSENGER_SRV_CODE
+      kind: secret
+      zone: internal-only
+      required: true
+      default: null
+      source: 연계신청서로 담당자에게 발급받은 서버코드. 비밀 저장소에서 주입.
+      description: 발신 시스템 식별 코드(SRV_CODE). 외부망에 실제 값 금지.
+
+    # ---- 민감하지 않은 설정값 (config) : 기본값 둬도 됨 ----
+    - name: MESSENGER_PATH
+      kind: config
+      zone: external-ok
+      required: true
+      default: "/HMemoServiceUtf8"      # UTF-8 경로. MS949면 /HMemoService
+      source: 솔루션 카드 protocol 정의 (인코딩에 따른 경로)
+      description: 발송 서비스 경로. 실제 HOST 와 합쳐져 최종 주소가 된다.
+
+    - name: MESSENGER_ENCODING
+      kind: config
+      zone: external-ok
+      required: true
+      default: "UTF-8"                  # 또는 MS949
+      source: 솔루션 카드 protocol.encoding_options
+      description: 요청 인코딩. 경로(MESSENGER_PATH)와 짝을 맞춰야 함.
+
+    - name: MESSENGER_TIMEOUT_MS
+      kind: config
+      zone: external-ok
+      required: false
+      default: 3000
+      source: 솔루션 카드 nonfunctional.timeout_ms
+      description: 응답 대기 제한(밀리초).
+
+    - name: MESSENGER_RETRY_MAX
+      kind: config
+      zone: external-ok
+      required: false
+      default: 2
+      source: 솔루션 카드 nonfunctional.retry_max
+      description: 일시 오류(64) 시 최대 재시도 횟수.

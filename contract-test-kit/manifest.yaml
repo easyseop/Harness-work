@@ -1,0 +1,48 @@
+# 하네스 자기소개 파일 (manifest)  ·  contract-test
+# 역할: 외부망 코드가 솔루션 카드(계약)의 약속 — 입력 필드·출력·오류코드 —
+#       을 실제로 지키는지 대역(Mock) 테스트로 검증한다.
+# 기준: 00-spine-and-manifest-spec.md
+
+manifestVersion: "0.1"
+id: contract-test
+version: "1.0.0"
+title: "계약 검증 하네스"
+owner: 내부플랫폼팀
+status: draft
+
+hooks:
+  - build                    # 계약에서 테스트 골격(대역 응답) 생성
+  - verify                   # 코드가 계약을 지키는지 테스트
+
+requires:
+  - internal-solution        # 검증 대상 계약(솔루션 카드)이 있어야 함
+optional:
+  - traceability
+
+inputs:
+  - name: solution-cards
+    from: harness:internal-solution
+    required: true
+
+policy:
+  file: policy.yaml
+  overridable: true
+
+gates:
+  - id: check-contract-coverage
+    phase: verify
+    blocking: true
+    waiverable: true
+    runner: gates/check-contract-coverage.sh
+
+evidence:
+  - id: contract-test-report
+    path: contract-test-report.json
+    requiredForImport: true
+
+traceability:
+  emits: [evidence]
+
+appliesWhen:                 # 내부 시스템 계약이 있을 때만 적용
+  - field: 시스템_관계_정보.내부_의존_방식
+    in: [계약만_사용, 내부_어댑터_필요]

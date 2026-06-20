@@ -1,0 +1,20 @@
+# 비표준 테이블 예시 — 값 검사를 건너뛰어야 함(통과).
+# 같은 불량 데이터(sample-bad.csv)를 줘도 비표준이면 값검사 skip.
+dataset:
+  name: TKETCX901              # K = 그 외(비표준 영역 예시)
+  type: table
+  standard: false             # 비표준 → 값 검사 건너뜀
+  schema: STG_ETC
+  description: 비표준 임시 적재 테이블
+
+columns:
+  - name: BASE_YMD
+    type: date8
+    nullable: false
+    description: 기준일자
+  - name: ACCT_STAT_CD
+    type: code
+    instance_identifier: true
+    valid_values: [1, 2, 3, 4]
+    nullable: false
+    description: 상태코드

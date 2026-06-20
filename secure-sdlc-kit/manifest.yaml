@@ -1,0 +1,51 @@
+# 하네스 자기소개 파일 (manifest)  ·  secure-sdlc
+# 역할: 개발하는 동안 코드에 비밀값이 새지 않는지, 의존성에 알려진 취약점이 없는지
+#       스캔하고, 정해진 심각도 기준을 넘으면 막는다.
+# 기준: 00-spine-and-manifest-spec.md
+
+manifestVersion: "0.1"
+id: secure-sdlc
+version: "1.0.0"
+title: "안전한 개발 절차 하네스"
+owner: 보안팀
+status: draft
+
+hooks:
+  - build                    # 스캔 실행
+  - verify                   # 스캔 결과가 기준 안인지 검사
+
+requires:
+  - policy-profile
+optional:
+  - traceability
+
+inputs:
+  - name: scan-report        # 보안 스캔 도구가 만든 결과(JSON)
+    from: spine
+    required: true
+
+policy:
+  file: policy.yaml
+  overridable: false         # 보안 기준은 프로젝트가 임의로 못 낮춤
+
+gates:
+  - id: check-secret-scan
+    phase: verify
+    blocking: true
+    waiverable: false        # 비밀값 유출은 우회 불가
+    runner: gates/check-secret-scan.sh
+  - id: check-vuln-threshold
+    phase: verify
+    blocking: true
+    waiverable: true         # 취약점 예외는 만료 있는 waiver 로만
+    runner: gates/check-vuln-threshold.sh
+
+evidence:
+  - id: sdlc-report
+    path: sdlc-report.json
+    requiredForImport: true
+
+traceability:
+  emits: [evidence]
+
+appliesWhen: []              # 모든 코드 작업에 적용

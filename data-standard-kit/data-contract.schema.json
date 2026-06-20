@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Data Contract",
+  "description": "새 데이터(테이블/데이터셋/파이프라인)의 표준 정보 형식. '미정/TBD'가 남으면 검사가 실패시킨다.",
+  "type": "object",
+  "required": ["dataset", "columns", "lineage"],
+  "properties": {
+    "dataset": {
+      "type": "object",
+      "required": ["name", "type", "owner_role", "classification", "retention_days", "description"],
+      "properties": {
+        "name": { "type": "string" },
+        "type": { "enum": ["table", "dataset", "pipeline"] },
+        "owner_role": { "type": "string" },
+        "classification": { "enum": ["공개", "내부", "민감", "극비"] },
+        "retention_days": { "type": "integer", "minimum": 1 },
+        "description": { "type": "string" }
+      }
+    },
+    "columns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type", "standard_term", "nullable", "description"],
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "type": "string" },
+          "standard_term": { "type": "string" },
+          "nullable": { "type": "boolean" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "lineage": {
+      "type": "object",
+      "required": ["inputs", "outputs"],
+      "properties": {
+        "inputs": { "type": "array", "items": { "type": "string" } },
+        "outputs": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

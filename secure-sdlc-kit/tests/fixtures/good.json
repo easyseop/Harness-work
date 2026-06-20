@@ -1,0 +1,21 @@
+{
+  "_설명": "예시 — 메신저 모듈 개발 중 보안 스캔 결과. 비밀값 0건, 취약점은 medium 이하만.",
+  "project": "PRJ-2026-014",
+  "scanned_on": "2026-06-16",
+  "scans_run": ["secret_scan", "dependency_scan"],
+  "secret_findings": [],
+  "vulnerabilities": [
+    {
+      "id": "CVE-2025-11111",
+      "component": "http-client 2.4.1",
+      "severity": "low",
+      "fixed_in": "2.4.2"
+    },
+    {
+      "id": "CVE-2025-22222",
+      "component": "yaml-parser 1.0.0",
+      "severity": "medium",
+      "fixed_in": "1.0.1"
+    }
+  ]
+}

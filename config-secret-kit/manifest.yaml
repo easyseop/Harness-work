@@ -1,0 +1,58 @@
+# 하네스 자기소개 파일 (manifest)  ·  config-secret
+# 역할: 코드가 쓰는 "빈 자리(placeholder)"를 목록으로 선언하고,
+#       실제 값(HOST·접속코드·비밀번호)은 외부망에 절대 적지 않으며
+#       내부망 반입 시점에만 주입되도록 강제한다.
+# 기준: 00-spine-and-manifest-spec.md
+
+manifestVersion: "0.1"
+id: config-secret
+version: "1.0.0"
+title: "설정·비밀값 주입 하네스"
+owner: 내부플랫폼팀
+status: draft
+
+hooks:
+  - build                    # 코드를 빈 자리로 짜도록 바인딩 목록 작성
+  - verify                   # 실제 값이 코드/설정에 박혀있지 않은지 검사
+  - import                   # 내부망에서 빈 자리에 실제 값 주입(연결)
+
+requires:
+  - policy-profile
+optional:
+  - internal-solution        # 솔루션 카드의 빈 자리와 짝을 맞춤
+  - traceability
+
+inputs:
+  - name: profile
+    from: harness:policy-profile
+    required: true
+  - name: solution-cards
+    from: harness:internal-solution
+    required: false
+
+policy:
+  file: policy.yaml
+  overridable: true
+
+gates:
+  - id: check-no-hardcoded-values
+    phase: verify
+    blocking: true
+    waiverable: false          # 실제 값 박기는 우회 불가 (보안 핵심)
+    runner: gates/check-no-hardcoded-values.sh
+  - id: check-bindings-complete
+    phase: verify
+    blocking: true
+    waiverable: true
+    runner: gates/check-bindings-complete.sh
+
+evidence:
+  - id: binding
+    path: binding.yaml
+    schema: binding.schema.json
+    requiredForImport: true
+
+traceability:
+  emits: [design, evidence]
+
+appliesWhen: []              # 외부 시스템·설정값을 쓰는 모든 작업에 적용

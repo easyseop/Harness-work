@@ -1,0 +1,22 @@
+{
+  "_설명": "보안 스캔 도구가 만든 결과를 이 형식으로 정리합니다. 실제 비밀값은 절대 넣지 마세요(위치만).",
+  "project": "미정",
+  "scanned_on": "미정 (YYYY-MM-DD)",
+  "scans_run": ["secret_scan", "dependency_scan"],
+  "secret_findings": [
+    {
+      "_설명": "발견된 비밀값의 '위치'만. 값 자체는 적지 않음.",
+      "file": "미정",
+      "line": 0,
+      "rule": "미정"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "미정 (예: CVE-2025-12345)",
+      "component": "미정 (예: some-lib 1.2.3)",
+      "severity": "미정 (none|low|medium|high|critical)",
+      "fixed_in": "미정"
+    }
+  ]
+}

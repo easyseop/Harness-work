@@ -1,0 +1,18 @@
+harness: oss-runtime-eol
+cases:
+  - name: 허용 라이선스는 통과
+    gate: check-license
+    input: tests/fixtures/good.yaml
+    expect: pass
+  - name: 금지 라이선스(AGPL)는 막혀야
+    gate: check-license
+    input: tests/fixtures/bad-license.yaml
+    expect: fail
+  - name: 수명 내 런타임은 통과
+    gate: check-eol
+    input: tests/fixtures/good.yaml
+    expect: pass
+  - name: EOL 지난 런타임은 막혀야
+    gate: check-eol
+    input: tests/fixtures/bad-eol.yaml
+    expect: fail

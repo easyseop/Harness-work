@@ -1,0 +1,57 @@
+# =====================================================================
+# 솔루션 카드 양식  ·  내부 시스템 1개 = 카드 1장
+# =====================================================================
+# 🟡 "외부망 개발자가 이 시스템에 맞춰 코드를 짜는 데 꼭 필요한 정보"만 적습니다.
+#    ❌ 실제 주소·접속정보·비밀번호는 절대 적지 않습니다. (SAFE-OR-NOT.md 참고)
+#    "미정"이나 "TBD" 를 실제 카드에 남기지 마세요.
+# ---------------------------------------------------------------------
+
+solution:
+  alias: TBD                 # 시스템 별칭(이름표). 예: messenger  (실제 제품명/주소 X)
+  category: TBD              # 종류. 예: communication / api / file-transfer / auth / batch
+  owner_role: TBD            # 관리 담당 역할 이름. 예: 내부플랫폼팀  (사람 이름 X)
+  description: TBD           # 한 줄 설명. 예: 사내 직원에게 쪽지 알림 보내기
+
+# 이 시스템으로 할 수 있는 기능들 (여러 개면 - 로 추가)
+capabilities:
+  - name: TBD               # 기능 이름. 예: send_direct_message
+    # --- 무엇을 넣나 ---
+    input:
+      - field: TBD          # 항목 이름. 예: recipientId
+        type: TBD           # 형식. 예: string / number / boolean
+        description: TBD    # 설명. 예: 받는 사람 식별값(가명)
+    # --- 무엇이 나오나 ---
+    output:
+      - field: TBD          # 예: messageId
+        type: TBD
+        description: TBD
+    # --- 어떤 오류가 날 수 있나 ---
+    errors:
+      - code: TBD           # 예: RECIPIENT_NOT_FOUND
+        meaning: TBD        # 예: 받는 사람을 찾을 수 없음
+    # --- 속도/재시도 같은 약속 ---
+    nonfunctional:
+      timeout_ms: TBD       # 예: 3000  (3초 안에 응답 없으면 실패 처리)
+      retry_max: TBD        # 예: 2     (실패 시 다시 시도할 횟수)
+
+# 안전 관련 (외부망에 두면 안 되는 것을 분명히 적어 둠)
+security:
+  forbidden_in_external_zone:   # 이 시스템과 관련해 외부망에 절대 두면 안 되는 것
+    - real_endpoint            # 실제 주소
+    - secret                   # 접속 비밀값
+    - real_user_id             # 실제 사용자 식별값
+  data_classification: no-customer-data   # 가짜 데이터에도 고객정보 금지
+
+# 외부망/내부망에서 각각 어떻게 다루나
+mode:
+  internal_connection_type: TBD     # 내부에서 실제로 어떻게 연결되나. 예: api / mq / file / batch
+  external_development_mode: TBD     # 외부망 개발 방식. 예: mock-only / contract-only / adapter-skeleton
+  internal_adapter_required: true    # 내부망에서 실제 연결 코드가 필요한가
+
+# 무엇을 시험해야 하나
+verification:
+  external_tests:               # 외부망에서 할 시험
+    - contract-test             # 약속대로 동작하는지
+    - mock-fixture-test         # 가짜 대체물로 시험
+  internal_tests:               # 내부망에서 할 시험
+    - adapter-smoke-test        # 실제 연결이 되는지 최소 확인

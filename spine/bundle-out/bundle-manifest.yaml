@@ -1,0 +1,62 @@
+bundle:
+  project: PRJ-2026-014
+  version: 1.0.0
+  created_on: '2026-06-17'
+  items:
+    source: src/
+    lockfile: poetry.lock
+    sbom: sbom.spdx.json
+    contracts: evidence/internal-solution/
+    manifest: manifests/
+    attestation: present
+  evidence:
+  - harness: policy-profile
+    id: profile
+    status: passed
+    required: true
+    file: evidence/policy-profile/profile.example.json
+  - harness: internal-solution
+    id: solution-contract
+    status: passed
+    required: true
+    file: evidence/internal-solution/solution-card.messenger.yaml
+  - harness: config-secret
+    id: binding
+    status: passed
+    required: true
+    file: evidence/config-secret/binding.messenger.example.yaml
+  - harness: data-standard
+    id: data-contract
+    status: passed
+    required: true
+    file: evidence/data-standard/data-contract.example.yaml
+  - harness: secure-sdlc
+    id: sdlc-report
+    status: passed
+    required: true
+    file: evidence/secure-sdlc/scan-report.example.json
+  - harness: oss-runtime-eol
+    id: oss-report
+    status: passed
+    required: true
+    file: evidence/oss-runtime-eol/components.messenger.example.yaml
+  - harness: contract-test
+    id: contract-test-report
+    status: passed
+    required: true
+    file: evidence/contract-test/test-spec.messenger.example.yaml
+  - harness: build-provenance
+    id: provenance
+    status: passed
+    required: true
+    file: evidence/build-provenance/provenance.messenger.example.yaml
+  - harness: deploy-runbook
+    id: runbook
+    status: passed
+    required: false
+    file: evidence/deploy-runbook/runbook.messenger.example.yaml
+  attestation:
+    developer: 개발팀-A
+    verifier: 품질검증팀
+    approver: 반입승인책임자
+  waivers: []

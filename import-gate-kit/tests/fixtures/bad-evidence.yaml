@@ -1,0 +1,29 @@
+bundle:
+  project: PRJ-2026-014
+  version: 1.0.0
+  created_on: '2026-06-16'
+  items:
+    source: src/
+    lockfile: poetry.lock
+    sbom: sbom.spdx.json
+    contracts: contracts/solution-card.messenger.yaml
+    manifest: manifests/
+    attestation: present
+  evidence:
+  - id: profile
+    status: failed
+    required: true
+  - id: solution-contract
+    status: passed
+    required: true
+  - id: binding
+    status: passed
+    required: true
+  - id: contract-test-report
+    status: passed
+    required: true
+  attestation:
+    developer: 개발팀-A
+    verifier: 품질검증팀
+    approver: 반입승인책임자
+  waivers: []

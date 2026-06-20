@@ -1,0 +1,18 @@
+harness: secure-sdlc
+cases:
+  - name: 정상 리포트는 비밀검사 통과
+    gate: check-secret-scan
+    input: tests/fixtures/good.json
+    expect: pass
+  - name: 비밀값 발견되면 막혀야
+    gate: check-secret-scan
+    input: tests/fixtures/bad-secret.json
+    expect: fail
+  - name: 정상 리포트는 취약점 통과
+    gate: check-vuln-threshold
+    input: tests/fixtures/good.json
+    expect: pass
+  - name: high 취약점이면 막혀야
+    gate: check-vuln-threshold
+    input: tests/fixtures/bad-highvuln.json
+    expect: fail

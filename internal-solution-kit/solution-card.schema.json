@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Internal Solution Card",
+  "description": "내부 시스템 1개를 안전하게 적은 카드의 형식 규칙. '미정/TBD'가 남으면 검사가 실패시킨다.",
+  "type": "object",
+  "required": ["solution", "capabilities", "security", "mode", "verification"],
+  "properties": {
+    "solution": {
+      "type": "object",
+      "required": ["alias", "category", "owner_role", "description"],
+      "properties": {
+        "alias": { "type": "string" },
+        "category": { "enum": ["communication", "api", "file-transfer", "auth", "batch", "mq", "storage"] },
+        "owner_role": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "input", "output", "errors", "nonfunctional"],
+        "properties": {
+          "name": { "type": "string" },
+          "input":  { "type": "array", "items": { "$ref": "#/$defs/field" } },
+          "output": { "type": "array", "items": { "$ref": "#/$defs/field" } },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["code", "meaning"],
+              "properties": { "code": { "type": "string" }, "meaning": { "type": "string" } }
+            }
+          },
+          "nonfunctional": {
+            "type": "object",
+            "required": ["timeout_ms", "retry_max"],
+            "properties": {
+              "timeout_ms": { "type": "integer", "minimum": 1 },
+              "retry_max":  { "type": "integer", "minimum": 0 }
+            }
+          }
+        }
+      }
+    },
+    "security": {
+      "type": "object",
+      "required": ["forbidden_in_external_zone", "data_classification"],
+      "properties": {
+        "forbidden_in_external_zone": { "type": "array", "items": { "type": "string" } },
+        "data_classification": { "type": "string" }
+      }
+    },
+    "mode": {
+      "type": "object",
+      "required": ["internal_connection_type", "external_development_mode", "internal_adapter_required"],
+      "properties": {
+        "internal_connection_type": { "enum": ["api", "mq", "file", "batch", "unknown"] },
+        "external_development_mode": { "enum": ["mock-only", "contract-only", "adapter-skeleton"] },
+        "internal_adapter_required": { "type": "boolean" }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "required": ["external_tests", "internal_tests"],
+      "properties": {
+        "external_tests": { "type": "array", "items": { "type": "string" } },
+        "internal_tests": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  },
+  "$defs": {
+    "field": {
+      "type": "object",
+      "required": ["field", "type", "description"],
+      "properties": {
+        "field": { "type": "string" },
+        "type": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    }
+  }
+}

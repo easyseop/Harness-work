@@ -1,0 +1,28 @@
+# 좋은 예시 — 표준 테이블. 모든 게이트를 통과해야 함.
+# 명명규칙: TDDPSX901 = T-D(DW)-DPS-X9-01
+dataset:
+  name: TDDPSX901
+  type: table
+  standard: true
+  schema: DW_DEPOSIT
+  description: 일별 예금 잔액 집계
+
+columns:
+  - name: BASE_YMD
+    type: date8
+    nullable: false
+    description: 집계 기준일자 (YYYYMMDD)
+  - name: ACCT_ID
+    type: string
+    nullable: false
+    description: 계좌 식별값(가명)
+  - name: ACCT_STAT_CD
+    type: code
+    instance_identifier: true
+    valid_values: [1, 2, 3, 4]
+    nullable: false
+    description: 계좌상태코드
+  - name: BAL_AMT
+    type: decimal
+    nullable: false
+    description: 잔액 합계

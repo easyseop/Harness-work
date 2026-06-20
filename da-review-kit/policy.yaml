@@ -1,0 +1,16 @@
+# =====================================================================
+# policy.yaml  ·  da-review 하네스 정책
+# 🟡 물리 검토에서 어디까지 강제(blocking)할지 스위치.
+#    표준값(명명규칙·코드목록 등)은 meta/standard-meta.yaml 에 있음.
+# =====================================================================
+policy_version: "0.1"
+
+physical_review:
+  enforce_table_naming: true      # 테이블 명명규칙 위반 → 반송
+  enforce_code_registry: true     # 앱코드/업무소그룹코드 표준목록 검사
+  enforce_column_rules: true      # 컬럼 영문·특수문자·끝자리숫자·인포타입
+  enforce_pk: true                # PK 미설정 → 반송
+  enforce_no_mn: true             # M:N 직접관계 → 반송
+  audit_columns: warn             # 감사컬럼 누락 → 경고(반송 아님)
+
+meta_file: meta/standard-meta.yaml

@@ -1,0 +1,38 @@
+# =====================================================================
+# INPUT (검토대상) · BAD  ·  위반 모음 — 반송돼야 함
+#   T1 TXDPSAA01 : 테이블 명명규칙 위반 (컬럼은 정상)
+#   T2 TSCUSCB01 : 컬럼 이름조합/인포타입 위반 (테이블명은 정상)
+# =====================================================================
+project: 고객부가_PJT
+tables:
+  - physical_name: TXDPSAA01        # ❌ 시스템구분 X (H/S 아님)
+    logical_name: 일별예금잔액
+    columns:
+      - { korean: 기준년월일, english: BASE_YMD, infotype: "년월일8", typelength: "CHAR(8)",  pk: true,  nullable: false }
+      - { korean: 계좌번호,   english: ACCT_NO,  infotype: "번호",    typelength: "CHAR(20)", pk: true,  nullable: false }
+      - { korean: 시스템최종처리일시,   english: SYS_LST_PRC_DTM, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: false }
+      - { korean: 시스템최종사용자번호, english: SYS_LST_USR_NO,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: false }
+    relationships: []
+
+  - physical_name: TSCUSCB01        # 테이블명 정상 → 컬럼 위반만 부각
+    logical_name: 고객부가
+    columns:
+      - { korean: 고객번호, english: CUST_NO,  infotype: "번호",  typelength: "CHAR(20)", pk: true,  nullable: false }   # 정상
+      - { korean: 고객성별, english: CUST_SEX, infotype: "성별10", typelength: "CHAR(10)", pk: false, nullable: false }  # ❌ 인포타입 길이 비허용(성별=1)
+      - { korean: 고객연식, english: CUST_AGE, infotype: "연식3",  typelength: "CHAR(3)",  pk: false, nullable: false }  # ❌ 도메인으로 안 끝남(연식 비표준)
+      - { korean: 임시성별, english: TMP_SEX, infotype: "성별1",   typelength: "CHAR(1)",  pk: false, nullable: false }  # ❌ 수식어 '임시' 비표준
+      - { korean: 직원성별, english: EMP_SXX, infotype: "성별1",   typelength: "CHAR(1)",  pk: false, nullable: false }  # ❌ 영문명 불일치(기대 EMP_SEX)
+      - { korean: 내부메모,  english: ETC_MEMO, infotype: "",       typelength: "",        pk: false, nullable: true, std: false }  # 표준화적용여부=N → 검사 건너뜀
+      - { korean: 시스템최종처리일시,   english: SYS_LST_PRC_DTM, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: false }
+      - { korean: 시스템최종사용자번호, english: SYS_LST_USR_NO,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: false }
+    relationships: []
+
+  - physical_name: TSCUSBA01        # 테이블명·컬럼명 정상 → 속성명 위반만 부각
+    logical_name: 고객계좌
+    columns:
+      - { korean: 고객번호, english: CUST_NO,  infotype: "번호",  typelength: "CHAR(20)", pk: true, nullable: false }
+      - { korean: 고객성별, attribute: 고객등급, english: CUST_SEX, infotype: "성별1", typelength: "CHAR(1)",  pk: false, nullable: false }   # ❌ 컬럼 도메인(성별)≠속성 도메인(등급)
+      - { korean: 고객명,   attribute: 머시기명, english: CUST_NM,  infotype: "명50",  typelength: "CHAR(50)", pk: false, nullable: false }   # ❌ 속성명 수식어 '머시기' 비표준
+      - { korean: 시스템최종처리일시,   english: SYS_LST_PRC_DTM, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: false }
+      - { korean: 시스템최종사용자번호, english: SYS_LST_USR_NO,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: false }
+    relationships: []

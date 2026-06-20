@@ -1,0 +1,24 @@
+# =====================================================================
+# 구성요소 목록 예시 · 메신저 연동 모듈
+# =====================================================================
+# 라이선스는 모두 허용 범위, 런타임은 EOL 여유가 충분한 예시입니다.
+# =====================================================================
+
+components:
+  project: PRJ-2026-014
+  generated_on: "2026-06-16"
+
+  runtimes:
+    - name: java
+      version: 21
+
+  libraries:
+    - name: spring-boot
+      version: 3.2.1
+      license: Apache-2.0
+    - name: http-client
+      version: 2.4.2
+      license: MIT
+    - name: yaml-parser
+      version: 1.0.1
+      license: Apache-2.0

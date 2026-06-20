@@ -1,0 +1,44 @@
+# =====================================================================
+# 자가진단 케이스 목록 (cases) · data-standard
+# =====================================================================
+# "좋은 입력은 통과(pass), 나쁜 입력은 차단(fail)" 되는지 자동 확인합니다.
+# 새 규칙을 만들 때마다, 그 규칙을 어기는 나쁜 예시를 fixtures/ 에 넣고
+# 여기 케이스 한 줄을 추가하면 됩니다. (테스트 주도 개발)
+#
+# 실행: ../../spine/harness-test.py data-standard
+# =====================================================================
+
+harness: data-standard
+
+cases:
+  # ---- 좋은 입력 → 통과해야 (expect: pass) ----
+  - name: 정상 표준테이블은 이름검사 통과
+    gate: check-naming
+    input: tests/fixtures/good.yaml
+    expect: pass
+  - name: 정상 표준테이블은 메타검사 통과(표준여부·스키마·정의)
+    gate: check-metadata-complete
+    input: tests/fixtures/good.yaml
+    expect: pass
+  - name: 표준테이블 + 정상데이터는 값검사 통과
+    gate: check-data-values
+    inputs: [tests/fixtures/good.yaml, tests/data/sample-good.csv]
+    expect: pass
+  - name: 비표준테이블은 불량데이터여도 값검사 건너뜀(통과)
+    gate: check-data-values
+    inputs: [tests/fixtures/nonstandard.yaml, tests/data/sample-bad.csv]
+    expect: pass
+
+  # ---- 나쁜 입력 → 차단되어야 (expect: fail) ----
+  - name: 명명규칙(T...) 어긴 이름은 막혀야
+    gate: check-naming
+    input: tests/fixtures/bad-naming.yaml
+    expect: fail
+  - name: 표준여부·스키마·정의 빈칸(미정)이면 막혀야
+    gate: check-metadata-complete
+    input: tests/fixtures/bad-tbd.yaml
+    expect: fail
+  - name: 표준테이블 + 불량데이터(13월·식별자0)는 막혀야
+    gate: check-data-values
+    inputs: [tests/fixtures/good.yaml, tests/data/sample-bad.csv]
+    expect: fail

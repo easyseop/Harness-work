@@ -1,0 +1,50 @@
+# 예시: MVP 1순위 하네스 "policy-profile"의 manifest
+# 역할: 기술 요건서를 받아 구현대상/시스템관계/실행환경을 분류하고,
+#       허용 기술스택·반입방식을 고정한다. 가장 먼저 도는 하네스.
+# 규격: 00-spine-and-manifest-spec.md
+
+manifestVersion: "0.1"
+id: policy-profile
+version: "1.0.0"
+title: "은행 정책 프로파일 · 개발 분류 하네스"
+owner: platform-governance-team
+status: draft
+
+hooks:
+  - classify                     # 분류값을 명세에 고정하는 단계
+
+requires: []                     # 가장 앞단이라 의존 없음
+optional:
+  - traceability
+
+inputs:
+  - name: requirements           # 정규화된 기술 요건서
+    from: spine
+    required: true
+
+policy:
+  file: policy.yaml              # 허용 스택/프레임워크/반입방식 deny·allow 목록
+  overridable: true
+
+gates:
+  - id: check-classification-complete   # 3축 분류가 다 채워졌는지
+    phase: classify
+    blocking: true
+    waiverable: false            # 분류 누락은 우회 불가
+    runner: gates/check-classification-complete.sh
+  - id: check-allowed-tech-stack         # 요청 스택이 허용목록 안인지
+    phase: classify
+    blocking: true
+    waiverable: true             # 예외는 승인된 waiver로만
+    runner: gates/check-allowed-tech-stack.sh
+
+evidence:
+  - id: profile                  # 분류·정책 결정을 담은 산출물
+    path: profile.json
+    schema: schemas/profile.schema.json
+    requiredForImport: true
+
+traceability:
+  emits: [requirement, design, evidence]
+
+appliesWhen: []                  # 모든 프로젝트에 항상 적용

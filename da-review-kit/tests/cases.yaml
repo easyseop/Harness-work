@@ -1,0 +1,24 @@
+# =====================================================================
+# 자가진단 케이스 · da-review
+# "표준 지킨 ERD는 통과, 어긴 ERD는 반송" 자동 확인.
+# 실행: ../../spine/harness-test.py da-review
+# =====================================================================
+harness: da-review
+
+cases:
+  - name: 표준 지킨 검토대상은 물리검토 통과
+    gate: check-physical
+    input: input/review-target.good.yaml
+    expect: pass
+  - name: 표준 어긴 검토대상은 물리검토 반송
+    gate: check-physical
+    input: input/review-target.bad.yaml
+    expect: fail
+  - name: 표준 지킨 속성명은 통과
+    gate: check-attribute
+    input: input/review-target.good.yaml
+    expect: pass
+  - name: 비표준 속성명/컬럼-속성 불일치는 반송
+    gate: check-attribute
+    input: input/review-target.bad.yaml
+    expect: fail

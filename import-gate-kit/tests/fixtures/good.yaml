@@ -1,0 +1,42 @@
+# =====================================================================
+# 반입 묶음 명세 예시 · 메신저 연동 모듈
+# =====================================================================
+# 앞 하네스들(policy-profile, internal-solution, config-secret, contract-test)이
+# 만든 증거를 하나로 모아, 반입 직전 마지막 관문에 제출하는 묶음입니다.
+# 실제 HOST·SRV_CODE 값은 여기에도 없습니다 (내부망 주입).
+# =====================================================================
+
+bundle:
+  project: PRJ-2026-014
+  version: "1.0.0"
+  created_on: "2026-06-16"
+
+  items:
+    source: src/
+    lockfile: poetry.lock
+    sbom: sbom.spdx.json
+    contracts: contracts/solution-card.messenger.yaml
+    manifest: manifests/
+    attestation: present
+
+  evidence:
+    - id: profile                 # policy-profile (분류·허용스택)
+      status: passed
+      required: true
+    - id: solution-contract       # internal-solution (계약)
+      status: passed
+      required: true
+    - id: binding                 # config-secret (빈 자리 목록)
+      status: passed
+      required: true
+    - id: contract-test-report    # contract-test (계약 검증)
+      status: passed
+      required: true
+
+  attestation:
+    developer: 개발팀-A            # 만든 사람
+    verifier: 품질검증팀           # 검사한 사람
+    approver: 반입승인책임자        # 승인한 사람 (만든 사람과 다름 ✔)
+
+  # 예외 없음
+  waivers: []

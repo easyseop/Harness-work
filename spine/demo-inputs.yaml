@@ -1,0 +1,48 @@
+# =====================================================================
+# demo-inputs.yaml  ·  Spine 데모 실행용 입력 매핑 (테스트 픽스처)
+# =====================================================================
+# ⚠️ 이것은 "예시 입력" 모음일 뿐 Spine 의 업무 로직이 아닙니다(INV-1 유지).
+#    실제 운영에서는 진짜 프로젝트 산출물 경로를 넣습니다.
+#    경로는 각 하네스 폴더 기준 상대경로이고, 날짜 등은 리터럴로 전달됩니다.
+# =====================================================================
+
+policy-profile:
+  check-classification-complete: ["profile.example.json"]
+  # 데모에서는 채워진 policy.example.yaml 을 써서 통과시킨다.
+  # (실제로는 조직이 policy.yaml 을 채우고 2번째 인자 없이 돌림)
+  check-allowed-tech-stack:      ["profile.example.json", "policy.example.yaml"]
+
+internal-solution:
+  check-no-internal-secrets: ["solution-card.messenger.yaml"]
+  check-contract-complete:   ["solution-card.messenger.yaml"]
+
+data-standard:
+  check-naming:            ["data-contract.example.yaml"]
+  check-metadata-complete: ["data-contract.example.yaml"]
+
+config-secret:
+  check-bindings-complete:   ["binding.messenger.example.yaml"]
+  check-no-hardcoded-values: ["../spine/demo-workspace"]
+
+contract-test:
+  check-contract-coverage: ["test-spec.messenger.example.yaml", "../internal-solution-kit/solution-card.messenger.yaml"]
+
+secure-sdlc:
+  check-secret-scan:    ["scan-report.example.json"]
+  check-vuln-threshold: ["scan-report.example.json"]
+
+oss-runtime-eol:
+  check-license: ["components.messenger.example.yaml"]
+  check-eol:     ["components.messenger.example.yaml", "policy.yaml", "2026-06-16"]
+
+build-provenance:
+  check-provenance-complete: ["provenance.messenger.example.yaml"]
+  check-reproducible:        ["provenance.messenger.example.yaml"]
+
+import-gate:
+  check-bundle-complete:    ["bundle-manifest.messenger.example.yaml"]
+  check-roles-and-waivers:  ["bundle-manifest.messenger.example.yaml", "policy.yaml", "2026-06-16"]
+
+deploy-runbook:
+  check-runbook-complete:      ["runbook.messenger.example.yaml"]
+  check-no-secrets-in-runbook: ["runbook.messenger.example.yaml"]

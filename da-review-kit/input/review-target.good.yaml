@@ -1,0 +1,27 @@
+# =====================================================================
+# INPUT (검토대상) · GOOD  ·  표준 준수 — 전부 통과해야 함
+# 컬럼 = 한글명 + 영문명 + 인포타입(도메인+길이).  '성별' 도메인 공유.
+# =====================================================================
+project: 고객정보_PJT
+tables:
+  - physical_name: TSCUSCA01
+    logical_name: 고객기본
+    columns:
+      - { korean: 고객번호, english: CUST_NO,  infotype: "번호",   typelength: "CHAR(20)",  pk: true,  nullable: false }
+      - { korean: 고객성별, english: CUST_SEX, infotype: "성별1",  typelength: "CHAR(1)",   pk: false, nullable: false }
+      - { korean: 고객명,   english: CUST_NM,  infotype: "명50",   typelength: "CHAR(50)",  pk: false, nullable: false }
+      - { korean: 고객구분, attribute: 고객구분코드, english: CUST_DV_CD, infotype: "구분코드1", typelength: "CHAR(1)", pk: false, nullable: false }   # 컬럼명(축약)≠속성명(풀)
+      - { korean: 시스템최종처리일시,   english: SYS_LST_PRC_DTM, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: false }
+      - { korean: 시스템최종사용자번호, english: SYS_LST_USR_NO,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: false }
+    relationships: []
+
+  - physical_name: TSDPSAA01
+    logical_name: 일별예금잔액
+    columns:
+      - { korean: 기준년월일, english: BASE_YMD, infotype: "년월일8", typelength: "CHAR(8)",      pk: true,  nullable: false }
+      - { korean: 계좌번호,   english: ACCT_NO,  infotype: "번호",    typelength: "CHAR(20)",     pk: true,  nullable: false }
+      - { korean: 잔액금액,   english: BAL_AMT,  infotype: "금액18.3", typelength: "DECIMAL(18,3)", pk: false, nullable: false }
+      - { korean: 직원성별,   english: EMP_SEX,  infotype: "성별1",   typelength: "CHAR(1)",      pk: false, nullable: false }   # 같은 도메인 성별
+      - { korean: 시스템최종처리일시,   english: SYS_LST_PRC_DTM, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: false }
+      - { korean: 시스템최종사용자번호, english: SYS_LST_USR_NO,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: false }
+    relationships: []

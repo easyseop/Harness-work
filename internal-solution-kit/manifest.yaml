@@ -1,0 +1,55 @@
+# 하네스 자기소개 파일 (manifest)  ·  internal-solution
+# 역할: 내부 시스템 연동을 민감정보 없는 약속(계약)과 대역(mock)으로 다루게 한다.
+# 기준: 00-spine-and-manifest-spec.md
+
+manifestVersion: "0.1"
+id: internal-solution
+version: "1.0.0"
+title: "내부 시스템 연동 하네스"
+owner: 내부플랫폼팀
+status: draft
+
+hooks:
+  - classify                 # 어떤 내부 시스템을 쓰는지 식별
+  - build                    # 계약·대역·연결코드 골격 만들기
+  - verify                   # 금지정보·계약 완결성 검사
+  - reproduce                # 내부망 실제 연결 최소 확인(smoke)
+
+requires:
+  - policy-profile           # 분류가 먼저 끝나야 함
+optional:
+  - traceability
+
+inputs:
+  - name: profile            # policy-profile 이 만든 분류 결과
+    from: harness:policy-profile
+    required: true
+
+policy:
+  file: policy.yaml
+  overridable: true
+
+gates:
+  - id: check-no-internal-secrets        # 실제 주소·비밀번호 섞였는지 (가장 중요)
+    phase: verify
+    blocking: true
+    waiverable: false                    # 민감정보 유출은 예외 승인 불가
+    runner: gates/check-no-internal-secrets.sh
+  - id: check-contract-complete          # 카드 빈칸 검사
+    phase: verify
+    blocking: true
+    waiverable: true
+    runner: gates/check-contract-complete.sh
+
+evidence:
+  - id: solution-contract                # 안전하게 정리한 약속(계약)
+    path: solution-card.yaml
+    schema: solution-card.schema.json
+    requiredForImport: true
+
+traceability:
+  emits: [design, evidence]
+
+appliesWhen:                             # 내부 시스템에 의존할 때만 적용
+  - field: 시스템_관계_정보.내부_의존_방식
+    in: [계약만_사용, 내부_어댑터_필요]

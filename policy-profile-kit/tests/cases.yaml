@@ -1,0 +1,18 @@
+harness: policy-profile
+cases:
+  - name: 정상 분류는 완결성 통과
+    gate: check-classification-complete
+    input: tests/fixtures/good.json
+    expect: pass
+  - name: 빈칸(미정) 있으면 막혀야
+    gate: check-classification-complete
+    input: tests/fixtures/bad-incomplete.json
+    expect: fail
+  - name: 허용 스택은 통과
+    gate: check-allowed-tech-stack
+    inputs: [tests/fixtures/good.json, policy.example.yaml]
+    expect: pass
+  - name: 허용목록 밖 스택은 막혀야
+    gate: check-allowed-tech-stack
+    inputs: [tests/fixtures/bad-stack.json, policy.example.yaml]
+    expect: fail

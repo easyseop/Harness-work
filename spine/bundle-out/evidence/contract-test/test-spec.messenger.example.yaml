@@ -1,0 +1,132 @@
+# =====================================================================
+# 계약 테스트 명세 예시 · 사내 쪽지(messenger) send_memo
+# =====================================================================
+# solution-card.messenger.yaml 의 약속을 테스트 케이스로 옮긴 것입니다.
+# 모든 오류코드(0·32~38·48·64)와 정상·필수누락 경로를 덮습니다.
+# 입력값은 전부 가짜(z로 시작하는 더미 직원번호)입니다.
+# =====================================================================
+
+test_spec:
+  for_solution: messenger
+  capability: send_memo
+  owner_role: 내부플랫폼팀
+
+  cases:
+    # ---- 정상 경로 ----
+    - id: happy-1
+      type: happy
+      given:
+        SRV_CODE: ZTEST1
+        RECIPIENT: z000001
+        SEND: z000002
+        TITLE: 테스트 제목
+        BODY: 테스트 내용
+      expect:
+        result_code: "0"
+      note: 정상 발송 (OK)
+
+    # ---- 필수 누락 ----
+    - id: missing-srv-code
+      type: missing-field
+      given:
+        RECIPIENT: z000001
+        SEND: z000002
+        TITLE: 제목
+        BODY: 내용
+      expect:
+        result_code: "33"
+      note: SRV_CODE 누락 → SRV_CODE_EMPTY_ERR
+
+    - id: missing-recipient
+      type: missing-field
+      given:
+        SRV_CODE: ZTEST1
+        SEND: z000002
+        TITLE: 제목
+        BODY: 내용
+      expect:
+        result_code: "34"
+      note: RECIPIENT 누락 → RECIPIENT_EMPTY_ERR
+
+    - id: missing-send
+      type: missing-field
+      given:
+        SRV_CODE: ZTEST1
+        RECIPIENT: z000001
+        TITLE: 제목
+        BODY: 내용
+      expect:
+        result_code: "35"
+      note: SEND 누락 → SEND_EMPTY_ERR
+
+    - id: missing-title
+      type: missing-field
+      given:
+        SRV_CODE: ZTEST1
+        RECIPIENT: z000001
+        SEND: z000002
+        BODY: 내용
+      expect:
+        result_code: "36"
+      note: TITLE 누락 → TITLE_EMPTY_ERR
+
+    - id: missing-body
+      type: missing-field
+      given:
+        SRV_CODE: ZTEST1
+        RECIPIENT: z000001
+        SEND: z000002
+        TITLE: 제목
+      expect:
+        result_code: "37"
+      note: BODY 누락 → BODY_EMPTY_ERR
+
+    # ---- 오류 경로 ----
+    - id: wrong-param
+      type: error
+      given:
+        SRV_CODE: ZTEST1
+        RECIPIENT: z000001
+        SEND: z000002
+        TITLE: 제목
+        BODY: "x"
+        # 일부러 길이 초과 등 형식 위반을 대역이 거절하도록
+      expect:
+        result_code: "32"
+      note: 파라미터 형식 오류 → WRONG_PARAM_ERR
+
+    - id: system-not-found
+      type: error
+      given:
+        SRV_CODE: ZNONE9
+        RECIPIENT: z000001
+        SEND: z000002
+        TITLE: 제목
+        BODY: 내용
+      expect:
+        result_code: "38"
+      note: 미등록 SRV_CODE → SYSTEM_NOT_FOUND_ERR
+
+    - id: send-ip-unregistered
+      type: error
+      given:
+        SRV_CODE: ZTEST1
+        RECIPIENT: z000001
+        SEND: z000002
+        TITLE: 제목
+        BODY: 내용
+      expect:
+        result_code: "48"
+      note: 발신 서버 IP 미등록 → SEND_IP_UNREGIST_ERR
+
+    - id: etc-error
+      type: error
+      given:
+        SRV_CODE: ZTEST1
+        RECIPIENT: z000001
+        SEND: z000002
+        TITLE: 제목
+        BODY: 내용
+      expect:
+        result_code: "64"
+      note: 기타 오류 → ETC_ERR (재시도 대상)

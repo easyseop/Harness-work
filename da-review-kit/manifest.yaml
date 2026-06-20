@@ -1,0 +1,51 @@
+# 하네스 자기소개 파일 (manifest)  ·  da-review
+# 역할: 프로젝트 착수 전, 표준 DB(테이블)에 대해 DA검토(물리)를 수행한다.
+#       INPUT(검토대상 ERD/테이블) 을 META(표준) 에 대조해 표준 위반을 잡는다.
+# 기준: 00-spine-and-manifest-spec.md
+
+manifestVersion: "0.1"
+id: da-review
+version: "0.1.0"
+title: "DA 검토 하네스 (물리)"
+owner: 데이터아키텍처팀
+status: draft
+
+hooks:
+  - classify                 # 프로젝트 착수 전(설계 초기) 표준 검토
+
+requires: []
+optional:
+  - policy-profile           # 있으면 분류·정책 연동, 없어도 단독 동작
+
+inputs:
+  - name: review-target      # 검토대상 DB(테이블) 정보 (ERD 추출본)
+    from: spine
+    required: true
+
+policy:
+  file: policy.yaml
+  overridable: true
+
+gates:
+  - id: check-physical
+    phase: classify
+    blocking: true
+    waiverable: true
+    runner: gates/check-physical.sh
+  - id: check-attribute
+    phase: classify
+    blocking: true
+    waiverable: true
+    runner: gates/check-attribute.sh
+
+evidence:
+  - id: da-review-result
+    path: da-review-result.yaml
+    requiredForImport: true
+
+traceability:
+  emits: [design, evidence]
+
+appliesWhen:                 # 표준 DB 설계가 있는 프로젝트에만
+  - field: 구현_대상_정보.업무_유형
+    in: [배치, 데이터플랫폼, API_서비스]

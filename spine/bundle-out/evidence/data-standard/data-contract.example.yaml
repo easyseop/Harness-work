@@ -1,0 +1,32 @@
+# =====================================================================
+# 예시  ·  일별 예금 잔액 집계 테이블 (가짜 표준 예시, 실제 데이터 없음)
+# =====================================================================
+
+dataset:
+  name: deposit_balance_daily
+  type: table
+  owner_role: 데이터플랫폼팀
+  classification: 내부
+  retention_days: 1825
+  description: 일별 예금 잔액 집계
+
+columns:
+  - name: stat_date
+    type: date
+    standard_term: 기준일자
+    nullable: false
+    description: 집계 기준 날짜
+  - name: account_id
+    type: string
+    standard_term: 계좌식별자
+    nullable: false
+    description: 계좌 식별값(가명 처리)
+  - name: balance_amt
+    type: decimal
+    standard_term: 잔액
+    nullable: false
+    description: 해당 일자 잔액 합계
+
+lineage:
+  inputs: [core_account, txn_daily]
+  outputs: [mart_deposit_report]

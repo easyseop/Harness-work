@@ -1,0 +1,14 @@
+# 나쁜 예시 — 명명규칙 위반 (check-naming 이 막아야 함)
+# 이름이 T+시스템+앱코드+식별부+일련 형식이 아님
+dataset:
+  name: deposit_balance_daily   # ❌ 명명규칙(T...) 위반
+  type: table
+  standard: true
+  schema: DW_DEPOSIT
+  description: 일별 예금 잔액 집계
+
+columns:
+  - name: BASE_YMD
+    type: date8
+    nullable: false
+    description: 집계 기준일자

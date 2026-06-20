@@ -1,0 +1,52 @@
+# 하네스 자기소개 파일 (manifest)  ·  oss-runtime-eol
+# 역할: 쓰는 오픈소스의 라이선스가 허용 범위인지, 런타임/라이브러리가
+#       수명종료(EOL)되었거나 임박했는지 검사한다.
+# 기준: 00-spine-and-manifest-spec.md
+
+manifestVersion: "0.1"
+id: oss-runtime-eol
+version: "1.0.0"
+title: "오픈소스·수명 관리 하네스"
+owner: platform-governance-team
+status: draft
+
+hooks:
+  - classify                 # 쓰는 구성요소·런타임 식별
+  - verify                   # 라이선스·EOL 검사
+
+requires:
+  - policy-profile
+optional:
+  - traceability
+
+inputs:
+  - name: components         # 구성요소 목록(SBOM 등)
+    from: spine
+    required: true
+
+policy:
+  file: policy.yaml
+  overridable: false
+
+gates:
+  - id: check-license
+    phase: verify
+    blocking: true
+    waiverable: true         # 라이선스 예외는 만료 있는 waiver 로만
+    runner: gates/check-license.sh
+  - id: check-eol
+    phase: verify
+    blocking: true
+    waiverable: true
+    runner: gates/check-eol.sh
+
+evidence:
+  - id: oss-report
+    path: components.yaml
+    schema: components.schema.json
+    requiredForImport: true
+
+traceability:
+  emits: [evidence]
+
+appliesWhen: []              # 외부 구성요소를 쓰는 모든 작업에 적용

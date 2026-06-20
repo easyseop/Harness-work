@@ -1,0 +1,44 @@
+trace:
+  requirement: PRJ-2026-014
+  links:
+  - harness: policy-profile
+    emits:
+    - requirement
+    - design
+    - evidence
+    evidence: evidence/policy-profile/profile.example.json
+  - harness: internal-solution
+    emits:
+    - design
+    - evidence
+    evidence: evidence/internal-solution/solution-card.messenger.yaml
+  - harness: config-secret
+    emits:
+    - design
+    - evidence
+    evidence: evidence/config-secret/binding.messenger.example.yaml
+  - harness: data-standard
+    emits:
+    - design
+    - evidence
+    evidence: evidence/data-standard/data-contract.example.yaml
+  - harness: secure-sdlc
+    emits:
+    - evidence
+    evidence: evidence/secure-sdlc/scan-report.example.json
+  - harness: oss-runtime-eol
+    emits:
+    - evidence
+    evidence: evidence/oss-runtime-eol/components.messenger.example.yaml
+  - harness: contract-test
+    emits:
+    - evidence
+    evidence: evidence/contract-test/test-spec.messenger.example.yaml
+  - harness: build-provenance
+    emits:
+    - evidence
+    evidence: evidence/build-provenance/provenance.messenger.example.yaml
+  - harness: deploy-runbook
+    emits:
+    - evidence
+    evidence: evidence/deploy-runbook/runbook.messenger.example.yaml

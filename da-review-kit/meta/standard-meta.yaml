@@ -1,0 +1,101 @@
+# =====================================================================
+# META(표준) 목데이터 · DA 물리검토 기준 (가짜 표준 — 실데이터 아님)
+# 실제 메타시스템 구조에 맞춤: 컬럼한글명 / 속성명 / 도메인 / 인포타입 / 타입길이 / NULL / 표준화적용여부
+#
+# [개념]  도메인 = 재사용 의미단위(성별·년월일·금액…)  ·  인포타입 = 도메인+길이(년월일8)
+#         컬럼 = [수식어]+[도메인 끝말]  ·  컬럼은 반드시 도메인(인포타입)으로 끝남
+# =====================================================================
+
+# ---- 테이블 명명규칙 ----
+naming:
+  table:
+    pattern: "^T[HS][A-Z]{3}[A-Z]{2}[0-9]{2}$"   # T+시스템(H/S)+앱(3)+소그룹(2)+일련(2)
+    system_codes: { H: Host DB2, S: Server }
+  valid_app_codes: { DPS: 수신/예금, LON: 여신/대출, CUS: 고객, ACC: 회계, CRD: 카드 }
+  valid_subgroup_codes: { AA: 잔액, AB: 거래내역, BA: 계좌, CA: 고객기본, CB: 고객부가 }
+
+# ---- 컬럼 명명규칙 ----
+column:
+  require_korean: true
+  require_english: true
+  require_infotype: true
+  must_end_with_domain: true       # 컬럼은 인포타입(도메인)으로 끝나야 함 (PPTX)
+  forbid_trailing_digit: true      # 한글·영문 끝자리 숫자 금지
+  korean_max_chars_server: 15      # Server 한글 최대 15자 (Host 10자) / 30byte
+
+# ---- 수식어 표준단어 (한글 → 영문약어) ----
+standard_words:
+  # 주체/조직
+  고객: CUST
+  직원: EMP
+  지점: BR
+  부점: BR
+  회사: CORP
+  그룹: GRP
+  은행: BANK
+  # 업무
+  계좌: ACCT
+  예금: DPST
+  대출: LOAN
+  상품: PRD
+  거래: TRD
+  신용: CRDT
+  잔액: BAL
+  # 한정/상태
+  기준: BASE
+  적용: APLY
+  시작: BGN
+  종료: END
+  등록: REG
+  변경: CHG
+  한글: KOR
+  영문: ENG
+  # 시스템 공통
+  시스템: SYS
+  최종: LST
+  처리: PRC
+  사용자: USR
+
+# ---- 도메인 사전 (= 재사용 단위). 도메인그룹 9개 기반. 인포타입 = 도메인+길이 ----
+# ⚠ 영문약어는 YAML 불리언 오해 방지를 위해 모두 따옴표 처리
+domains:
+  # [코드 그룹]
+  코드:     { group: 코드, abbr: "CD",    dtype: CHAR, lengths: ["1","2","3","4"], is_code: true }
+  구분코드: { group: 코드, abbr: "DV_CD", dtype: CHAR, lengths: ["1","2","3"],     is_code: true }
+  여부:     { group: 코드, abbr: "YN",    dtype: CHAR, lengths: ["1"], is_code: true, valid_values: [0,1] }
+  성별:     { group: 코드, abbr: "SEX",   dtype: CHAR, lengths: ["1"], is_code: true, valid_values: [1,2] }
+  등급:     { group: 코드, abbr: "GRD",   dtype: CHAR, lengths: ["1","2"], is_code: true }
+  # [명/내용 그룹]  (Host DDL +2byte 대상)
+  명:       { group: 명,   abbr: "NM",    dtype: CHAR, lengths: ["50","100","200"], host_plus2: true }
+  내용:     { group: 내용, abbr: "CTNT",  dtype: CHAR, lengths: ["100","500"],      host_plus2: true }
+  주소:     { group: 내용, abbr: "ADDR",  dtype: CHAR, lengths: ["100","200","250"] }
+  우편번호: { group: 번호, abbr: "ZIP",   dtype: CHAR, lengths: ["5","6"] }
+  # [시간 그룹]
+  년월일:   { group: 시간, abbr: "YMD",   dtype: CHAR, lengths: ["8"] }
+  일시:     { group: 시간, abbr: "DTM",   dtype: CHAR, lengths: ["14","20"] }
+  시각:     { group: 시간, abbr: "HMS",   dtype: CHAR, lengths: ["6"] }
+  # [금액 그룹]  (복수 인포타입 허용)
+  금액:     { group: 금액, abbr: "AMT",   dtype: DECIMAL, lengths: ["15","18.3"] }
+  단가:     { group: 금액, abbr: "UPRC",  dtype: DECIMAL, lengths: ["15","18.3"] }
+  이자:     { group: 금액, abbr: "INT",   dtype: DECIMAL, lengths: ["15","18.3"] }
+  # [번호 그룹]
+  번호:     { group: 번호, abbr: "NO",    dtype: CHAR, lengths: [] }
+  식별자:   { group: 번호, abbr: "ID",    dtype: CHAR, lengths: [] }
+  일련번호: { group: 번호, abbr: "SEQ",   dtype: "DECIMAL", lengths: [] }
+  전화번호: { group: 번호, abbr: "TELNO", dtype: CHAR, lengths: ["16"] }
+  # [률 그룹]
+  률:       { group: 률,   abbr: "RT",    dtype: DECIMAL, lengths: ["5.2","9.4"] }
+  환율:     { group: 률,   abbr: "EXRT",  dtype: DECIMAL, lengths: ["9.4","15.8"] }
+  # [수량 그룹]
+  수량:     { group: 수량, abbr: "QTY",   dtype: DECIMAL, lengths: ["18.5","21.5"] }
+  건수:     { group: 수량, abbr: "CNT",   dtype: DECIMAL, lengths: [] }
+  # [차순 그룹]
+  순번:     { group: 차순, abbr: "SQNO",  dtype: DECIMAL, lengths: [] }
+
+# 인포타입 외 허용 끝말 (PPTX 예외): 구분 → 구분코드 도메인으로 간주
+# (등급은 자체 도메인으로 등록돼 있으므로 예외에 두지 않음)
+end_word_exceptions: { 구분: 구분코드 }
+
+pk: { require: true }
+audit_columns: { recommended: [SYS_LST_PRC_DTM, SYS_LST_USR_NO] }
+relationship: { forbid_mn_direct: true }

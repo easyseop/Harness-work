@@ -1,0 +1,18 @@
+harness: import-gate
+cases:
+  - name: 완전한 번들은 통과
+    gate: check-bundle-complete
+    input: tests/fixtures/good.yaml
+    expect: pass
+  - name: 필수 증거 미통과면 막혀야
+    gate: check-bundle-complete
+    input: tests/fixtures/bad-evidence.yaml
+    expect: fail
+  - name: 역할 분리 정상이면 통과
+    gate: check-roles-and-waivers
+    input: tests/fixtures/good.yaml
+    expect: pass
+  - name: 만든사람=승인자면 막혀야
+    gate: check-roles-and-waivers
+    input: tests/fixtures/bad-roles.yaml
+    expect: fail

@@ -1,0 +1,54 @@
+# 하네스 자기소개 파일 (manifest)  ·  deploy-runbook
+# 역할: 내부망 배포 절차를 안내서(runbook)로 표준화한다. 사전점검·배포·검증·롤백·
+#       비상연락 단계가 빠짐없이 있고, 민감정보가 섞이지 않았는지 검사한다.
+# 기준: 00-spine-and-manifest-spec.md
+
+manifestVersion: "0.1"
+id: deploy-runbook
+version: "1.0.0"
+title: "배포 안내서 하네스"
+owner: 운영팀
+status: draft
+
+hooks:
+  - reproduce                # 내부망 배포·검증 절차 단계
+
+requires:
+  - policy-profile
+  - import-gate              # 반입 통과 후에 배포
+optional:
+  - traceability
+
+inputs:
+  - name: runbook
+    from: spine
+    required: true
+
+policy:
+  file: policy.yaml
+  overridable: false
+
+gates:
+  - id: check-runbook-complete
+    phase: reproduce
+    blocking: true
+    waiverable: true
+    runner: gates/check-runbook-complete.sh
+  - id: check-no-secrets-in-runbook
+    phase: reproduce
+    blocking: true
+    waiverable: false        # 안내서에 비밀값 섞임은 우회 불가
+    runner: gates/check-no-secrets-in-runbook.sh
+
+evidence:
+  - id: runbook
+    path: runbook.yaml
+    schema: runbook.schema.json
+    requiredForImport: false   # 배포 단계 산출물 (반입 묶음 필수는 아님)
+
+traceability:
+  emits: [evidence]
+
+appliesWhen:                  # 내부망에 배포가 필요한 경우
+  - field: 실행_환경_정보.배포_필요
+    in: [예, true]

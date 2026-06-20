@@ -1,0 +1,10 @@
+harness: contract-test
+cases:
+  - name: 모든 오류코드 덮으면 통과
+    gate: check-contract-coverage
+    inputs: [tests/fixtures/good.yaml, ../internal-solution-kit/solution-card.messenger.yaml]
+    expect: pass
+  - name: 오류코드 빠지면 막혀야
+    gate: check-contract-coverage
+    inputs: [tests/fixtures/bad-coverage.yaml, ../internal-solution-kit/solution-card.messenger.yaml]
+    expect: fail

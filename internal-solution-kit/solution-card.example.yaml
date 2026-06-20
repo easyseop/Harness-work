@@ -1,0 +1,66 @@
+# =====================================================================
+# 예시 카드  ·  사내 쪽지 시스템 (안전하게 정리한 버전)
+# =====================================================================
+# 이 예시에는 실제 서버 주소·서비스 경로·접속코드가 하나도 없습니다.
+# "외부망 개발자가 코드를 짜는 데 필요한 약속"만 담겨 있습니다.
+# ---------------------------------------------------------------------
+
+solution:
+  alias: messenger
+  category: communication
+  owner_role: 내부플랫폼팀
+  description: 사내 직원에게 쪽지 알림을 보낸다
+
+capabilities:
+  - name: send_direct_message
+    input:
+      - field: recipientId
+        type: string
+        description: 받는 사람 식별값(가명). 여러 명이면 목록으로 전달
+      - field: title
+        type: string
+        description: 제목 (최대 100자)
+      - field: body
+        type: string
+        description: 내용 (최대 2000자)
+      - field: correlationId
+        type: string
+        description: 추적용 식별값 (감사 로그 연결용)
+    output:
+      - field: messageId
+        type: string
+        description: 보낸 쪽지의 식별값
+      - field: status
+        type: string
+        description: 결과 (accepted 또는 rejected)
+    errors:
+      - code: RECIPIENT_NOT_FOUND
+        meaning: 받는 사람을 찾을 수 없음
+      - code: MESSAGE_TOO_LARGE
+        meaning: 내용이 허용 길이를 넘음
+      - code: RATE_LIMITED
+        meaning: 너무 자주 보내 잠시 제한됨
+      - code: TEMPORARILY_UNAVAILABLE
+        meaning: 일시적으로 보낼 수 없음
+    nonfunctional:
+      timeout_ms: 3000
+      retry_max: 2
+
+security:
+  forbidden_in_external_zone:
+    - real_endpoint
+    - secret
+    - real_user_id
+  data_classification: no-customer-data
+
+mode:
+  internal_connection_type: api
+  external_development_mode: mock-only
+  internal_adapter_required: true
+
+verification:
+  external_tests:
+    - contract-test
+    - mock-fixture-test
+  internal_tests:
+    - adapter-smoke-test

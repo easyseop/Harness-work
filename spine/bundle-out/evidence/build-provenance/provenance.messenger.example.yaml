@@ -1,0 +1,22 @@
+# =====================================================================
+# 빌드 출처 예시 · 메신저 연동 모듈
+# =====================================================================
+# 외부망 빌드 결과 해시와 내부망 재빌드 해시가 같아 재현성이 확인된 예시입니다.
+# (해시값은 예시용 더미입니다)
+# =====================================================================
+
+provenance:
+  project: PRJ-2026-014
+  source_ref: v1.0.0
+  built_by: CI-빌드시스템
+  built_on: "2026-06-16T10:00:00Z"
+  inputs_hash: "sha256:1111aaaa2222bbbb3333cccc4444dddd5555eeee6666ffff7777000088889999"
+  output_hash: "sha256:abcd0001abcd0002abcd0003abcd0004abcd0005abcd0006abcd0007abcd0008"
+
+  artifacts:
+    lockfile: poetry.lock
+    sbom: sbom.spdx.json
+
+  reproduce:
+    # 내부망에서 같은 입력으로 다시 빌드 → 같은 결과 해시
+    rebuilt_output_hash: "sha256:abcd0001abcd0002abcd0003abcd0004abcd0005abcd0006abcd0007abcd0008"

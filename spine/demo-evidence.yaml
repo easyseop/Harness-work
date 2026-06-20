@@ -1,0 +1,18 @@
+# =====================================================================
+# demo-evidence.yaml  ·  번들 조립 데모용 — 하네스별 아티팩트 매핑
+# =====================================================================
+# 각 하네스가 번들(반입 묶음)에 기여하는 산출물(아티팩트)의 예시 파일입니다.
+# 실제 운영에선 빌드·검사 단계가 만든 진짜 산출물을 가리킵니다.
+# (Spine 은 이 매핑을 '읽기만' 합니다 — 업무 로직 아님, INV-1 유지)
+# 경로는 각 하네스 폴더 기준.
+# =====================================================================
+
+policy-profile:    profile.example.json
+internal-solution: solution-card.messenger.yaml
+config-secret:     binding.messenger.example.yaml
+data-standard:     data-contract.example.yaml
+secure-sdlc:       scan-report.example.json
+oss-runtime-eol:   components.messenger.example.yaml
+contract-test:     test-spec.messenger.example.yaml
+build-provenance:  provenance.messenger.example.yaml
+deploy-runbook:    runbook.messenger.example.yaml

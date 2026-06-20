@@ -1,0 +1,28 @@
+# =====================================================================
+# contract-test 정책 파일 (policy.yaml)
+# =====================================================================
+# 코드가 계약(솔루션 카드)을 "얼마나 지켜야 통과"인지 규칙을 정합니다.
+# 🟡 표시는 조직 규칙에 맞게 조정하세요.
+# =====================================================================
+
+policy_version: "0.1"
+
+coverage:
+  # 카드의 모든 기능(capability)에 테스트가 있어야 하는가
+  require_all_capabilities: true
+
+  # 카드의 모든 오류코드(errors)마다 테스트가 있어야 하는가
+  require_all_error_codes: true
+
+  # 정상(성공) 경로 테스트가 최소 1개는 있어야 하는가
+  require_happy_path: true
+
+  # 필수 입력 누락 시 거절되는지 확인하는 테스트가 필요한가
+  require_missing_required_field_test: true
+
+rules:
+  # 외부망 테스트는 대역(Mock)으로만. 실제 내부 시스템 호출 금지.
+  external_tests_must_use_mock: true
+
+  # 테스트 데이터에 실제 민감정보(직원번호·고객정보 등) 사용 금지
+  forbid_real_data_in_fixtures: true

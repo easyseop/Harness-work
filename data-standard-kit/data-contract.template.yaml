@@ -1,0 +1,29 @@
+# =====================================================================
+# 데이터 계약 양식  ·  새 테이블/데이터셋/파이프라인 1개 = 1장
+# =====================================================================
+# 🟡 새로 만드는 데이터의 "표준 정보"를 적습니다.
+#    이름·메타데이터·컬럼·흐름(lineage)을 개발 전/중에 미리 못 박아,
+#    나중에 표준이 흔들려 다시 고치는 일을 막습니다.
+#    "미정/TBD" 를 실제 계약에 남기지 마세요.
+# ---------------------------------------------------------------------
+
+dataset:
+  name: TBD                  # 표준 이름 (이름 규칙 검사를 통과해야 함). 예: deposit_balance_daily
+  type: TBD                  # 종류: table / dataset / pipeline
+  owner_role: TBD            # 데이터 책임 역할. 예: 데이터플랫폼팀  (사람 이름 X)
+  classification: TBD        # 등급: 공개 / 내부 / 민감 / 극비
+  retention_days: TBD        # 보관 기간(일). 예: 1825 (5년)
+  description: TBD           # 한 줄 설명. 예: 일별 예금 잔액 집계
+
+# 컬럼 목록 (table/dataset 일 때)
+columns:
+  - name: TBD               # 컬럼의 기술 이름(영문 스네이크). 예: account_id
+    type: TBD               # 자료형. 예: string / number / date / decimal
+    standard_term: TBD      # 연결되는 표준 용어(한글 가능). 예: 계좌식별자
+    nullable: TBD           # 빈 값 허용 여부: true / false
+    description: TBD        # 설명
+
+# 데이터가 어디서 와서 어디로 가나 (흐름)
+lineage:
+  inputs: []                # 입력 출처 이름들. 예: [core_account, txn_daily]
+  outputs: []               # 이 데이터를 쓰는 곳. 예: [mart_deposit_report]

@@ -1,0 +1,44 @@
+# =====================================================================
+# policy.example.yaml  ·  policy-profile 채워진 예시 (데모용)
+# =====================================================================
+# policy.yaml(양식)은 TBD 그대로 두고, 이 파일은 "이렇게 채우면 통과한다"는
+# 예시입니다. profile.example.json 의 스택과 짝이 맞습니다.
+# 실제로는 조직 담당자가 policy.yaml 을 직접 채웁니다.
+# =====================================================================
+
+policy_version: "0.1"
+
+allowed_tech_stack:
+  languages:
+    - java-21
+    - python-3.11
+  frameworks:
+    - n-framework            # 행내 코어뱅킹 프레임워크
+    - spring-boot-3
+  deploy_units:
+    - jar
+    - 컨테이너
+  deploy_envs:
+    - 배치_스케줄러
+    - 온프레미스
+    - kubernetes
+
+allowed_import_methods:
+  - 소스반입
+  - artifact반입
+  - 이미지반입
+
+licenses:
+  allowed:
+    - Apache-2.0
+    - MIT
+    - BSD-3-Clause
+  denied:
+    - AGPL-3.0
+
+vulnerabilities:
+  max_allowed_severity: medium
+
+approval_roles:
+  import_approver: 보안검토위원회
+  deploy_approver: 변경관리팀

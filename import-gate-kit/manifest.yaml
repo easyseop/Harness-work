@@ -1,0 +1,56 @@
+# 하네스 자기소개 파일 (manifest)  ·  import-gate
+# 역할: 반입(외부망→내부망) 직전 마지막 관문. 반입 묶음에 필요한 게 다 모였는지,
+#       역할 분리(만든 사람 ≠ 승인한 사람)가 지켜졌는지, 예외 승인이 만료되지 않았는지 검사한다.
+# 기준: 00-spine-and-manifest-spec.md  (INV-4 모든 증거는 반입 묶음으로 모인다,
+#       INV-6 조용한 우회 금지, INV-7 역할 분리)
+
+manifestVersion: "0.1"
+id: import-gate
+version: "1.0.0"
+title: "반입 관문 하네스"
+owner: platform-governance-team
+status: draft
+
+hooks:
+  - import                   # 반입 직전에만 도는 마지막 관문
+
+requires:
+  - policy-profile
+  - internal-solution
+  - config-secret
+  - contract-test
+optional:
+  - data-standard
+  - traceability
+
+inputs:
+  - name: all-evidence       # 앞 하네스들이 만든 증거 전부
+    from: spine
+    required: true
+
+policy:
+  file: policy.yaml
+  overridable: false         # 반입 규칙은 프로젝트가 임의로 못 바꿈
+
+gates:
+  - id: check-bundle-complete
+    phase: import
+    blocking: true
+    waiverable: false        # 묶음 누락은 우회 불가
+    runner: gates/check-bundle-complete.sh
+  - id: check-roles-and-waivers
+    phase: import
+    blocking: true
+    waiverable: false        # 역할 분리·예외 만료는 우회 불가
+    runner: gates/check-roles-and-waivers.sh
+
+evidence:
+  - id: import-attestation
+    path: bundle-manifest.yaml
+    schema: bundle-manifest.schema.json
+    requiredForImport: true
+
+traceability:
+  emits: [evidence]
+
+appliesWhen: []              # 모든 반입에 항상 적용 (마지막 관문)

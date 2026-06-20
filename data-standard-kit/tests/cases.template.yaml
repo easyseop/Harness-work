@@ -1,0 +1,23 @@
+# =====================================================================
+# 자가진단 케이스 목록 (cases) — 양식
+# =====================================================================
+# 내가 담당한 하네스가 "좋은 입력은 통과, 나쁜 입력은 차단" 하는지 적는 표입니다.
+# 1) tests/fixtures/ 에 좋은 예시 1개 + 나쁜 예시 여러 개를 만든다.
+# 2) 여기에 케이스를 한 줄씩 적는다.
+# 3) 실행:  ../../spine/harness-test.py <내하네스id>
+# =====================================================================
+
+harness: 미정                  # 내 하네스 id (manifest 의 id 와 동일). 예: data-standard
+
+cases:
+  # 좋은 입력 → 통과해야 (expect: pass)
+  - name: 정상 입력은 통과
+    gate: 미정                 # manifest 의 게이트 id. 예: check-naming
+    input: tests/fixtures/good.yaml
+    expect: pass
+
+  # 나쁜 입력 → 차단되어야 (expect: fail)
+  - name: 규칙 위반은 막혀야
+    gate: 미정
+    input: tests/fixtures/bad-something.yaml
+    expect: fail

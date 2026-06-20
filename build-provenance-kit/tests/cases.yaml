@@ -1,0 +1,14 @@
+harness: build-provenance
+cases:
+  - name: 완전한 출처는 통과
+    gate: check-provenance-complete
+    input: tests/fixtures/good.yaml
+    expect: pass
+  - name: SBOM 빠지면 막혀야
+    gate: check-provenance-complete
+    input: tests/fixtures/bad-nosbom.yaml
+    expect: fail
+  - name: 재빌드 해시 일치하면 통과
+    gate: check-reproducible
+    input: tests/fixtures/good.yaml
+    expect: pass
