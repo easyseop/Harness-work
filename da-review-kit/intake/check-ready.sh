@@ -55,7 +55,11 @@ if ask:
 
 print("\n== 결론 ==")
 if shortage:
-    print("❌ 보완 필요 — 위 정보를 채운 뒤 게이트 실행")
+    print("❌ 부족한 정보가 있습니다. 다음 중 선택하세요:")
+    print("  [1] 부족 정보를 채워서 다시 검토   (권장)")
+    print("  [2] 부족한 채로 게이트 실행        (부족분도 반송사유 category=missing 으로 표시)")
+    print("  [3] 해당 테이블/컬럼을 비표준으로 제외하고 진행")
+    print("  [4] 중단")
     sys.exit(1)
 print("✅ 준비 완료 — gates/check-physical.sh 등 실행 가능"
       + ("  (표준여부 미명시 항목은 기본값으로 진행)" if ask else ""))

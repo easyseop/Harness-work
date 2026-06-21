@@ -24,12 +24,14 @@
 - **자유 형식** → 에이전트가 CONVERT-GUIDE 매핑대로 스키마 형식으로 변환(없는 값은 빈칸, standard 판단 금지). 핵심: 인포타입은 "도메인+길이"(예: 년월일8).
 - 인스턴스코드 정의서면 `schemas/instance-code.schema.json` 형식으로.
 
-### 4) 부족 정보 점검
-- **방법 A(권장·단순)**: 곧장 게이트 실행 후, 결과 findings의 **`category`** 로 구분
-  - `category: "missing"` (인포타입 미기재·누락 등) → **사용자에게 질문**해 보완
-  - `category: "violation"` (표준 위반) → 6)에서 반송사유로 보고
-- **방법 B(사전)**: `bash intake/check-ready.sh input.yaml` 로 먼저 부족 점검 후 질문 → 채워지면 게이트.
-- (게이트가 부족 정보도 잡으므로 check-ready는 선택. 부족(missing)은 묻고, 위반(violation)은 보고.)
+### 4) 사전점검 (게이트 전) — `check-ready` 먼저 실행
+- 실행: `bash intake/check-ready.sh input.yaml`
+- **부족 정보가 있으면(❌)** → 부족 항목을 사용자에게 보여주고 **선택지를 제시**한다(AskUserQuestion):
+  - **[1] 부족 정보 채우기**(권장) → 빠진 항목을 질문해 채운 뒤 **다시 check-ready**
+  - **[2] 부족한 채로 게이트 실행** → 5)로 진행 (부족분은 `category=missing` 반송사유로 함께 보고)
+  - **[3] 해당 테이블/컬럼 비표준 제외** → 그 테이블 `standard: false` 처리 후 진행
+  - **[4] 중단** → 종료
+- **준비 완료(✅)** 면 5)로.
 
 ### 5) 게이트 실행 (결정적 검사)
 - DB설계서: `bash gates/check-physical.sh input.yaml` + `bash gates/check-attribute.sh input.yaml`
