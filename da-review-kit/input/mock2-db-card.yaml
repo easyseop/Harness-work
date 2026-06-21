@@ -1,0 +1,13 @@
+# [목2] DB설계서 · 카드 상품 · 정상(통과 기대)
+project: MOCK2_카드
+tables:
+  - physical_name: TSCRDBB01
+    logical_name: 카드상품
+    columns:
+      - { korean: 카드번호,     english: CARD_NO,      infotype: "번호",   typelength: "CHAR(20)",      pk: true,  nullable: false }
+      - { korean: 카드상품코드, english: CARD_PRD_CD,  infotype: "코드3",  typelength: "CHAR(3)",       pk: false, nullable: false }
+      - { korean: 승인금액,     english: APRV_AMT,     infotype: "금액15", typelength: "DECIMAL(15,0)", pk: false, nullable: false }
+      - { korean: 발급년월일,   english: ISSU_YMD,     infotype: "년월일8", typelength: "CHAR(8)",      pk: false, nullable: false }
+      - { korean: 시스템최종처리일시,   english: SYS_LST_PRC_DTM, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: false }
+      - { korean: 시스템최종사용자번호, english: SYS_LST_USR_NO,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: false }
+    relationships: []

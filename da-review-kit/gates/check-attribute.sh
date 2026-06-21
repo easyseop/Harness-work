@@ -65,11 +65,14 @@ for t in inp.get("tables", []):
                     errors.append(f"{tag} 컬럼 '{kr}' 수식어 {extra} 가 속성 '{attr}' 에 없음")
 
 import os, json, datetime
+def _finding(sev, msg):                          # 반송사유 틀: 대상(scope)+권고(suggestion)
+    scope = msg[1:msg.index("]")] if msg.startswith("[") and "]" in msg else None
+    return {"severity": sev, "scope": scope, "message": msg, "suggestion": ""}
 result = {
     "harness": "da-review", "gate": "check-attribute", "target": sys.argv[1],
     "project": inp.get("project"), "status": "failed" if errors else "passed",
     "summary": {"errors": len(errors), "warnings": 0},
-    "findings": [{"severity": "error", "message": e} for e in errors],
+    "findings": [_finding("error", e) for e in errors],
     "generated_at": datetime.datetime.now().isoformat(timespec="seconds"),
 }
 if os.environ.get("DA_OUT"):

@@ -1,0 +1,13 @@
+# [목1] DB설계서 · 예금 잔액 · 정상(통과 기대)
+project: MOCK1_예금
+tables:
+  - physical_name: TSDPSAA01
+    logical_name: 일별예금잔액
+    columns:
+      - { korean: 기준년월일,   english: BASE_YMD,     infotype: "년월일8",  typelength: "CHAR(8)",       pk: true,  nullable: false }
+      - { korean: 계좌번호,     english: ACCT_NO,      infotype: "번호",     typelength: "CHAR(20)",      pk: true,  nullable: false }
+      - { korean: 예금잔액금액, english: DPST_BAL_AMT, infotype: "금액18.3", typelength: "DECIMAL(18,3)", pk: false, nullable: false }
+      - { korean: 거래구분코드, english: TRD_DV_CD,    infotype: "구분코드1", typelength: "CHAR(1)",      pk: false, nullable: false }
+      - { korean: 시스템최종처리일시,   english: SYS_LST_PRC_DTM, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: false }
+      - { korean: 시스템최종사용자번호, english: SYS_LST_USR_NO,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: false }
+    relationships: []

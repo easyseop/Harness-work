@@ -11,19 +11,27 @@
   "findings": [
     {
       "severity": "error",
-      "message": "[임시구분코드] 수식어 '임시' 에 비표준단어 포함"
+      "scope": "임시구분코드",
+      "message": "[임시구분코드] 수식어 '임시' 에 비표준단어 포함",
+      "suggestion": ""
     },
     {
       "severity": "error",
-      "message": "[금액] 단독사용금지 단어 (단독으로 인스턴스명 불가)"
+      "scope": "금액",
+      "message": "[금액] 단독사용금지 단어 (단독으로 인스턴스명 불가)",
+      "suggestion": ""
     },
     {
       "severity": "error",
-      "message": "[금액] 끝말 규칙 위반 (~구분코드/~코드/~여부/~유무 로 끝나야)"
+      "scope": "금액",
+      "message": "[금액] 끝말 규칙 위반 (~구분코드/~코드/~여부/~유무 로 끝나야)",
+      "suggestion": ""
     },
     {
       "severity": "error",
-      "message": "[유령여부] 시트2 인스턴스명이 시트1(업무인스턴스명정의서)에 없음"
+      "scope": "유령여부",
+      "message": "[유령여부] 시트2 인스턴스명이 시트1(업무인스턴스명정의서)에 없음",
+      "suggestion": ""
     }
   ]
 }

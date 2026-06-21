@@ -1,0 +1,11 @@
+# [목3] DB설계서 · 위반 모음 · 반송 기대
+project: MOCK3_위반
+tables:
+  - physical_name: TQCRDBB01           # ❌ 시스템구분 Q (H/S 아님)
+    logical_name: 카드상품
+    columns:
+      - { korean: 카드번호, english: CARD_NO,    infotype: "번호",  typelength: "CHAR(20)", pk: true,  nullable: false }
+      - { korean: 승인금액, english: APRV_MONEY, infotype: "금액15", typelength: "DECIMAL(15,0)", pk: false, nullable: false }  # ❌ 영문 불일치(기대 APRV_AMT)
+      - { korean: 카드상태, english: CARD_STAT,  infotype: "코드1", typelength: "CHAR(1)",  pk: false, nullable: false }        # ❌ 도메인(인포타입)으로 안 끝남
+      # ❌ 감사컬럼 없음 → 경고
+    relationships: []

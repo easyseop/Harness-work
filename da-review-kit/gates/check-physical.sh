@@ -107,12 +107,14 @@ for t in inp.get("tables", []):
             errors.append(f"{tag} M:N 직접관계({r.get('to')}) — 연결엔티티로 분해 필요")
 
 import os, json, datetime
+def _finding(sev, msg):                          # 반송사유 틀: 대상(scope)+권고(suggestion)
+    scope = msg[1:msg.index("]")] if msg.startswith("[") and "]" in msg else None
+    return {"severity": sev, "scope": scope, "message": msg, "suggestion": ""}
 result = {
     "harness": "da-review", "gate": "check-physical", "target": sys.argv[1],
     "project": inp.get("project"), "status": "failed" if errors else "passed",
     "summary": {"errors": len(errors), "warnings": len(warns)},
-    "findings": [{"severity": "error", "message": e} for e in errors]
-              + [{"severity": "warning", "message": w} for w in warns],
+    "findings": [_finding("error", e) for e in errors] + [_finding("warning", w) for w in warns],
     "generated_at": datetime.datetime.now().isoformat(timespec="seconds"),
 }
 if os.environ.get("DA_OUT"):
