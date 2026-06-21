@@ -12,12 +12,14 @@
   "findings": [
     {
       "severity": "error",
+      "category": "violation",
       "scope": "TZCUSCA01",
       "message": "[TZCUSCA01] 컬럼 '고객상태구분코드' 도메인('구분코드')이 속성 '고객등급' 도메인('등급')과 불일치",
       "suggestion": ""
     },
     {
       "severity": "error",
+      "category": "violation",
       "scope": "TZCUSCA01",
       "message": "[TZCUSCA01] 컬럼 '고객상태구분코드' 수식어 ['상태'] 가 속성 '고객등급' 에 없음",
       "suggestion": ""

@@ -97,7 +97,8 @@ for nm, items in grp.items():
 import os, json, datetime
 def _finding(sev, msg):                          # 반송사유 틀: 대상(scope)+권고(suggestion)
     scope = msg[1:msg.index("]")] if msg.startswith("[") and "]" in msg else None
-    return {"severity": sev, "scope": scope, "message": msg, "suggestion": ""}
+    cat = "missing" if any(k in msg for k in ("누락", "미기재", "미설정")) else "violation"
+    return {"severity": sev, "category": cat, "scope": scope, "message": msg, "suggestion": ""}
 result = {
     "harness": "da-review", "gate": "check-instance-code", "target": sys.argv[1],
     "project": inp.get("project"), "status": "failed" if errors else "passed",

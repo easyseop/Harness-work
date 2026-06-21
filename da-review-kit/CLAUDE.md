@@ -19,14 +19,17 @@
 - **질문**: "설계도를 주세요. **고정 양식(엑셀/CSV)** 인가요, **자유 형식**인가요?"
 
 ### 3) 변환 → 정형 INPUT (`schemas/db-design.schema.json` 형식)
+- **매핑 규칙은 `intake/CONVERT-GUIDE.md` 를 그대로 따른다.** (설계도 항목 → INPUT 필드)
 - **고정 CSV/엑셀** → `python3 intake/convert-csv.py <csv> intake/standard-tables.yaml > input.yaml`
-- **자유 형식** → 에이전트가 직접 스키마 형식으로 변환(없는 값은 빈칸, standard 판단 금지) → `intake/convert-llm.py` 의 규칙/검증 준수.
+- **자유 형식** → 에이전트가 CONVERT-GUIDE 매핑대로 스키마 형식으로 변환(없는 값은 빈칸, standard 판단 금지). 핵심: 인포타입은 "도메인+길이"(예: 년월일8).
 - 인스턴스코드 정의서면 `schemas/instance-code.schema.json` 형식으로.
 
-### 4) 사전점검 (정보 충분성)
-- 실행: `bash intake/check-ready.sh input.yaml`
-- ❌ 보완 필요로 나오면 → **빠진 항목을 사용자에게 질문**해 채운다. 예) "TSDPSAA01의 '잔액금액' 컬럼에 인포타입이 없습니다. (예: 금액18.3) 알려주세요."
-- ✅ 준비 완료면 다음 단계.
+### 4) 부족 정보 점검
+- **방법 A(권장·단순)**: 곧장 게이트 실행 후, 결과 findings의 **`category`** 로 구분
+  - `category: "missing"` (인포타입 미기재·누락 등) → **사용자에게 질문**해 보완
+  - `category: "violation"` (표준 위반) → 6)에서 반송사유로 보고
+- **방법 B(사전)**: `bash intake/check-ready.sh input.yaml` 로 먼저 부족 점검 후 질문 → 채워지면 게이트.
+- (게이트가 부족 정보도 잡으므로 check-ready는 선택. 부족(missing)은 묻고, 위반(violation)은 보고.)
 
 ### 5) 게이트 실행 (결정적 검사)
 - DB설계서: `bash gates/check-physical.sh input.yaml` + `bash gates/check-attribute.sh input.yaml`
