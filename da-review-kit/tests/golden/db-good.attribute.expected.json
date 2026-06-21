@@ -8,5 +8,6 @@
     "errors": 0,
     "warnings": 0
   },
+  "skipped_nonstandard": [],
   "findings": []
 }

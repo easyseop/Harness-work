@@ -182,6 +182,12 @@ pk: { require: true }
 audit_columns: { recommended: [SYS_LST_PRC_DTM, SYS_LST_USR_NO] }
 relationship: { forbid_mn_direct: true }
 
+# ---- 표준/비표준 판정 ----
+# 우선순위: ① 입력 table.standard(true/false) → ② schema 가 standard_schemas 에 있으면 표준
+#           → ③ default_standard (둘 다 없을 때 기본값)
+standard_schemas: []          # 예: [DW_DEPOSIT, DW_LOAN] — 비우면 미사용
+default_standard: true        # 안 정해진 테이블은 기본 '표준'으로 간주(엄격: 누락 방지)
+
 # ---- 인스턴스코드 정의서 규칙 (업무인스턴스명/코드값) ----
 instance_code:
   # 업무인스턴스명 허용 끝말 (인스턴스=~구분코드, 목록성=~코드, 예외 ~여부/~유무)

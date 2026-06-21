@@ -23,9 +23,12 @@ meta = yaml.safe_load(open(sys.argv[2], encoding="utf-8"))
 words = meta.get("standard_words", {}) or {}
 domains = meta.get("domains", {}) or {}
 end_exc = meta.get("end_word_exceptions", {}) or {}
+mod_tokens = {**words, **{k: v["abbr"] for k, v in domains.items()}}   # 수식어 = 표준단어 + 도메인단어
+std_schemas = set(meta.get("standard_schemas", []) or [])
+default_std = meta.get("default_standard", True)
 
 def tokenize_mod(kr):
-    keys = sorted(words, key=len, reverse=True); toks, i = [], 0
+    keys = sorted(mod_tokens, key=len, reverse=True); toks, i = [], 0
     while i < len(kr):
         for k in keys:
             if kr.startswith(k, i): toks.append(k); i += len(k); break
@@ -35,10 +38,17 @@ def endword(kr):
     cands = [w for w in list(domains)+list(end_exc) if kr.endswith(w)]
     return max(cands, key=len) if cands else None
 def domain_of(ew): return end_exc.get(ew, ew)
+def is_standard(t):
+    s = t.get("standard")
+    if s is not None: return bool(s)
+    sch = t.get("schema") or inp.get("schema")
+    return (sch in std_schemas) if std_schemas else default_std
 
-errors = []
+errors, skipped = [], []
 for t in inp.get("tables", []):
     tag = f"[{t.get('physical_name','?')}]"
+    if not is_standard(t):
+        skipped.append(t.get("physical_name", "?")); continue
     for c in (t.get("columns") or []):
         if c.get("std", True) is False: continue
         kr = str(c.get("korean", "")).strip()
@@ -72,13 +82,16 @@ result = {
     "harness": "da-review", "gate": "check-attribute", "target": sys.argv[1],
     "project": inp.get("project"), "status": "failed" if errors else "passed",
     "summary": {"errors": len(errors), "warnings": 0},
+    "skipped_nonstandard": skipped,
     "findings": [_finding("error", e) for e in errors],
     "generated_at": datetime.datetime.now().isoformat(timespec="seconds"),
 }
 if os.environ.get("DA_OUT"):
     json.dump(result, open(os.environ["DA_OUT"], "w", encoding="utf-8"), ensure_ascii=False, indent=2)
 
-print(f"검토대상: {inp.get('project','?')}\n")
+print(f"검토대상: {inp.get('project','?')}")
+if skipped: print(f"⏭️  비표준 테이블 검토 제외: {skipped}")
+print()
 if errors:
     print(f"❌ 속성명 검증 반송 — 위반 {len(errors)}건:")
     for e in errors: print("   -", e)

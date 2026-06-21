@@ -23,6 +23,8 @@ except ImportError:
 inp = yaml.safe_load(open(sys.argv[1], encoding="utf-8"))
 meta = yaml.safe_load(open(sys.argv[2], encoding="utf-8"))
 words = meta.get("standard_words", {}) or {}
+domains = meta.get("domains", {}) or {}
+mod_tokens = {**words, **{k: v["abbr"] for k, v in domains.items()}}   # 수식어 = 표준단어 + 도메인단어
 ic = meta.get("instance_code", {}) or {}
 endings = sorted(ic.get("name_endings", []), key=len, reverse=True)
 yn_endings = ic.get("yn_endings", [])
@@ -30,7 +32,7 @@ forbidden = set(ic.get("forbidden_standalone", []))
 zero_ok = set(ic.get("zero_meanings", [])); nine_ok = set(ic.get("nine_meanings", []))
 
 def tokenize(kr):
-    keys = sorted(words, key=len, reverse=True); toks, i = [], 0
+    keys = sorted(mod_tokens, key=len, reverse=True); toks, i = [], 0
     while i < len(kr):
         for k in keys:
             if kr.startswith(k, i): toks.append(k); i += len(k); break

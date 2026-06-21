@@ -18,6 +18,11 @@
         "warnings": { "type": "integer" }
       }
     },
+    "skipped_nonstandard": {
+      "type": "array",
+      "description": "비표준으로 판정돼 검토 제외된 테이블명 목록",
+      "items": { "type": "string" }
+    },
     "findings": {
       "type": "array",
       "items": {
