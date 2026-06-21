@@ -10,6 +10,8 @@
 set -u
 cd "$(dirname "$0")"
 DIR="${1:-input}"
+OUTDIR="${2:-results}"           # 결과 JSON 저장 폴더 (기본 results/)
+mkdir -p "$OUTDIR"
 pass=0; fail=0
 
 printf "%-32s %-20s %s\n" "입력 산출물" "게이트" "결과"
@@ -26,7 +28,9 @@ print('db' if 'tables' in d else ('inst' if 'instance_names' in d else '?'))" 2>
     *)    printf "%-32s %-20s %s\n" "$(basename "$f")" "-" "⏭️  알수없는형식(건너뜀)"; continue ;;
   esac
   for g in $gates; do
-    if bash "gates/$g.sh" "$f" >/dev/null 2>&1; then
+    base="$(basename "${f%.*}")"
+    out="$OUTDIR/${base}.${g}.json"            # 예: results/mock3-db-violations.check-physical.json
+    if DA_OUT="$out" bash "gates/$g.sh" "$f" >/dev/null 2>&1; then
       printf "%-32s %-20s %s\n" "$(basename "$f")" "$g" "✅ 통과"; pass=$((pass+1))
     else
       printf "%-32s %-20s %s\n" "$(basename "$f")" "$g" "❌ 반송"; fail=$((fail+1))
@@ -35,3 +39,5 @@ print('db' if 'tables' in d else ('inst' if 'instance_names' in d else '?'))" 2>
 done
 echo "----------------------------------------------------------------------"
 echo "합계: 통과 $pass · 반송 $fail"
+echo "상세 결과(JSON): $OUTDIR/  (입력파일.게이트.json 으로 각각 저장됨)"
+
