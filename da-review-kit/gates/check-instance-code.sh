@@ -95,10 +95,23 @@ for nm, items in grp.items():
                 warns.append(f"{tag} 코드 '{code}' 의미는 보통 기타 (현재 '{content}')")
 
 import os, json, datetime
+def _suggest(msg):                               # 결정적 권고(고치는 법)
+    if "인스턴스명 누락" in msg:           return "업무인스턴스명 기입"
+    if "공백/특수문자" in msg:             return "공백·특수문자 제거(한글/영문/숫자만)"
+    if "단독사용금지" in msg:              return "수식어를 붙여 구체화 (예: 신용여부)"
+    if "인스턴스명 중복" in msg:           return "중복 인스턴스명 제거/통합"
+    if "끝말 규칙 위반" in msg:            return "~구분코드/~코드/~여부/~유무 로 끝나게 변경"
+    if "수식어" in msg and "비표준" in msg: return "수식어를 표준단어로 교체(또는 표준단어로 등록)"
+    if "시트1" in msg and "없음" in msg:   return "시트1(업무인스턴스명정의서)에 추가하거나 시트2에서 제거"
+    if "코드값 0/1 만 허용" in msg:        return "코드값을 0/1 로 정리(또는 ~구분코드로 변경)"
+    if "길이가 code_length" in msg:        return "코드 길이를 code_length 에 맞추기"
+    if "해당무" in msg:                    return "코드 0 은 '해당무' 의미로 사용 권장"
+    if "기타" in msg:                      return "코드 9 는 '기타' 의미로 사용 권장"
+    return ""
 def _finding(sev, msg):                          # 반송사유 틀: 대상(scope)+권고(suggestion)
     scope = msg[1:msg.index("]")] if msg.startswith("[") and "]" in msg else None
     cat = "missing" if any(k in msg for k in ("누락", "미기재", "미설정")) else "violation"
-    return {"severity": sev, "category": cat, "scope": scope, "message": msg, "suggestion": ""}
+    return {"severity": sev, "category": cat, "scope": scope, "message": msg, "suggestion": _suggest(msg)}
 result = {
     "harness": "da-review", "gate": "check-instance-code", "target": sys.argv[1],
     "project": inp.get("project"), "status": "failed" if errors else "passed",

@@ -15,15 +15,15 @@
       "category": "violation",
       "scope": "TZCUSCA01",
       "message": "[TZCUSCA01] 컬럼 '고객상태구분코드' 도메인('구분코드')이 속성 '고객등급' 도메인('등급')과 불일치",
-      "suggestion": ""
+      "suggestion": "컬럼과 속성의 도메인을 일치시키기(동종 속성 동일 도메인)"
     },
     {
       "severity": "error",
       "category": "violation",
       "scope": "TZCUSCA01",
       "message": "[TZCUSCA01] 컬럼 '고객상태구분코드' 수식어 ['상태'] 가 속성 '고객등급' 에 없음",
-      "suggestion": ""
+      "suggestion": "속성명에 해당 수식어 반영(또는 컬럼 수식어 제거)"
     }
   ],
-  "generated_at": "2026-06-23T13:34:24"
+  "generated_at": "2026-06-23T13:58:43"
 }

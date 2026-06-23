@@ -75,10 +75,16 @@ for t in inp.get("tables", []):
                     errors.append(f"{tag} 컬럼 '{kr}' 수식어 {extra} 가 속성 '{attr}' 에 없음")
 
 import os, json, datetime
+def _suggest(msg):                               # 결정적 권고(고치는 법)
+    if "도메인으로 끝나지 않음" in msg:      return "표준 도메인 끝말로 끝나게 속성명 수정"
+    if "수식어" in msg and "비표준" in msg:  return "수식어를 표준단어로 교체(또는 표준단어로 등록)"
+    if "도메인" in msg and "불일치" in msg:  return "컬럼과 속성의 도메인을 일치시키기(동종 속성 동일 도메인)"
+    if "속성" in msg and "에 없음" in msg:   return "속성명에 해당 수식어 반영(또는 컬럼 수식어 제거)"
+    return ""
 def _finding(sev, msg):                          # 반송사유 틀: 대상(scope)+권고(suggestion)
     scope = msg[1:msg.index("]")] if msg.startswith("[") and "]" in msg else None
     cat = "missing" if any(k in msg for k in ("누락", "미기재", "미설정")) else "violation"
-    return {"severity": sev, "category": cat, "scope": scope, "message": msg, "suggestion": ""}
+    return {"severity": sev, "category": cat, "scope": scope, "message": msg, "suggestion": _suggest(msg)}
 result = {
     "harness": "da-review", "gate": "check-attribute", "target": sys.argv[1],
     "project": inp.get("project"), "status": "failed" if errors else "passed",

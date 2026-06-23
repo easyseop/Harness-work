@@ -15,15 +15,15 @@
       "category": "violation",
       "scope": "TZCUSCA01",
       "message": "[TZCUSCA01] 테이블명이 명명규칙에 안 맞음 (규칙 ^T[HS][A-Z]{3}[A-Z]{2}[0-9]{2}$)",
-      "suggestion": ""
+      "suggestion": "T+시스템(H/S)+앱(3)+소그룹(2)+일련(2)=9자 형식으로 수정"
     },
     {
       "severity": "error",
       "category": "violation",
       "scope": "TZCUSCA01",
       "message": "[TZCUSCA01] 컬럼 영문명 'custGender' 불일치 (한글 '고객성별' 기준 기대 'custSex')",
-      "suggestion": ""
+      "suggestion": "영문명을 'custSex' 로 변경(camelCase)"
     }
   ],
-  "generated_at": "2026-06-23T13:34:24"
+  "generated_at": "2026-06-23T13:58:43"
 }

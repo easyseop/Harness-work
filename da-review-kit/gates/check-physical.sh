@@ -125,10 +125,31 @@ for t in inp.get("tables", []):
             errors.append(f"{tag} M:N 직접관계({r.get('to')}) — 연결엔티티로 분해 필요")
 
 import os, json, datetime
+def _suggest(msg):                               # 결정적 권고(고치는 법)
+    m = re.search(r"기대 '([^']+)'", msg)
+    if "영문명" in msg and "불일치" in msg and m: return f"영문명을 '{m.group(1)}' 로 변경(camelCase)"
+    if "테이블명이 명명규칙" in msg:       return "T+시스템(H/S)+앱(3)+소그룹(2)+일련(2)=9자 형식으로 수정"
+    if "시스템구분" in msg:                return "시스템구분을 H(호스트)/S(서버) 중 하나로"
+    if "어플리케이션코드" in msg:          return "표준 등록 앱코드로 변경(미등록이면 표준 등록 요청)"
+    if "업무소그룹코드" in msg:            return "표준 등록 소그룹코드로 변경(미등록이면 표준 등록 요청)"
+    if "도메인(인포타입)으로 끝나지 않음" in msg: return "표준 도메인 끝말로 끝나게 컬럼명 수정(예: ~번호/~금액/~일시)"
+    if "인포타입 도메인" in msg and "불일치" in msg: return "인포타입 도메인을 컬럼 끝말 도메인과 일치시키기"
+    if "인포타입 길이" in msg and "비허용" in msg:
+        mm = re.search(r"허용 (\[.*\])", msg);  return f"허용 길이 {mm.group(1) if mm else ''} 중 하나로 변경"
+    if "수식어" in msg and "비표준" in msg: return "수식어를 표준단어로 교체(또는 표준단어로 등록)"
+    if "한글명" in msg and "최대" in msg:  return "한글명을 최대 길이 이내로 축약"
+    if "한글명 누락" in msg:               return "컬럼 한글명 기입"
+    if "영문명 누락" in msg:               return "영문명(camelCase) 기입"
+    if "인포타입 미기재" in msg:           return "인포타입(도메인+길이) 기입"
+    if "끝자리 숫자" in msg:               return "끝자리 숫자 제거"
+    if "PK(식별자) 미설정" in msg:         return "기본키(PK) 컬럼 지정"
+    if "M:N 직접관계" in msg:              return "연결(교차) 엔티티로 분해"
+    if "감사컬럼 누락" in msg:             return "권장 감사컬럼(sysLstPrcDtm, sysLstUsrNo) 추가"
+    return ""
 def _finding(sev, msg):
     scope = msg[1:msg.index("]")] if msg.startswith("[") and "]" in msg else None
     cat = "missing" if any(k in msg for k in ("누락", "미기재", "미설정")) else "violation"
-    return {"severity": sev, "category": cat, "scope": scope, "message": msg, "suggestion": ""}
+    return {"severity": sev, "category": cat, "scope": scope, "message": msg, "suggestion": _suggest(msg)}
 result = {
     "harness": "da-review", "gate": "check-physical", "target": sys.argv[1],
     "project": inp.get("project"), "status": "failed" if errors else "passed",
