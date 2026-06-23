@@ -1,0 +1,10 @@
+[고객 기본정보 테이블]
+ - 물리테이블명: TSCUSCA01   (스키마: DW_CUST)
+ - 컬럼 목록
+    · 고객번호   (CUST_NO)        번호,    기본키
+    · 고객성별   (CUST_SEX)       성별 1자리
+    · 고객명     (CUST_NM)        명 50자
+    · 임시메모   (TMP_MEMO)       내용 100자
+    · 등록일시   (REG_DTM)        일시 14
+    · 시스템최종처리일시 (SYS_LST_PRC_DTM)  일시 14
+    · 시스템최종사용자번호 (SYS_LST_USR_NO) 번호
