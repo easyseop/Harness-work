@@ -1,0 +1,24 @@
+project: 무작위코드_2
+instance_names:
+- app_code: BFA
+  instance_name: 시스템송금코드
+  code_length: 1
+- app_code: BFA
+  instance_name: 신청카드유무
+  code_length: 1
+code_values:
+- instance_name: 시스템송금코드
+  code: '0'
+  content: 해당무
+- instance_name: 시스템송금코드
+  code: '1'
+  content: 정상
+- instance_name: 신청카드유무
+  code: '0'
+  content: 부
+- instance_name: 신청카드유무
+  code: '1'
+  content: 여
+- instance_name: 유령구분코드
+  code: '1'
+  content: x

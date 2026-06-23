@@ -1,0 +1,36 @@
+project: 무작위코드_4
+instance_names:
+- app_code: BFA
+  instance_name: 시작코드
+  code_length: 1
+- app_code: BFA
+  instance_name: 자산
+  code_length: 1
+- app_code: BFA
+  instance_name: 시작유무
+  code_length: 1
+code_values:
+- instance_name: 시작코드
+  code: '0'
+  content: 해당무
+- instance_name: 시작코드
+  code: '1'
+  content: 정상
+- instance_name: 자산
+  code: '0'
+  content: 해당무
+- instance_name: 자산
+  code: '1'
+  content: 정상
+- instance_name: 시작유무
+  code: '0'
+  content: 부
+- instance_name: 시작유무
+  code: '1'
+  content: 여
+- instance_name: 시작유무
+  code: '2'
+  content: 기타
+- instance_name: 유령구분코드
+  code: '1'
+  content: x

@@ -1,0 +1,52 @@
+project: 무작위설계_5
+tables:
+- physical_name: THDPSBB67
+  standard: true
+  columns:
+  - korean: 상품직전건수
+    english: PRD_PREV_CNT
+    infotype: 건수
+    pk: true
+  - korean: 평균년월일
+    english: AVRG_YMD
+    infotype: 년월일8
+    pk: false
+  - korean: 영문처리일시
+    english: ENG_PRC_DTM
+    infotype: 일시20
+    pk: false
+  - korean: 시스템최종처리일시
+    english: SYS_LST_PRC_DTM
+    infotype: 일시14
+    pk: false
+  - korean: 시스템최종사용자번호
+    english: SYS_LST_USR_NO
+    infotype: 번호
+    pk: false
+- physical_name: THCHNAC78
+  standard: true
+  columns:
+  - korean: 부점처리환율
+    english: BR_PRC_EXRT
+    infotype: 환율9.4
+    pk: true
+  - korean: 기존누적시각
+    english: EXST_ACCM_HMS
+    infotype: 시각6
+    pk: false
+  - korean: 기존신청비용
+    english: EXST_APPL_EXPS
+    infotype: 비용18.3
+    pk: false
+  - korean: 최초전월한도금액
+    english: FRST_PMTH_LMT_AMT
+    infotype: 한도금액15
+    pk: false
+  - korean: 시스템최종처리일시
+    english: SYS_LST_PRC_DTM
+    infotype: 일시14
+    pk: false
+  - korean: 시스템최종사용자번호
+    english: SYS_LST_USR_NO
+    infotype: 번호
+    pk: false

@@ -1,0 +1,59 @@
+project: 무작위설계_3
+tables:
+- physical_name: THCHNAB77
+  standard: true
+  columns:
+  - korean: 보험최초수량
+    english: INSU_FRST_QTY
+    infotype: 수량18.5
+    pk: true
+  - korean: 그룹예금이자
+    english: GRP_DPST_INT
+    infotype: 이자15
+    pk: false
+  - korean: 기준내용
+    english: BASE_CTNT
+    infotype: 내용100
+    pk: false
+  - korean: 거래합계분류코드
+    english: TRD_TOTL_CLS_CD
+    infotype: 분류코드99
+    pk: false
+  - korean: 시스템최종처리일시
+    english: SYS_LST_PRC_DTM
+    infotype: 일시14
+    pk: false
+  - korean: 시스템최종사용자번호
+    english: SYS_LST_USR_NO
+    infotype: 번호
+    pk: false
+- physical_name: THLONCA25
+  standard: true
+  columns:
+  - korean: 기존시작전화번호
+    english: EXST_BGN_TELNO
+    infotype: 전화번호16
+    pk: true
+  - korean: 입금신용한도금액
+    english: DEPI_CRDT_LMT_AMT
+    infotype: 한도금액18.3
+    pk: false
+  - korean: 임시투자년월일
+    english: INVT_YMD
+    infotype: 년월일8
+    pk: false
+  - korean: 송금시작내용
+    english: REMT_BGN_CTNT
+    infotype: 내용500
+    pk: false
+  - korean: 시스템최종처리일시
+    english: SYS_LST_PRC_DTM
+    infotype: 일시14
+    pk: false
+  - korean: 시스템최종사용자번호
+    english: SYS_LST_USR_NO
+    infotype: 번호
+    pk: false
+  relationships:
+  - type: M:N
+    to: TSLONBA01
