@@ -21,8 +21,9 @@
       "severity": "error",
       "category": "violation",
       "scope": "TZCUSCA01",
-      "message": "[TZCUSCA01] 컬럼 영문명 'CUST_GENDER' 불일치 (한글 '고객성별' 기준 기대 'CUST_SEX')",
+      "message": "[TZCUSCA01] 컬럼 영문명 'custGender' 불일치 (한글 '고객성별' 기준 기대 'custSex')",
       "suggestion": ""
     }
-  ]
+  ],
+  "generated_at": "2026-06-23T13:34:24"
 }

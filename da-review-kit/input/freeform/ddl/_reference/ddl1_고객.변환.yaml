@@ -4,9 +4,9 @@ tables:
   - physical_name: TSCUSCA01
     standard: true
     columns:
-      - { korean: 고객번호,   english: CUST_NO,  infotype: "번호",  typelength: "CHAR(20)", pk: true,  nullable: false }
-      - { korean: 고객성별,   english: CUST_SEX, infotype: "성별1", typelength: "CHAR(1)",  pk: false, nullable: false }
-      - { korean: 고객명,     english: CUST_NM,  infotype: "명50",  typelength: "CHAR(50)", pk: false, nullable: true }
-      - { korean: 기준년월일, english: BASE_YMD, infotype: "년월일8", typelength: "CHAR(8)", pk: false, nullable: true }
-      - { korean: 시스템최종처리일시,   english: SYS_LST_PRC_DTM, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: true }
-      - { korean: 시스템최종사용자번호, english: SYS_LST_USR_NO,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: true }
+      - { korean: 고객번호,   english: custNo,  infotype: "번호",  typelength: "CHAR(20)", pk: true,  nullable: false }
+      - { korean: 고객성별,   english: custSex, infotype: "성별1", typelength: "CHAR(1)",  pk: false, nullable: false }
+      - { korean: 고객명,     english: custNm,  infotype: "명50",  typelength: "CHAR(50)", pk: false, nullable: true }
+      - { korean: 기준년월일, english: baseYmd, infotype: "년월일8", typelength: "CHAR(8)", pk: false, nullable: true }
+      - { korean: 시스템최종처리일시,   english: sysLstPrcDtm, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: true }
+      - { korean: 시스템최종사용자번호, english: sysLstUsrNo,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: true }

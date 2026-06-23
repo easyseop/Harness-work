@@ -13,13 +13,13 @@ tables:
     logical_name: 대출계좌
     subject_area: 여신_계좌
     columns:
-      - { korean: 대출계좌번호, english: LOAN_ACCT_NO, infotype: "번호",    typelength: "CHAR(20)",     pk: true,  nullable: false }
-      - { korean: 고객번호,     english: CUST_NO,      infotype: "번호",    typelength: "CHAR(20)",     pk: true,  nullable: false }
-      - { korean: 기준년월일,   english: BASE_YMD,     infotype: "년월일8",  typelength: "CHAR(8)",      pk: false, nullable: false }
-      - { korean: 대출잔액금액, english: LOAN_BAL_AMT, infotype: "금액18.3", typelength: "DECIMAL(18,3)", pk: false, nullable: false }
-      - { korean: 대출상태구분코드, english: LOAN_STAT_DV_CD, infotype: "구분코드1", typelength: "CHAR(1)", pk: false, nullable: false }
-      - { korean: 시스템최종처리일시,   english: SYS_LST_PRC_DTM, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: false }
-      - { korean: 시스템최종사용자번호, english: SYS_LST_USR_NO,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: false }
+      - { korean: 대출계좌번호, english: loanAcctNo, infotype: "번호",    typelength: "CHAR(20)",     pk: true,  nullable: false }
+      - { korean: 고객번호,     english: custNo,      infotype: "번호",    typelength: "CHAR(20)",     pk: true,  nullable: false }
+      - { korean: 기준년월일,   english: baseYmd,     infotype: "년월일8",  typelength: "CHAR(8)",      pk: false, nullable: false }
+      - { korean: 대출잔액금액, english: loanBalAmt, infotype: "금액18.3", typelength: "DECIMAL(18,3)", pk: false, nullable: false }
+      - { korean: 대출상태구분코드, english: loanStatDvCd, infotype: "구분코드1", typelength: "CHAR(1)", pk: false, nullable: false }
+      - { korean: 시스템최종처리일시,   english: sysLstPrcDtm, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: false }
+      - { korean: 시스템최종사용자번호, english: sysLstUsrNo,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: false }
     relationships:
       - { type: "1:M", to: TSLONAB01 }
 
@@ -27,9 +27,9 @@ tables:
     logical_name: 대출거래내역
     subject_area: 여신_거래
     columns:
-      - { korean: 대출계좌번호, english: LOAN_ACCT_NO, infotype: "번호",    typelength: "CHAR(20)",     pk: true,  nullable: false }
-      - { korean: 거래일련번호, english: TRD_SEQ,      infotype: "일련번호", typelength: "DECIMAL(10)",  pk: true,  nullable: false }
-      - { korean: 거래금액,     english: TRD_AMT,      infotype: "금액18.3", typelength: "DECIMAL(18,3)", pk: false, nullable: false }
-      - { korean: 시스템최종처리일시,   english: SYS_LST_PRC_DTM, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: false }
-      - { korean: 시스템최종사용자번호, english: SYS_LST_USR_NO,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: false }
+      - { korean: 대출계좌번호, english: loanAcctNo, infotype: "번호",    typelength: "CHAR(20)",     pk: true,  nullable: false }
+      - { korean: 거래일련번호, english: trdSeq,      infotype: "일련번호", typelength: "DECIMAL(10)",  pk: true,  nullable: false }
+      - { korean: 거래금액,     english: trdAmt,      infotype: "금액18.3", typelength: "DECIMAL(18,3)", pk: false, nullable: false }
+      - { korean: 시스템최종처리일시,   english: sysLstPrcDtm, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: false }
+      - { korean: 시스템최종사용자번호, english: sysLstUsrNo,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: false }
     relationships: []

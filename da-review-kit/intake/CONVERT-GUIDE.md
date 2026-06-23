@@ -16,7 +16,7 @@
 | 테이블 한글명 / 설명 | `tables[].logical_name` | 선택 |
 | 주제영역 | `tables[].subject_area` | 선택 |
 | 컬럼 한글명 / 논리명 | `columns[].korean` | 필수 |
-| 컬럼 영문명 / 물리컬럼명 | `columns[].english` | 필수 |
+| 컬럼 영문명 / 물리컬럼명 | `columns[].english` | 필수 (영문변수명 규칙 = **camelCase**, 첫글자 소문자: 고객성별→`custSex`) |
 | 속성명 | `columns[].attribute` | 컬럼명과 다를 때만, 없으면 생략 |
 | 도메인+길이 / 인포타입 | `columns[].infotype` | 필수, "도메인+길이" 표기 |
 | 데이터타입 (CHAR(8) 등) | `columns[].typelength` | 선택 |
@@ -45,7 +45,7 @@
 tables:
   - physical_name: TSDPSAA01
     columns:
-      - { korean: 기준년월일, english: BASE_YMD, infotype: "년월일8", pk: true,  nullable: false }
-      - { korean: 계좌번호,   english: ACCT_NO,  infotype: "번호",    pk: true,  nullable: false }
-      - { korean: 예금잔액금액, english: DPST_BAL_AMT, infotype: "금액18.3", pk: false, nullable: false }
+      - { korean: 기준년월일, english: baseYmd, infotype: "년월일8", pk: true,  nullable: false }
+      - { korean: 계좌번호,   english: acctNo,  infotype: "번호",    pk: true,  nullable: false }
+      - { korean: 예금잔액금액, english: dpstBalAmt, infotype: "금액18.3", pk: false, nullable: false }
 ```

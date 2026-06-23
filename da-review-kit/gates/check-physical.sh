@@ -32,8 +32,18 @@ domains = meta.get("domains", {}) or {}
 end_exc = meta.get("end_word_exceptions", {}) or {}
 audit_req = set(meta.get("audit_columns", {}).get("recommended", []))
 maxk = cr.get("korean_max_chars_server", 999)
+estyle = cr.get("english_style", "upper_snake")   # 영문변수명 규칙: camelCase / upper_snake
 # 수식어 후보 = 표준단어 + 도메인단어 (예: '수수료금액'의 '수수료'도 인정) — 한글→영문약어 맵
 mod_tokens = {**words, **{k: v["abbr"] for k, v in domains.items()}}
+
+def to_eng(abbrs):
+    # 표준약어 리스트 → 영문변수명. camelCase면 첫단어 소문자+이후 첫글자 대문자(고객성별→custSex),
+    # upper_snake면 대문자_결합(고객성별→CUST_SEX). 약어 내부 '_'(예 DV_CD)는 분해해서 적용.
+    parts = []
+    for a in abbrs: parts += str(a).split("_")
+    if estyle == "camelCase":
+        return "".join(p.lower() if i == 0 else p[:1].upper()+p[1:].lower() for i, p in enumerate(parts))
+    return "_".join(parts)
 # 표준/비표준 판정 설정
 std_schemas = set(meta.get("standard_schemas", []) or [])
 default_std = meta.get("default_standard", True)
@@ -96,7 +106,7 @@ for t in inp.get("tables", []):
         if prefix and mod is None:
             errors.append(f"{tag} 컬럼 '{kr}' 수식어 '{prefix}' 에 비표준단어 포함")
         if en and mod is not None:
-            expected = "_".join([mod_tokens[w] for w in mod] + [d["abbr"]])
+            expected = to_eng([mod_tokens[w] for w in mod] + [d["abbr"]])
             if en_m != expected:
                 errors.append(f"{tag} 컬럼 영문명 '{en}' 불일치 (한글 '{kr}' 기준 기대 '{expected}')")
         if it:
