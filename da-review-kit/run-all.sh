@@ -29,7 +29,7 @@ print('db' if 'tables' in d else ('inst' if 'instance_names' in d else '?'))" 2>
   esac
   for g in $gates; do
     base="$(basename "${f%.*}")"
-    out="$OUTDIR/${base}.${g}.json"            # 예: results/mock3-db-violations.check-physical.json
+    out="$OUTDIR/${base}.${g}.json"            # 예: results/review-target.bad.check-physical.json
     if DA_OUT="$out" bash "gates/$g.sh" "$f" >/dev/null 2>&1; then
       printf "%-32s %-20s %s\n" "$(basename "$f")" "$g" "✅ 통과"; pass=$((pass+1))
     else
