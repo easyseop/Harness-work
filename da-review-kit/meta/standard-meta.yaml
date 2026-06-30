@@ -122,34 +122,34 @@ standard_words:
 # ⚠ 영문약어는 YAML 불리언 오해 방지를 위해 모두 따옴표 처리
 domains:
   # [코드 그룹]
-  코드:     { group: 코드, abbr: "CD",    dtype: CHAR, lengths: ["1","2","3","4"], is_code: true }
-  구분코드: { group: 코드, abbr: "DV_CD", dtype: CHAR, lengths: ["1","2","3"],     is_code: true }
+  코드:     { group: 코드, abbr: "CD",    dtype: CHAR, lengths: ["1", "2", "3", "4", "5", "6", "7", "8", "10", "12", "13", "14", "15", "16", "20", "40"], is_code: true }
+  구분코드: { group: 코드, abbr: "DV_CD", dtype: CHAR, lengths: ["1", "2", "3", "4", "5", "6", "8", "10"],     is_code: true }
   여부:     { group: 코드, abbr: "YN",    dtype: CHAR, lengths: ["1"], is_code: true, valid_values: [0,1] }
   성별:     { group: 코드, abbr: "SEX",   dtype: CHAR, lengths: ["1"], is_code: true, valid_values: [1,2] }
   등급:     { group: 코드, abbr: "GRD",   dtype: CHAR, lengths: ["1","2"], is_code: true }
   # [명/내용 그룹]  (Host DDL +2byte 대상)
-  명:       { group: 명,   abbr: "NM",    dtype: CHAR, lengths: ["50","100","200"], host_plus2: true }
-  내용:     { group: 내용, abbr: "CTNT",  dtype: CHAR, lengths: ["100","500"],      host_plus2: true }
-  주소:     { group: 내용, abbr: "ADDR",  dtype: CHAR, lengths: ["100","200","250"] }
+  명:       { group: 명,   abbr: "NM",    dtype: CHAR, lengths: ["6", "8", "10", "12", "14", "18", "22", "32", "34", "37", "42", "50", "52", "62", "72", "82", "100", "102", "122", "142", "152", "200", "202", "262", "302", "502", "1002"], host_plus2: true }
+  내용:     { group: 내용, abbr: "CTNT",  dtype: CHAR, lengths: ["2", "3", "4", "5", "6", "7", "8", "9", "10", "12", "13", "16", "17", "22", "24", "27", "32", "37", "44", "47", "52", "62", "72", "100", "102", "122", "132", "152", "172", "202", "262", "302", "402", "500", "502", "602", "802", "1000", "1002", "2002", "3002", "4002", "5002", "6502", "8002", "10002"],      host_plus2: true }
+  주소:     { group: 내용, abbr: "ADDR",  dtype: CHAR, lengths: ["100", "102", "122", "200", "202", "250", "252"] }
   우편번호: { group: 번호, abbr: "ZIP",   dtype: CHAR, lengths: ["5","6"] }
   # [시간 그룹]
   년월일:   { group: 시간, abbr: "YMD",   dtype: CHAR, lengths: ["8"] }
   일시:     { group: 시간, abbr: "DTM",   dtype: CHAR, lengths: ["14","20"] }
-  시각:     { group: 시간, abbr: "HMS",   dtype: CHAR, lengths: ["6"] }
+  시각:     { group: 시간, abbr: "HMS",   dtype: CHAR, lengths: ["6", "9", "12"] }
   # [금액 그룹]  (복수 인포타입 허용)
-  금액:     { group: 금액, abbr: "AMT",   dtype: DECIMAL, lengths: ["15","18.3"] }
+  금액:     { group: 금액, abbr: "AMT",   dtype: DECIMAL, lengths: ["15", "15.2", "15.5", "18", "18.2", "18.3", "18.4", "18.5", "19", "21", "22.3", "24.3"] }
   단가:     { group: 금액, abbr: "UPRC",  dtype: DECIMAL, lengths: ["15","18.3"] }
   이자:     { group: 금액, abbr: "INT",   dtype: DECIMAL, lengths: ["15","18.3"] }
   # [번호 그룹]
   번호:     { group: 번호, abbr: "NO",    dtype: CHAR, lengths: [] }
   식별자:   { group: 번호, abbr: "ID",    dtype: CHAR, lengths: [] }
   일련번호: { group: 번호, abbr: "SEQ",   dtype: "DECIMAL", lengths: [] }
-  전화번호: { group: 번호, abbr: "TELNO", dtype: CHAR, lengths: ["16"] }
+  전화번호: { group: 번호, abbr: "TELNO", dtype: CHAR, lengths: ["16", "20", "30"] }
   # [률 그룹]
-  률:       { group: 률,   abbr: "RT",    dtype: DECIMAL, lengths: ["5.2","9.4"] }
+  률:       { group: 률,   abbr: "RT",    dtype: DECIMAL, lengths: ["3", "3.2", "5.2", "5.3", "7.2", "7.4", "9.2", "9.4", "9.5", "9.6", "10.2", "11.2", "11.4", "13.5", "13.8", "15.3", "15.8", "20.14"] }
   환율:     { group: 률,   abbr: "EXRT",  dtype: DECIMAL, lengths: ["9.4","15.8"] }
   # [수량 그룹]
-  수량:     { group: 수량, abbr: "QTY",   dtype: DECIMAL, lengths: ["18.5","21.5"] }
+  수량:     { group: 수량, abbr: "QTY",   dtype: DECIMAL, lengths: ["3", "9", "14.4", "15", "15.2", "18.5", "21.5"] }
   건수:     { group: 수량, abbr: "CNT",   dtype: DECIMAL, lengths: [] }
   순번:     { group: 차순, abbr: "SQNO",  dtype: DECIMAL, lengths: [] }
   순서:     { group: 차순, abbr: "ORD",   dtype: DECIMAL, lengths: [] }
@@ -157,7 +157,7 @@ domains:
   # [코드 그룹] 추가
   분류코드: { group: 코드, abbr: "CLS_CD", dtype: CHAR, lengths: ["1","2","3"], is_code: true }
   # [명/내용 그룹] 추가
-  성명:     { group: 명,   abbr: "PNM",   dtype: CHAR, lengths: ["50"], host_plus2: true }
+  성명:     { group: 명,   abbr: "PNM",   dtype: CHAR, lengths: ["42", "50", "52", "82"], host_plus2: true }
   비고:     { group: 내용, abbr: "RMRK",  dtype: CHAR, lengths: ["100","500"], host_plus2: true }
   적요:     { group: 내용, abbr: "BRIF",  dtype: CHAR, lengths: ["100"], host_plus2: true }
   # [시간 그룹] 추가
@@ -169,8 +169,8 @@ domains:
   # [번호 그룹] 추가
   사업자번호: { group: 번호, abbr: "BIZNO", dtype: CHAR, lengths: ["10"] }
   # [률 그룹] 추가
-  비율:     { group: 률,   abbr: "RTO",   dtype: DECIMAL, lengths: ["5.2","9.4"] }
-  이율:     { group: 률,   abbr: "IRT",   dtype: DECIMAL, lengths: ["5.3","9.4"] }
+  비율:     { group: 률,   abbr: "RTO",   dtype: DECIMAL, lengths: ["3", "5.2", "7.2", "9", "9.2", "9.4", "9.5", "11.2", "17.5"] }
+  이율:     { group: 률,   abbr: "IRT",   dtype: DECIMAL, lengths: ["5.3", "9.4", "9.5", "9.6"] }
   # [수량 그룹] 추가
   횟수:     { group: 수량, abbr: "FREQ",  dtype: DECIMAL, lengths: [] }
   개수:     { group: 수량, abbr: "QCNT",  dtype: DECIMAL, lengths: [] }

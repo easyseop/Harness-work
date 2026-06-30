@@ -23,6 +23,11 @@ except ImportError:
 inp = yaml.safe_load(open(sys.argv[1], encoding="utf-8"))
 meta = yaml.safe_load(open(sys.argv[2], encoding="utf-8"))
 words = meta.get("standard_words", {}) or {}
+import os as _os
+_swf = _os.path.join(_os.path.dirname(sys.argv[2]), "standard-words.yaml")
+if _os.path.exists(_swf):
+    _sw = yaml.safe_load(open(_swf, encoding="utf-8")) or {}
+    words = {**(_sw.get("standard_words", {}) or {}), **words}   # 별도 단어사전 병합(인라인 우선)
 domains = meta.get("domains", {}) or {}
 mod_tokens = {**words, **{k: v["abbr"] for k, v in domains.items()}}   # 수식어 = 표준단어 + 도메인단어
 ic = meta.get("instance_code", {}) or {}

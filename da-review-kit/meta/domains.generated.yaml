@@ -1,0 +1,689 @@
+# 실데이터 추출 도메인 카탈로그 79종 (도메인→타입·실제길이들)
+# standard-meta.yaml 의 domains 보강용. 인포타입=도메인+길이 자동도출.
+domains_real:
+  금액:
+    dtype: DECIMAL
+    abbr: Amt
+    lengths:
+    - '15'
+    - '15.2'
+    - '15.5'
+    - '18'
+    - '18.2'
+    - '18.3'
+    - '18.4'
+    - '18.5'
+    - '19'
+    - '21'
+    - '22.3'
+    - '24.3'
+  구분코드:
+    dtype: CHAR
+    abbr: Dstcd
+    lengths:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+    - '8'
+    - '10'
+  내용:
+    dtype: CHAR
+    abbr: Ctnt
+    lengths:
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+    - '7'
+    - '8'
+    - '9'
+    - '10'
+    - '12'
+    - '13'
+    - '16'
+    - '17'
+    - '22'
+    - '24'
+    - '27'
+    - '32'
+    - '37'
+    - '44'
+    - '47'
+    - '52'
+    - '62'
+    - '72'
+    - '102'
+    - '122'
+    - '132'
+    - '152'
+    - '172'
+    - '202'
+    - '262'
+    - '302'
+    - '402'
+    - '500'
+    - '502'
+    - '602'
+    - '802'
+    - '1000'
+    - '1002'
+    - '2002'
+    - '3002'
+    - '4002'
+    - '5002'
+    - '6502'
+    - '8002'
+    - '10002'
+  수:
+    dtype: DECIMAL
+    abbr: Cnt
+    lengths:
+    - '2'
+    - '3'
+    - '5'
+    - '7'
+    - '7.2'
+    - '9'
+    - '11'
+    - '11.7'
+    - '13'
+    - '15'
+    - '15.5'
+    - '16'
+    - '20.8'
+    - '25.7'
+  률:
+    dtype: DECIMAL
+    abbr: Rt
+    lengths:
+    - '3'
+    - '3.2'
+    - '5.2'
+    - '5.3'
+    - '7.2'
+    - '7.4'
+    - '9.2'
+    - '9.4'
+    - '9.5'
+    - '9.6'
+    - '10.2'
+    - '11.2'
+    - '11.4'
+    - '13.5'
+    - '13.8'
+    - '15.3'
+    - '15.8'
+    - '20.14'
+  명:
+    dtype: CHAR
+    abbr: Name
+    lengths:
+    - '6'
+    - '8'
+    - '10'
+    - '12'
+    - '14'
+    - '18'
+    - '22'
+    - '32'
+    - '34'
+    - '37'
+    - '42'
+    - '52'
+    - '62'
+    - '72'
+    - '82'
+    - '102'
+    - '122'
+    - '142'
+    - '152'
+    - '202'
+    - '262'
+    - '302'
+    - '502'
+    - '1002'
+  건수:
+    dtype: DECIMAL
+    abbr: Noitm
+    lengths:
+    - '2'
+    - '3'
+    - '5'
+    - '7'
+    - '9'
+    - '11'
+    - '15'
+  잔액:
+    dtype: DECIMAL
+    abbr: Bal
+    lengths:
+    - '15'
+    - '18'
+    - '18.2'
+    - '18.3'
+  여부:
+    dtype: CHAR
+    abbr: Yn
+    lengths:
+    - '1'
+  년월일:
+    dtype: CHAR
+    abbr: Ymd
+    lengths:
+    - '8'
+  번호:
+    dtype: CHAR
+    abbr: 'No'
+    lengths:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+    - '7'
+    - '8'
+    - '9'
+    - '10'
+    - '11'
+    - '12'
+    - '13'
+    - '14'
+    - '15'
+    - '16'
+    - '17'
+    - '18'
+    - '19'
+    - '20'
+    - '22'
+    - '30'
+    - '32'
+    - '33'
+    - '35'
+    - '36'
+    - '40'
+    - '50'
+    - '64'
+    - '100'
+  지수:
+    dtype: DECIMAL
+    abbr: Indx
+    lengths:
+    - '7.2'
+    - '9.5'
+    - '15.3'
+    - '15.6'
+    - '25.12'
+  금리:
+    dtype: DECIMAL
+    abbr: Irt
+    lengths:
+    - '5.2'
+    - '9.5'
+    - '20.14'
+  코드:
+    dtype: CHAR
+    abbr: Cd
+    lengths:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+    - '7'
+    - '8'
+    - '10'
+    - '12'
+    - '13'
+    - '14'
+    - '15'
+    - '16'
+    - '20'
+    - '40'
+  평잔:
+    dtype: DECIMAL
+    abbr: Avbal
+    lengths:
+    - '15'
+    - '18'
+    - '18.3'
+    - '21.3'
+  점수:
+    dtype: DECIMAL
+    abbr: Scor
+    lengths:
+    - '3'
+    - '5'
+    - '5.2'
+    - '7.2'
+    - '9'
+    - '15'
+    - '15.7'
+  값:
+    dtype: DECIMAL
+    abbr: Val
+    lengths:
+    - '1'
+    - '3'
+    - '5'
+    - '5.2'
+    - '7.2'
+    - '7.4'
+    - '9'
+    - '9.5'
+    - '10.2'
+    - '11'
+    - '11.4'
+    - '13.5'
+    - '15'
+    - '15.7'
+    - '30.14'
+  비율:
+    dtype: DECIMAL
+    abbr: Rato
+    lengths:
+    - '3'
+    - '5.2'
+    - '7.2'
+    - '9'
+    - '9.2'
+    - '9.5'
+    - '11.2'
+    - '17.5'
+  일시:
+    dtype: CHAR
+    abbr: Once
+    lengths:
+    - '14'
+    - '20'
+  순위:
+    dtype: DECIMAL
+    abbr: Rankg
+    lengths:
+    - '3'
+    - '5'
+    - '7'
+    - '9'
+  일련번호:
+    dtype: DECIMAL
+    abbr: Serno
+    lengths:
+    - '1'
+    - '2'
+    - '3'
+    - '5'
+    - '6'
+    - '7'
+    - '8'
+    - '9'
+    - '10'
+    - '11'
+    - '15'
+  적수:
+    dtype: DECIMAL
+    abbr: Acmamt
+    lengths:
+    - '15'
+    - '18.2'
+    - '19'
+    - '21'
+    - '22.3'
+  이율:
+    dtype: DECIMAL
+    abbr: Irt
+    lengths:
+    - '9.5'
+    - '9.6'
+  내용S:
+    dtype: CHAR
+    abbr: ''
+    lengths:
+    - '2'
+    - '7'
+  ID:
+    dtype: CHAR
+    abbr: ID
+    lengths:
+    - '4'
+    - '5'
+    - '7'
+    - '8'
+    - '9'
+    - '10'
+    - '12'
+    - '14'
+    - '17'
+    - '20'
+    - '32'
+    - '50'
+  식별자:
+    dtype: CHAR
+    abbr: Idnfr
+    lengths:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+    - '7'
+    - '8'
+    - '9'
+    - '10'
+    - '15'
+    - '20'
+    - '25'
+    - '30'
+    - '36'
+    - '40'
+    - '128'
+  직원번호:
+    dtype: CHAR
+    abbr: Empid
+    lengths:
+    - '7'
+  일수:
+    dtype: DECIMAL
+    abbr: Noday
+    lengths:
+    - '3'
+    - '5'
+    - '9'
+  좌수:
+    dtype: DECIMAL
+    abbr: Noacc
+    lengths:
+    - '5'
+    - '7'
+    - '9'
+    - '15'
+    - '18.3'
+  매수:
+    dtype: DECIMAL
+    abbr: Nost
+    lengths:
+    - '3'
+    - '9'
+    - '11'
+  부점코드:
+    dtype: CHAR
+    abbr: Brncd
+    lengths:
+    - '4'
+  수수료:
+    dtype: DECIMAL
+    abbr: Fee
+    lengths:
+    - '15'
+    - '18.3'
+  월수:
+    dtype: DECIMAL
+    abbr: Nomn
+    lengths:
+    - '3'
+    - '5'
+    - '9'
+  가격:
+    dtype: DECIMAL
+    abbr: Prc
+    lengths:
+    - '9'
+    - '15'
+    - '15.4'
+    - '18.3'
+    - '18.4'
+  성명:
+    dtype: CHAR
+    abbr: Fname
+    lengths:
+    - '42'
+    - '52'
+    - '82'
+  년월:
+    dtype: CHAR
+    abbr: Ym
+    lengths:
+    - '6'
+  사용자번호:
+    dtype: CHAR
+    abbr: Uno
+    lengths:
+    - '7'
+  통화코드:
+    dtype: CHAR
+    abbr: Cncycd
+    lengths:
+    - '3'
+  시각:
+    dtype: CHAR
+    abbr: HMS
+    lengths:
+    - '6'
+    - '9'
+    - '12'
+  주소:
+    dtype: CHAR
+    abbr: Addr
+    lengths:
+    - '102'
+    - '122'
+    - '202'
+    - '252'
+  환율:
+    dtype: DECIMAL
+    abbr: Exrt
+    lengths:
+    - '9.4'
+    - '15.8'
+  수량:
+    dtype: DECIMAL
+    abbr: Qanty
+    lengths:
+    - '3'
+    - '9'
+    - '14.4'
+    - '15'
+    - '15.2'
+  횟수:
+    dtype: DECIMAL
+    abbr: Notms
+    lengths:
+    - '3'
+    - '5'
+    - '9'
+  전화번호:
+    dtype: CHAR
+    abbr: Telno
+    lengths:
+    - '16'
+    - '20'
+    - '30'
+  계정과목코드:
+    dtype: CHAR
+    abbr: ''
+    lengths:
+    - '5'
+    - '13'
+  비용:
+    dtype: DECIMAL
+    abbr: Cst
+    lengths:
+    - '15'
+    - '18.3'
+  BIC코드:
+    dtype: CHAR
+    abbr: BIC
+    lengths:
+    - '11'
+  회차:
+    dtype: DECIMAL
+    abbr: Nth
+    lengths:
+    - '3'
+    - '5'
+  계좌번호:
+    dtype: CHAR
+    abbr: Acno
+    lengths:
+    - '6'
+    - '14'
+    - '20'
+    - '50'
+  년:
+    dtype: CHAR
+    abbr: Yr
+    lengths:
+    - '4'
+  시분:
+    dtype: CHAR
+    abbr: HHMM
+    lengths:
+    - '4'
+  고객식별자:
+    dtype: CHAR
+    abbr: CustIdnfr
+    lengths:
+    - '10'
+  사업자등록번호:
+    dtype: CHAR
+    abbr: Bzno
+    lengths:
+    - '10'
+  고객고유번호:
+    dtype: CHAR
+    abbr: Cuniqno
+    lengths:
+    - '20'
+  이자:
+    dtype: DECIMAL
+    abbr: Int
+    lengths:
+    - '15'
+  국가코드:
+    dtype: CHAR
+    abbr: NatnlCd
+    lengths:
+    - '3'
+  IP주소:
+    dtype: CHAR
+    abbr: IP
+    lengths:
+    - '15'
+  세율:
+    dtype: DECIMAL
+    abbr: Txrt
+    lengths:
+    - '7.4'
+  차수:
+    dtype: DECIMAL
+    abbr: Dgre
+    lengths:
+    - '9'
+  면적:
+    dtype: DECIMAL
+    abbr: Sqrmsr
+    lengths:
+    - '9.2'
+    - '9.4'
+  단가:
+    dtype: DECIMAL
+    abbr: Uprc
+    lengths:
+    - '15'
+  고객명:
+    dtype: CHAR
+    abbr: Custnm
+    lengths:
+    - '42'
+    - '52'
+  단말번호:
+    dtype: CHAR
+    abbr: Trmno
+    lengths:
+    - '3'
+  길이:
+    dtype: DECIMAL
+    abbr: Len
+    lengths:
+    - '3'
+    - '5'
+  시간:
+    dtype: DECIMAL
+    abbr: Ttm
+    lengths:
+    - '7'
+  법인등록번호:
+    dtype: CHAR
+    abbr: Cprno
+    lengths:
+    - '13'
+  년수:
+    dtype: DECIMAL
+    abbr: Noy
+    lengths:
+    - '3'
+  표준산업분류코드:
+    dtype: CHAR
+    abbr: StndIdstryClsfiCd
+    lengths:
+    - '5'
+  우편번호:
+    dtype: CHAR
+    abbr: Zip
+    lengths:
+    - '6'
+  내선번호:
+    dtype: CHAR
+    abbr: Exno
+    lengths:
+    - '5'
+  일:
+    dtype: CHAR
+    abbr: Dd
+    lengths:
+    - '2'
+  주민사업자등록번호:
+    dtype: CHAR
+    abbr: InhabBzno
+    lengths:
+    - '13'
+  채권번호:
+    dtype: CHAR
+    abbr: BndNo
+    lengths:
+    - '20'
+  은행코드:
+    dtype: CHAR
+    abbr: BnkCd
+    lengths:
+    - '3'
+  비밀번호:
+    dtype: CHAR
+    abbr: Pwd
+    lengths:
+    - '40'
+  업종코드:
+    dtype: CHAR
+    abbr: BztypCd
+    lengths:
+    - '4'
+  지역코드:
+    dtype: CHAR
+    abbr: Arcd
+    lengths:
+    - '6'
+  고객정보번호:
+    dtype: CHAR
+    abbr: Cin
+    lengths:
+    - '15'
+  계정세과목코드:
+    dtype: CHAR
+    abbr: Dacitm
+    lengths:
+    - '3'

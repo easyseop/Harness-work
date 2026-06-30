@@ -28,6 +28,11 @@ nm = meta["naming"]; cr = meta["column"]
 tpat = nm["table"]["pattern"]
 sys_codes = set(nm["table"]["system_codes"]); apps = set(nm["valid_app_codes"]); subs = set(nm["valid_subgroup_codes"])
 words = meta.get("standard_words", {}) or {}
+import os as _os
+_swf = _os.path.join(_os.path.dirname(sys.argv[2]), "standard-words.yaml")
+if _os.path.exists(_swf):
+    _sw = yaml.safe_load(open(_swf, encoding="utf-8")) or {}
+    words = {**(_sw.get("standard_words", {}) or {}), **words}   # 별도 단어사전 병합(인라인 우선)
 domains = meta.get("domains", {}) or {}
 end_exc = meta.get("end_word_exceptions", {}) or {}
 audit_req = set(meta.get("audit_columns", {}).get("recommended", []))
