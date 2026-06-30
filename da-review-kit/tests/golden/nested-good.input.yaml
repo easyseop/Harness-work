@@ -1,14 +1,15 @@
-# 골든 · 중첩 도메인 둘 다 정상
-#  - 고객명 + 인포타입 명50    → 도메인=명, 수식어=고객  (명50 형)
-#  - 신규고객명 + 인포타입 고객명42 → 도메인=고객명(자체), 수식어=신규  (고객명 형)
-# 두 형태가 한 게이트에서 모두 통과함을 증명
+# 골든 · 중첩 도메인 + 형식만 길이검증 (c)
+#  - 고객명 + 명50      → 도메인=명, 수식어=고객
+#  - 신규고객명 + 고객명42 → 도메인=고객명(자체), 수식어=신규
+#  - 임시고객명 + 고객명6  → 도메인=고객명, 크기 6 (샘플엔 없지만 형식OK → 통과)
 project: 골든_NESTED_GOOD
 tables:
   - physical_name: TSCUSCA01
     standard: true
     columns:
-      - { korean: 고객번호,   english: custNo,     infotype: 번호10, pk: true }
-      - { korean: 고객명,     english: custNm,     infotype: 명50 }
-      - { korean: 신규고객명,  english: newCustnm,  infotype: 고객명42 }
+      - { korean: 고객번호,    english: custNo,     infotype: 번호10, pk: true }
+      - { korean: 고객명,      english: custNm,     infotype: 명50 }
+      - { korean: 신규고객명,   english: newCustnm,  infotype: 고객명42 }
+      - { korean: 임시고객명,   english: tempCustnm,  infotype: 고객명6 }
       - { korean: 시스템최종처리일시, english: sysLstPrcDtm, infotype: 일시14 }
       - { korean: 시스템최종사용자번호, english: sysLstUsrNo, infotype: 번호10 }

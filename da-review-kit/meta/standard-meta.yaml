@@ -234,6 +234,13 @@ domains:
 # (등급은 자체 도메인으로 등록돼 있으므로 예외에 두지 않음)
 end_word_exceptions: { 구분: 구분코드 }
 
+# ---- 인포타입 길이(타입크기) 검증 정책 ----
+# 샘플 데이터라 도메인별 길이목록이 불완전 → 기본은 '형식만' 검증(숫자/소수 여부).
+# strict_domains 에 든 도메인만 lengths 목록을 강제(년월일=8, 여부=1 처럼 의미상 고정).
+length_policy:
+  mode: format_only            # format_only(크기는 형식만) | strict(모든 도메인 lengths 강제)
+  strict_domains: [년월일, 년월, 여부, 성별, 시각]
+
 pk: { require: true }
 audit_columns: { recommended: [sysLstPrcDtm, sysLstUsrNo] }   # english_style=camelCase 에 맞춤
 relationship: { forbid_mn_direct: true }

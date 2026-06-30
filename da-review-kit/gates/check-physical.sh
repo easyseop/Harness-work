@@ -35,6 +35,9 @@ if _os.path.exists(_swf):
     words = {**(_sw.get("standard_words", {}) or {}), **words}   # 별도 단어사전 병합(인라인 우선)
 domains = meta.get("domains", {}) or {}
 end_exc = meta.get("end_word_exceptions", {}) or {}
+_lp = meta.get("length_policy", {}) or {}
+fmt_only = _lp.get("mode", "strict") == "format_only"
+strict_doms = set(_lp.get("strict_domains", []))
 audit_req = set(meta.get("audit_columns", {}).get("recommended", []))
 maxk = cr.get("korean_max_chars_server", 999)
 estyle = cr.get("english_style", "upper_snake")   # 영문변수명 규칙: camelCase / upper_snake
@@ -116,7 +119,10 @@ for t in inp.get("tables", []):
             if ew is None:
                 errors.append(f"{tag} 컬럼 '{kr}' 가 인포타입 도메인 '{idom}' 으로 끝나지 않음"); continue
             dom = idom; d = domains[dom]; prefix = kr_m[:-len(ew)]
-            if d["lengths"] and ilen not in d["lengths"]:
+            # 길이(타입크기) 검증: 형식(숫자/소수)은 항상, 목록강제는 strict 도메인만(또는 strict 모드)
+            if ilen and not re.fullmatch(r"\d+(?:\.\d+)?", ilen):
+                errors.append(f"{tag} 컬럼 '{kr}' 인포타입 길이 '{ilen}' 형식오류 (숫자/소수만)")
+            elif ilen and (not fmt_only or dom in strict_doms) and d["lengths"] and ilen not in d["lengths"]:
                 errors.append(f"{tag} 컬럼 '{kr}' 인포타입 길이 '{ilen}' 비허용 (허용 {d['lengths']})")
         else:
             ew = find_endword(kr_m)
