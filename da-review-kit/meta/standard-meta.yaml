@@ -175,6 +175,33 @@ domains:
   횟수:     { group: 수량, abbr: "FREQ",  dtype: DECIMAL, lengths: [] }
   개수:     { group: 수량, abbr: "QCNT",  dtype: DECIMAL, lengths: [] }
 
+  # ---- [실데이터] 신규 원자 도메인 (다른 도메인으로 끝나지 않는 재사용 단위) ----
+  수: { group: 수량, abbr: "Cnt", dtype: DECIMAL, lengths: ["2", "3", "5", "7", "7.2", "9", "11", "11.7", "13", "15", "15.5", "16", "20.8", "25.7"] }
+  잔액: { group: 금액, abbr: "Bal", dtype: DECIMAL, lengths: ["15", "18", "18.2", "18.3"] }
+  지수: { group: 수량, abbr: "Indx", dtype: DECIMAL, lengths: ["7.2", "9.5", "15.3", "15.6", "25.12"] }
+  금리: { group: 률, abbr: "Irt", dtype: DECIMAL, lengths: ["5.2", "9.5", "20.14"] }
+  평잔: { group: 금액, abbr: "Avbal", dtype: DECIMAL, lengths: ["15", "18", "18.3", "21.3"] }
+  점수: { group: 수량, abbr: "Scor", dtype: DECIMAL, lengths: ["3", "5", "5.2", "7.2", "9", "15", "15.7"] }
+  값: { group: 기타, abbr: "Val", dtype: DECIMAL, lengths: ["1", "3", "5", "5.2", "7.2", "7.4", "9", "9.5", "10.2", "11", "11.4", "13.5", "15", "15.7", "30.14"] }
+  순위: { group: 수량, abbr: "Rankg", dtype: DECIMAL, lengths: ["3", "5", "7", "9"] }
+  적수: { group: 금액, abbr: "Acmamt", dtype: DECIMAL, lengths: ["15", "18.2", "19", "21", "22.3"] }
+  ID: { group: 기타, abbr: "ID", dtype: CHAR, lengths: ["4", "5", "7", "8", "9", "10", "12", "14", "17", "20", "32", "50"] }
+  일수: { group: 수량, abbr: "Noday", dtype: DECIMAL, lengths: ["3", "5", "9"] }
+  좌수: { group: 수량, abbr: "Noacc", dtype: DECIMAL, lengths: ["5", "7", "9", "15", "18.3"] }
+  매수: { group: 수량, abbr: "Nost", dtype: DECIMAL, lengths: ["3", "9", "11"] }
+  월수: { group: 수량, abbr: "Nomn", dtype: DECIMAL, lengths: ["3", "5", "9"] }
+  가격: { group: 금액, abbr: "Prc", dtype: DECIMAL, lengths: ["9", "15", "15.4", "18.3", "18.4"] }
+  년월: { group: 시간, abbr: "Ym", dtype: CHAR, lengths: ["6"] }
+  년: { group: 시간, abbr: "Yr", dtype: CHAR, lengths: ["4"] }
+  시분: { group: 시간, abbr: "HHMM", dtype: CHAR, lengths: ["4"] }
+  세율: { group: 률, abbr: "Txrt", dtype: DECIMAL, lengths: ["7.4"] }
+  차수: { group: 수량, abbr: "Dgre", dtype: DECIMAL, lengths: ["9"] }
+  면적: { group: 기타, abbr: "Sqrmsr", dtype: DECIMAL, lengths: ["9.2", "9.4"] }
+  길이: { group: 기타, abbr: "Len", dtype: DECIMAL, lengths: ["3", "5"] }
+  시간: { group: 시간, abbr: "Ttm", dtype: DECIMAL, lengths: ["7"] }
+  년수: { group: 수량, abbr: "Noy", dtype: DECIMAL, lengths: ["3"] }
+  일: { group: 기타, abbr: "Dd", dtype: CHAR, lengths: ["2"] }
+
 # 인포타입 외 허용 끝말 (PPTX 예외): 구분 → 구분코드 도메인으로 간주
 # (등급은 자체 도메인으로 등록돼 있으므로 예외에 두지 않음)
 end_word_exceptions: { 구분: 구분코드 }
