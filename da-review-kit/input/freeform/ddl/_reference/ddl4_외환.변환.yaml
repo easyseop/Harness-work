@@ -1,0 +1,10 @@
+project: 외환약정
+tables:
+  - physical_name: TSFXDAC01
+    standard: true
+    columns:
+      - { korean: 외환계좌번호, english: fxAcctNo,  infotype: "번호",  typelength: "CHAR(20)", pk: false, nullable: true }
+      - { korean: 고객성별,     english: custGender, infotype: "성별1", typelength: "CHAR(1)",  pk: false, nullable: true }
+      - { korean: 기준년월일,   english: baseYmd,    infotype: "년월일8", typelength: "CHAR(8)", pk: false, nullable: true }
+      - { korean: 시스템최종처리일시,   english: sysLstPrcDtm, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: true }
+      - { korean: 시스템최종사용자번호, english: sysLstUsrNo,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: true }

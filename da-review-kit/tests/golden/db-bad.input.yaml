@@ -4,9 +4,9 @@ tables:
   - physical_name: TZCUSCA01          # ❌ 시스템구분 Z (H/S 아님)
     logical_name: 고객기본
     columns:
-      - { korean: 고객번호, english: CUST_NO,     infotype: "번호",  typelength: "CHAR(20)", pk: true,  nullable: false }
-      - { korean: 고객성별, english: CUST_GENDER, infotype: "성별1", typelength: "CHAR(1)",  pk: false, nullable: false }   # ❌ 영문명 불일치(기대 CUST_SEX)
-      - { korean: 고객상태구분코드, attribute: 고객등급, english: CUST_STAT_DV_CD, infotype: "구분코드1", typelength: "CHAR(1)", pk: false, nullable: false }  # ❌(속성) 도메인 불일치
-      - { korean: 시스템최종처리일시,   english: SYS_LST_PRC_DTM, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: false }
-      - { korean: 시스템최종사용자번호, english: SYS_LST_USR_NO,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: false }
+      - { korean: 고객번호, english: custNo,     infotype: "번호",  typelength: "CHAR(20)", pk: true,  nullable: false }
+      - { korean: 고객성별, english: custGender, infotype: "성별1", typelength: "CHAR(1)",  pk: false, nullable: false }   # ❌ 영문명 불일치(기대 CUST_SEX)
+      - { korean: 고객상태구분코드, attribute: 고객등급, english: custStatDvCd, infotype: "구분코드1", typelength: "CHAR(1)", pk: false, nullable: false }  # ❌(속성) 도메인 불일치
+      - { korean: 시스템최종처리일시,   english: sysLstPrcDtm, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: false }
+      - { korean: 시스템최종사용자번호, english: sysLstUsrNo,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: false }
     relationships: []

@@ -1,0 +1,10 @@
+project: 카드상품
+tables:
+  - physical_name: TSCRDBB01
+    standard: true
+    columns:
+      - { korean: 카드번호,   english: cardNo,  infotype: "번호",    typelength: "CHAR(20)",      pk: true,  nullable: false }
+      - { korean: 승인금액,   english: aprvAmt, infotype: "금액15",  typelength: "DECIMAL(15,0)", pk: false, nullable: true }
+      - { korean: 발급년월일, english: issuYmd, infotype: "년월일8", typelength: "CHAR(8)",       pk: false, nullable: true }
+      - { korean: 시스템최종처리일시,   english: sysLstPrcDtm, infotype: "일시14", typelength: "CHAR(14)", pk: false, nullable: true }
+      - { korean: 시스템최종사용자번호, english: sysLstUsrNo,  infotype: "번호",   typelength: "CHAR(20)", pk: false, nullable: true }

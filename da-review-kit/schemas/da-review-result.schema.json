@@ -18,6 +18,11 @@
         "warnings": { "type": "integer" }
       }
     },
+    "skipped_nonstandard": {
+      "type": "array",
+      "description": "비표준으로 판정돼 검토 제외된 테이블명 목록",
+      "items": { "type": "string" }
+    },
     "findings": {
       "type": "array",
       "items": {
@@ -25,6 +30,7 @@
         "required": ["severity", "message"],
         "properties": {
           "severity": { "type": "string", "enum": ["error", "warning"] },
+          "category": { "type": "string", "enum": ["missing", "violation"], "description": "missing=정보부족(물어볼 것) / violation=표준위반(고칠 것)" },
           "scope": { "type": ["string", "null"], "description": "대상(테이블/컬럼/인스턴스)" },
           "message": { "type": "string", "description": "반송사유" },
           "suggestion": { "type": "string", "description": "권고(→ 이렇게). 현재는 틀(빈 값), 추후 정식 양식 반영" }

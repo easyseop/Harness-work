@@ -46,6 +46,7 @@ column:
   must_end_with_domain: true       # 컬럼은 인포타입(도메인)으로 끝나야 함 (PPTX)
   forbid_trailing_digit: false     # 끝자리 숫자 허용(조직 결정) — 매칭 시 끝 숫자는 무시
   korean_max_chars_server: 15      # Server 한글 최대 15자 (Host 10자) / 30byte
+  english_style: camelCase         # 영문변수명 규칙: camelCase(첫글자 소문자, 고객성별→custSex) / upper_snake(CUST_SEX)
 
 # ---- 수식어 표준단어 (한글 → 영문약어) ----
 standard_words:
@@ -121,34 +122,34 @@ standard_words:
 # ⚠ 영문약어는 YAML 불리언 오해 방지를 위해 모두 따옴표 처리
 domains:
   # [코드 그룹]
-  코드:     { group: 코드, abbr: "CD",    dtype: CHAR, lengths: ["1","2","3","4"], is_code: true }
-  구분코드: { group: 코드, abbr: "DV_CD", dtype: CHAR, lengths: ["1","2","3"],     is_code: true }
+  코드:     { group: 코드, abbr: "CD",    dtype: CHAR, lengths: ["1", "2", "3", "4", "5", "6", "7", "8", "10", "12", "13", "14", "15", "16", "20", "40"], is_code: true }
+  구분코드: { group: 코드, abbr: "DV_CD", dtype: CHAR, lengths: ["1", "2", "3", "4", "5", "6", "8", "10"],     is_code: true }
   여부:     { group: 코드, abbr: "YN",    dtype: CHAR, lengths: ["1"], is_code: true, valid_values: [0,1] }
   성별:     { group: 코드, abbr: "SEX",   dtype: CHAR, lengths: ["1"], is_code: true, valid_values: [1,2] }
   등급:     { group: 코드, abbr: "GRD",   dtype: CHAR, lengths: ["1","2"], is_code: true }
   # [명/내용 그룹]  (Host DDL +2byte 대상)
-  명:       { group: 명,   abbr: "NM",    dtype: CHAR, lengths: ["50","100","200"], host_plus2: true }
-  내용:     { group: 내용, abbr: "CTNT",  dtype: CHAR, lengths: ["100","500"],      host_plus2: true }
-  주소:     { group: 내용, abbr: "ADDR",  dtype: CHAR, lengths: ["100","200","250"] }
+  명:       { group: 명,   abbr: "NM",    dtype: CHAR, lengths: ["6", "8", "10", "12", "14", "18", "22", "32", "34", "37", "42", "50", "52", "62", "72", "82", "100", "102", "122", "142", "152", "200", "202", "262", "302", "502", "1002"], host_plus2: true }
+  내용:     { group: 내용, abbr: "CTNT",  dtype: CHAR, lengths: ["2", "3", "4", "5", "6", "7", "8", "9", "10", "12", "13", "16", "17", "22", "24", "27", "32", "37", "44", "47", "52", "62", "72", "100", "102", "122", "132", "152", "172", "202", "262", "302", "402", "500", "502", "602", "802", "1000", "1002", "2002", "3002", "4002", "5002", "6502", "8002", "10002"],      host_plus2: true }
+  주소:     { group: 내용, abbr: "ADDR",  dtype: CHAR, lengths: ["100", "102", "122", "200", "202", "250", "252"] }
   우편번호: { group: 번호, abbr: "ZIP",   dtype: CHAR, lengths: ["5","6"] }
   # [시간 그룹]
   년월일:   { group: 시간, abbr: "YMD",   dtype: CHAR, lengths: ["8"] }
   일시:     { group: 시간, abbr: "DTM",   dtype: CHAR, lengths: ["14","20"] }
-  시각:     { group: 시간, abbr: "HMS",   dtype: CHAR, lengths: ["6"] }
+  시각:     { group: 시간, abbr: "HMS",   dtype: CHAR, lengths: ["6", "9", "12"] }
   # [금액 그룹]  (복수 인포타입 허용)
-  금액:     { group: 금액, abbr: "AMT",   dtype: DECIMAL, lengths: ["15","18.3"] }
+  금액:     { group: 금액, abbr: "AMT",   dtype: DECIMAL, lengths: ["15", "15.2", "15.5", "18", "18.2", "18.3", "18.4", "18.5", "19", "21", "22.3", "24.3"] }
   단가:     { group: 금액, abbr: "UPRC",  dtype: DECIMAL, lengths: ["15","18.3"] }
   이자:     { group: 금액, abbr: "INT",   dtype: DECIMAL, lengths: ["15","18.3"] }
   # [번호 그룹]
   번호:     { group: 번호, abbr: "NO",    dtype: CHAR, lengths: [] }
   식별자:   { group: 번호, abbr: "ID",    dtype: CHAR, lengths: [] }
   일련번호: { group: 번호, abbr: "SEQ",   dtype: "DECIMAL", lengths: [] }
-  전화번호: { group: 번호, abbr: "TELNO", dtype: CHAR, lengths: ["16"] }
+  전화번호: { group: 번호, abbr: "TELNO", dtype: CHAR, lengths: ["16", "20", "30"] }
   # [률 그룹]
-  률:       { group: 률,   abbr: "RT",    dtype: DECIMAL, lengths: ["5.2","9.4"] }
+  률:       { group: 률,   abbr: "RT",    dtype: DECIMAL, lengths: ["3", "3.2", "5.2", "5.3", "7.2", "7.4", "9.2", "9.4", "9.5", "9.6", "10.2", "11.2", "11.4", "13.5", "13.8", "15.3", "15.8", "20.14"] }
   환율:     { group: 률,   abbr: "EXRT",  dtype: DECIMAL, lengths: ["9.4","15.8"] }
   # [수량 그룹]
-  수량:     { group: 수량, abbr: "QTY",   dtype: DECIMAL, lengths: ["18.5","21.5"] }
+  수량:     { group: 수량, abbr: "QTY",   dtype: DECIMAL, lengths: ["3", "9", "14.4", "15", "15.2", "18.5", "21.5"] }
   건수:     { group: 수량, abbr: "CNT",   dtype: DECIMAL, lengths: [] }
   순번:     { group: 차순, abbr: "SQNO",  dtype: DECIMAL, lengths: [] }
   순서:     { group: 차순, abbr: "ORD",   dtype: DECIMAL, lengths: [] }
@@ -156,7 +157,7 @@ domains:
   # [코드 그룹] 추가
   분류코드: { group: 코드, abbr: "CLS_CD", dtype: CHAR, lengths: ["1","2","3"], is_code: true }
   # [명/내용 그룹] 추가
-  성명:     { group: 명,   abbr: "PNM",   dtype: CHAR, lengths: ["50"], host_plus2: true }
+  성명:     { group: 명,   abbr: "PNM",   dtype: CHAR, lengths: ["42", "50", "52", "82"], host_plus2: true }
   비고:     { group: 내용, abbr: "RMRK",  dtype: CHAR, lengths: ["100","500"], host_plus2: true }
   적요:     { group: 내용, abbr: "BRIF",  dtype: CHAR, lengths: ["100"], host_plus2: true }
   # [시간 그룹] 추가
@@ -168,19 +169,87 @@ domains:
   # [번호 그룹] 추가
   사업자번호: { group: 번호, abbr: "BIZNO", dtype: CHAR, lengths: ["10"] }
   # [률 그룹] 추가
-  비율:     { group: 률,   abbr: "RTO",   dtype: DECIMAL, lengths: ["5.2","9.4"] }
-  이율:     { group: 률,   abbr: "IRT",   dtype: DECIMAL, lengths: ["5.3","9.4"] }
+  비율:     { group: 률,   abbr: "RTO",   dtype: DECIMAL, lengths: ["3", "5.2", "7.2", "9", "9.2", "9.4", "9.5", "11.2", "17.5"] }
+  이율:     { group: 률,   abbr: "IRT",   dtype: DECIMAL, lengths: ["5.3", "9.4", "9.5", "9.6"] }
   # [수량 그룹] 추가
   횟수:     { group: 수량, abbr: "FREQ",  dtype: DECIMAL, lengths: [] }
   개수:     { group: 수량, abbr: "QCNT",  dtype: DECIMAL, lengths: [] }
+
+  # ---- [실데이터] 신규 원자 도메인 (다른 도메인으로 끝나지 않는 재사용 단위) ----
+  수: { group: 수량, abbr: "Cnt", dtype: DECIMAL, lengths: ["2", "3", "5", "7", "7.2", "9", "11", "11.7", "13", "15", "15.5", "16", "20.8", "25.7"] }
+  잔액: { group: 금액, abbr: "Bal", dtype: DECIMAL, lengths: ["15", "18", "18.2", "18.3"] }
+  지수: { group: 수량, abbr: "Indx", dtype: DECIMAL, lengths: ["7.2", "9.5", "15.3", "15.6", "25.12"] }
+  금리: { group: 률, abbr: "Irt", dtype: DECIMAL, lengths: ["5.2", "9.5", "20.14"] }
+  평잔: { group: 금액, abbr: "Avbal", dtype: DECIMAL, lengths: ["15", "18", "18.3", "21.3"] }
+  점수: { group: 수량, abbr: "Scor", dtype: DECIMAL, lengths: ["3", "5", "5.2", "7.2", "9", "15", "15.7"] }
+  값: { group: 기타, abbr: "Val", dtype: DECIMAL, lengths: ["1", "3", "5", "5.2", "7.2", "7.4", "9", "9.5", "10.2", "11", "11.4", "13.5", "15", "15.7", "30.14"] }
+  순위: { group: 수량, abbr: "Rankg", dtype: DECIMAL, lengths: ["3", "5", "7", "9"] }
+  적수: { group: 금액, abbr: "Acmamt", dtype: DECIMAL, lengths: ["15", "18.2", "19", "21", "22.3"] }
+  ID: { group: 기타, abbr: "ID", dtype: CHAR, lengths: ["4", "5", "7", "8", "9", "10", "12", "14", "17", "20", "32", "50"] }
+  일수: { group: 수량, abbr: "Noday", dtype: DECIMAL, lengths: ["3", "5", "9"] }
+  좌수: { group: 수량, abbr: "Noacc", dtype: DECIMAL, lengths: ["5", "7", "9", "15", "18.3"] }
+  매수: { group: 수량, abbr: "Nost", dtype: DECIMAL, lengths: ["3", "9", "11"] }
+  월수: { group: 수량, abbr: "Nomn", dtype: DECIMAL, lengths: ["3", "5", "9"] }
+  가격: { group: 금액, abbr: "Prc", dtype: DECIMAL, lengths: ["9", "15", "15.4", "18.3", "18.4"] }
+  년월: { group: 시간, abbr: "Ym", dtype: CHAR, lengths: ["6"] }
+  년: { group: 시간, abbr: "Yr", dtype: CHAR, lengths: ["4"] }
+  시분: { group: 시간, abbr: "HHMM", dtype: CHAR, lengths: ["4"] }
+  세율: { group: 률, abbr: "Txrt", dtype: DECIMAL, lengths: ["7.4"] }
+  차수: { group: 수량, abbr: "Dgre", dtype: DECIMAL, lengths: ["9"] }
+  면적: { group: 기타, abbr: "Sqrmsr", dtype: DECIMAL, lengths: ["9.2", "9.4"] }
+  길이: { group: 기타, abbr: "Len", dtype: DECIMAL, lengths: ["3", "5"] }
+  시간: { group: 시간, abbr: "Ttm", dtype: DECIMAL, lengths: ["7"] }
+  년수: { group: 수량, abbr: "Noy", dtype: DECIMAL, lengths: ["3"] }
+  일: { group: 기타, abbr: "Dd", dtype: CHAR, lengths: ["2"] }
+
+  # ---- [실데이터] 신규 복합 도메인 (인포타입이 도메인 결정 → 중첩 허용) ----
+  내용S: { group: 기타, abbr: "", dtype: CHAR, lengths: ["2", "7"] }
+  직원번호: { group: 번호, abbr: "Empid", dtype: CHAR, lengths: ["7"] }
+  부점코드: { group: 코드, abbr: "Brncd", dtype: CHAR, lengths: ["4"], is_code: true }
+  사용자번호: { group: 번호, abbr: "Uno", dtype: CHAR, lengths: ["7"] }
+  통화코드: { group: 코드, abbr: "Cncycd", dtype: CHAR, lengths: ["3"], is_code: true }
+  계정과목코드: { group: 코드, abbr: "", dtype: CHAR, lengths: ["5", "13"], is_code: true }
+  BIC코드: { group: 코드, abbr: "BIC", dtype: CHAR, lengths: ["11"], is_code: true }
+  계좌번호: { group: 번호, abbr: "Acno", dtype: CHAR, lengths: ["6", "14", "20", "50"] }
+  고객식별자: { group: 번호, abbr: "CustIdnfr", dtype: CHAR, lengths: ["10"] }
+  사업자등록번호: { group: 번호, abbr: "Bzno", dtype: CHAR, lengths: ["10"] }
+  고객고유번호: { group: 번호, abbr: "Cuniqno", dtype: CHAR, lengths: ["20"] }
+  국가코드: { group: 코드, abbr: "NatnlCd", dtype: CHAR, lengths: ["3"], is_code: true }
+  IP주소: { group: 내용, abbr: "IP", dtype: CHAR, lengths: ["15"] }
+  고객명: { group: 명, abbr: "Custnm", dtype: CHAR, lengths: ["42", "52"] }
+  단말번호: { group: 번호, abbr: "Trmno", dtype: CHAR, lengths: ["3"] }
+  법인등록번호: { group: 번호, abbr: "Cprno", dtype: CHAR, lengths: ["13"] }
+  표준산업분류코드: { group: 코드, abbr: "StndIdstryClsfiCd", dtype: CHAR, lengths: ["5"], is_code: true }
+  내선번호: { group: 번호, abbr: "Exno", dtype: CHAR, lengths: ["5"] }
+  주민사업자등록번호: { group: 번호, abbr: "InhabBzno", dtype: CHAR, lengths: ["13"] }
+  채권번호: { group: 번호, abbr: "BndNo", dtype: CHAR, lengths: ["20"] }
+  은행코드: { group: 코드, abbr: "BnkCd", dtype: CHAR, lengths: ["3"], is_code: true }
+  비밀번호: { group: 번호, abbr: "Pwd", dtype: CHAR, lengths: ["40"] }
+  업종코드: { group: 코드, abbr: "BztypCd", dtype: CHAR, lengths: ["4"], is_code: true }
+  지역코드: { group: 코드, abbr: "Arcd", dtype: CHAR, lengths: ["6"], is_code: true }
+  고객정보번호: { group: 번호, abbr: "Cin", dtype: CHAR, lengths: ["15"] }
+  계정세과목코드: { group: 코드, abbr: "Dacitm", dtype: CHAR, lengths: ["3"], is_code: true }
 
 # 인포타입 외 허용 끝말 (PPTX 예외): 구분 → 구분코드 도메인으로 간주
 # (등급은 자체 도메인으로 등록돼 있으므로 예외에 두지 않음)
 end_word_exceptions: { 구분: 구분코드 }
 
+# ---- 인포타입 길이(타입크기) 검증 정책 ----
+# 샘플 데이터라 도메인별 길이목록이 불완전 → 기본은 '형식만' 검증(숫자/소수 여부).
+# strict_domains 에 든 도메인만 lengths 목록을 강제(년월일=8, 여부=1 처럼 의미상 고정).
+length_policy:
+  mode: format_only            # format_only(크기는 형식만) | strict(모든 도메인 lengths 강제)
+  strict_domains: [년월일, 년월, 여부, 성별, 시각]
+
 pk: { require: true }
-audit_columns: { recommended: [SYS_LST_PRC_DTM, SYS_LST_USR_NO] }
+audit_columns: { recommended: [sysLstPrcDtm, sysLstUsrNo] }   # english_style=camelCase 에 맞춤
 relationship: { forbid_mn_direct: true }
+
+# ---- 표준/비표준 판정 ----
+# 우선순위: ① 입력 table.standard(true/false) → ② schema 가 standard_schemas 에 있으면 표준
+#           → ③ default_standard (둘 다 없을 때 기본값)
+standard_schemas: []          # 예: [DW_DEPOSIT, DW_LOAN] — 비우면 미사용
+default_standard: true        # 안 정해진 테이블은 기본 '표준'으로 간주(엄격: 누락 방지)
 
 # ---- 인스턴스코드 정의서 규칙 (업무인스턴스명/코드값) ----
 instance_code:

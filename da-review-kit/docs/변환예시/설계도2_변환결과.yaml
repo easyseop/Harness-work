@@ -1,0 +1,10 @@
+project: 대출계좌_변환
+tables:
+  - physical_name: TSLONBA01
+    standard: true
+    columns:
+      - { korean: 대출계좌번호, english: LOAN_ACCT_NO, infotype: "번호",    pk: true,  nullable: false }
+      - { korean: 대출잔액금액, english: LOAN_BAL_AMT, infotype: "금액18.3", pk: false, nullable: false }
+      - { korean: 기준년월일,   english: BASE_YMD,     infotype: "년월일8",  pk: false, nullable: false }
+      - { korean: 시스템최종처리일시,   english: SYS_LST_PRC_DTM, infotype: "일시14", pk: false, nullable: false }
+      - { korean: 시스템최종사용자번호, english: SYS_LST_USR_NO,  infotype: "번호",   pk: false, nullable: false }

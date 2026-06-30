@@ -1,0 +1,15 @@
+채널 접속이력 테이블 (비정형 메모)
+
+table: TSCHNEA01  schema=DW_CHN
+
+cols)
+  채널구분코드      chnDvCd        구분코드(1)     PK
+  접속일시          connDtm        일시(14)        PK
+  고객번호          custNo         번호
+  접속채널명        connChnNm      명(50)
+  세션식별번호      sessNo         번호
+  오류여부          errYn          여부(1)
+  처리건수          prcCnt         건수(9)
+
+관계: 고객번호 -> 고객기본(TSCUSCA01) 1:M
+감사컬럼 없음

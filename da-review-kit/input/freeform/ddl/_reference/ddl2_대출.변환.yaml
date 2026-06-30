@@ -1,0 +1,8 @@
+project: 대출계좌
+tables:
+  - physical_name: TXLONBA01
+    standard: true
+    columns:
+      - { korean: 대출계좌번호, english: loanAcctNo, infotype: "번호",   typelength: "CHAR(20)",     pk: true,  nullable: false }
+      - { korean: 대출잔액금액, english: loanBalAmt, infotype: "금액99",  typelength: "DECIMAL(99,3)", pk: false, nullable: true }
+      - { korean: 임시메모,     english: tmpMemo,     infotype: "내용100", typelength: "VARCHAR(100)",  pk: false, nullable: true }

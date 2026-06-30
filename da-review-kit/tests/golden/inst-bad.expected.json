@@ -11,27 +11,32 @@
   "findings": [
     {
       "severity": "error",
-      "scope": "임시구분코드",
-      "message": "[임시구분코드] 수식어 '임시' 에 비표준단어 포함",
-      "suggestion": ""
+      "category": "violation",
+      "scope": "뷁궦구분코드",
+      "message": "[뷁궦구분코드] 수식어 '뷁궦' 에 비표준단어 포함",
+      "suggestion": "수식어를 표준단어로 교체(또는 표준단어로 등록)"
     },
     {
       "severity": "error",
+      "category": "violation",
       "scope": "금액",
       "message": "[금액] 단독사용금지 단어 (단독으로 인스턴스명 불가)",
-      "suggestion": ""
+      "suggestion": "수식어를 붙여 구체화 (예: 신용여부)"
     },
     {
       "severity": "error",
+      "category": "violation",
       "scope": "금액",
       "message": "[금액] 끝말 규칙 위반 (~구분코드/~코드/~여부/~유무 로 끝나야)",
-      "suggestion": ""
+      "suggestion": "~구분코드/~코드/~여부/~유무 로 끝나게 변경"
     },
     {
       "severity": "error",
+      "category": "violation",
       "scope": "유령여부",
       "message": "[유령여부] 시트2 인스턴스명이 시트1(업무인스턴스명정의서)에 없음",
-      "suggestion": ""
+      "suggestion": "시트1(업무인스턴스명정의서)에 추가하거나 시트2에서 제거"
     }
-  ]
+  ],
+  "generated_at": "2026-06-30T14:19:29"
 }

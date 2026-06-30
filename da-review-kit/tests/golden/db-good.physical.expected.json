@@ -8,5 +8,7 @@
     "errors": 0,
     "warnings": 0
   },
-  "findings": []
+  "skipped_nonstandard": [],
+  "findings": [],
+  "generated_at": "2026-06-23T13:58:42"
 }
