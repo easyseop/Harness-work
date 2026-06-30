@@ -202,6 +202,34 @@ domains:
   년수: { group: 수량, abbr: "Noy", dtype: DECIMAL, lengths: ["3"] }
   일: { group: 기타, abbr: "Dd", dtype: CHAR, lengths: ["2"] }
 
+  # ---- [실데이터] 신규 복합 도메인 (인포타입이 도메인 결정 → 중첩 허용) ----
+  내용S: { group: 기타, abbr: "", dtype: CHAR, lengths: ["2", "7"] }
+  직원번호: { group: 번호, abbr: "Empid", dtype: CHAR, lengths: ["7"] }
+  부점코드: { group: 코드, abbr: "Brncd", dtype: CHAR, lengths: ["4"], is_code: true }
+  사용자번호: { group: 번호, abbr: "Uno", dtype: CHAR, lengths: ["7"] }
+  통화코드: { group: 코드, abbr: "Cncycd", dtype: CHAR, lengths: ["3"], is_code: true }
+  계정과목코드: { group: 코드, abbr: "", dtype: CHAR, lengths: ["5", "13"], is_code: true }
+  BIC코드: { group: 코드, abbr: "BIC", dtype: CHAR, lengths: ["11"], is_code: true }
+  계좌번호: { group: 번호, abbr: "Acno", dtype: CHAR, lengths: ["6", "14", "20", "50"] }
+  고객식별자: { group: 번호, abbr: "CustIdnfr", dtype: CHAR, lengths: ["10"] }
+  사업자등록번호: { group: 번호, abbr: "Bzno", dtype: CHAR, lengths: ["10"] }
+  고객고유번호: { group: 번호, abbr: "Cuniqno", dtype: CHAR, lengths: ["20"] }
+  국가코드: { group: 코드, abbr: "NatnlCd", dtype: CHAR, lengths: ["3"], is_code: true }
+  IP주소: { group: 내용, abbr: "IP", dtype: CHAR, lengths: ["15"] }
+  고객명: { group: 명, abbr: "Custnm", dtype: CHAR, lengths: ["42", "52"] }
+  단말번호: { group: 번호, abbr: "Trmno", dtype: CHAR, lengths: ["3"] }
+  법인등록번호: { group: 번호, abbr: "Cprno", dtype: CHAR, lengths: ["13"] }
+  표준산업분류코드: { group: 코드, abbr: "StndIdstryClsfiCd", dtype: CHAR, lengths: ["5"], is_code: true }
+  내선번호: { group: 번호, abbr: "Exno", dtype: CHAR, lengths: ["5"] }
+  주민사업자등록번호: { group: 번호, abbr: "InhabBzno", dtype: CHAR, lengths: ["13"] }
+  채권번호: { group: 번호, abbr: "BndNo", dtype: CHAR, lengths: ["20"] }
+  은행코드: { group: 코드, abbr: "BnkCd", dtype: CHAR, lengths: ["3"], is_code: true }
+  비밀번호: { group: 번호, abbr: "Pwd", dtype: CHAR, lengths: ["40"] }
+  업종코드: { group: 코드, abbr: "BztypCd", dtype: CHAR, lengths: ["4"], is_code: true }
+  지역코드: { group: 코드, abbr: "Arcd", dtype: CHAR, lengths: ["6"], is_code: true }
+  고객정보번호: { group: 번호, abbr: "Cin", dtype: CHAR, lengths: ["15"] }
+  계정세과목코드: { group: 코드, abbr: "Dacitm", dtype: CHAR, lengths: ["3"], is_code: true }
+
 # 인포타입 외 허용 끝말 (PPTX 예외): 구분 → 구분코드 도메인으로 간주
 # (등급은 자체 도메인으로 등록돼 있으므로 예외에 두지 않음)
 end_word_exceptions: { 구분: 구분코드 }

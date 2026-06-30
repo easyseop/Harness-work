@@ -39,6 +39,7 @@ cmp_case check-physical      tests/golden/db-good.input.yaml   tests/golden/db-g
 cmp_case check-attribute     tests/golden/db-good.input.yaml   tests/golden/db-good.attribute.expected.json
 cmp_case check-physical      tests/golden/db-bad.input.yaml    tests/golden/db-bad.physical.expected.json
 cmp_case check-attribute     tests/golden/db-bad.input.yaml    tests/golden/db-bad.attribute.expected.json
+cmp_case check-physical      tests/golden/nested-good.input.yaml tests/golden/nested-good.physical.expected.json  # 중첩 도메인(명50/고객명42 둘다 pass)
 cmp_case check-instance-code tests/golden/inst-good.input.yaml tests/golden/inst-good.expected.json
 cmp_case check-instance-code tests/golden/inst-bad.input.yaml  tests/golden/inst-bad.expected.json
 echo; echo "결과: PASS $pass · FAIL $fail"

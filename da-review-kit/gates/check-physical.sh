@@ -103,10 +103,26 @@ for t in inp.get("tables", []):
         kr_m = kr if forbid_td else re.sub(r"\d+$", "", kr)
         en_m = en if forbid_td else re.sub(r"\d+$", "", en)
         if len(kr) > maxk: errors.append(f"{tag} 컬럼 '{kr}' 한글명 {len(kr)}자 > 최대 {maxk}자")
-        ew = find_endword(kr_m)
-        if not ew:
-            errors.append(f"{tag} 컬럼 '{kr}' 가 도메인(인포타입)으로 끝나지 않음"); continue
-        dom = end_exc.get(ew, ew); d = domains[dom]; prefix = kr_m[:-len(ew)]
+        # 도메인 결정: 인포타입이 있으면 그것을 진실의 근원으로(중첩 도메인 명50/고객명6 공존 지원),
+        #              없으면 종전처럼 longest-match 끝말 추측(하위호환)
+        if it:
+            idom, ilen = split_infotype(it)
+            if idom is None:
+                errors.append(f"{tag} 컬럼 '{kr}' 인포타입 '{it}' 의 도메인이 표준 도메인 아님"); continue
+            if kr_m.endswith(idom):
+                ew = idom
+            else:
+                ew = next((x for x, mp in end_exc.items() if mp == idom and kr_m.endswith(x)), None)
+            if ew is None:
+                errors.append(f"{tag} 컬럼 '{kr}' 가 인포타입 도메인 '{idom}' 으로 끝나지 않음"); continue
+            dom = idom; d = domains[dom]; prefix = kr_m[:-len(ew)]
+            if d["lengths"] and ilen not in d["lengths"]:
+                errors.append(f"{tag} 컬럼 '{kr}' 인포타입 길이 '{ilen}' 비허용 (허용 {d['lengths']})")
+        else:
+            ew = find_endword(kr_m)
+            if not ew:
+                errors.append(f"{tag} 컬럼 '{kr}' 가 도메인(인포타입)으로 끝나지 않음"); continue
+            dom = end_exc.get(ew, ew); d = domains[dom]; prefix = kr_m[:-len(ew)]
         mod = tokenize_mod(prefix) if prefix else []
         if prefix and mod is None:
             errors.append(f"{tag} 컬럼 '{kr}' 수식어 '{prefix}' 에 비표준단어 포함")
@@ -114,12 +130,6 @@ for t in inp.get("tables", []):
             expected = to_eng([mod_tokens[w] for w in mod] + [d["abbr"]])
             if en_m != expected:
                 errors.append(f"{tag} 컬럼 영문명 '{en}' 불일치 (한글 '{kr}' 기준 기대 '{expected}')")
-        if it:
-            idom, ilen = split_infotype(it)
-            if idom != dom:
-                errors.append(f"{tag} 컬럼 '{kr}' 인포타입 도메인 '{idom}' 이 끝말 '{dom}' 과 불일치")
-            elif d["lengths"] and ilen not in d["lengths"]:
-                errors.append(f"{tag} 컬럼 '{kr}' 인포타입 길이 '{ilen}' 비허용 (허용 {d['lengths']})")
 
     if meta.get("pk", {}).get("require") and not any(c.get("pk") for c in cols):
         errors.append(f"{tag} PK(식별자) 미설정")

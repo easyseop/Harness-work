@@ -1,0 +1,14 @@
+{
+  "harness": "da-review",
+  "gate": "check-physical",
+  "target": "tests/golden/nested-good.input.yaml",
+  "project": "골든_NESTED_GOOD",
+  "status": "passed",
+  "summary": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "skipped_nonstandard": [],
+  "findings": [],
+  "generated_at": "2026-06-30T14:51:20"
+}
